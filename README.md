@@ -16,7 +16,6 @@ Crypto enthusiasts and traders.
 
 Joseph Shin, Sanjay Swamy, Sean Jin
 
----
 
 ## User Stories
 
@@ -27,33 +26,27 @@ Joseph Shin, Sanjay Swamy, Sean Jin
 - As a user, I want to be able to add certain coins to my watch list because I want a place where I can store and easily access these coins
 - As a user, I want to be able to manually enter all my holdings from different exchanges and see data related to my holdings such as balance, profit, and loss because it is hard to keep track of my assets in different exchanges all at once
 
----
 
 ## Features
 
----
 
 ## Wireframes
 
 Wireframes are a visual representation of the skeletal structure of your app. It should lay out the structure hierarchy and relationships between the different element of your app. Ideally, you should use a simple design software to get your wireframes done (draw.io, balsamiq, etc).
 Deliverable: Wireframe designs
 
----
 
 ## Entity Relationship Diagram
 
 You need to design the database ERD and define what are the tables and their relationships. You should use a design software (draw.io or any other) to draft the ERD.
 Deliverable: ERD design
 
----
 
 ## API Routes
 
----
 
 ## Front-End Routes (views/components)
 
----
 
 ## Stack Choices
 
@@ -71,7 +64,6 @@ Express
 Database
 PostgresSQL
 
----
 
 ## Project Set-Up
 
@@ -87,7 +79,6 @@ Npx express-generator --no-view --git backend
 
 Npm install react-router-dom
 
----
 
 ## Git Workflow
 
@@ -108,7 +99,6 @@ Merging your branch to the Master branch
 Tell everyone you have merged and pushed your branch 
 - for everyone else, pull the change --> git pull
 
----
 
 ## Questions for Mentor
 
