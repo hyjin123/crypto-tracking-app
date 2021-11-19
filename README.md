@@ -102,5 +102,6 @@ Tell everyone you have merged and pushed your branch
 
 ## Questions for Mentor
 
-Using third party API (coingecko api), do we store the info that we fetch into the database? Or do we periodically fetch the data in our back-end? What is recommended and what is faster
-What exactly is an API backend route, is it just used to serve requests coming from the front end and pass down response?
+- Using third party API (coingecko api), do we store the info that we fetch into the database? Or do we periodically fetch the data in our back-end? What is recommended and what is faster
+
+- What exactly is an API backend route, is it just used to serve requests coming from the front end and pass down response?
