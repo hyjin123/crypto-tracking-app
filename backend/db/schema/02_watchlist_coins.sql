@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS watchlist_coins CASCADE;
+
+CREATE TABLE watchlist_coins (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  coin_id INTEGER REFERENCES coins(id) ON DELETE CASCADE
+);
