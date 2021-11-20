@@ -3,6 +3,6 @@ DROP TABLE IF EXISTS portfolio_coins CASCADE;
 CREATE TABLE portfolio_coins (
   id SERIAL PRIMARY KEY NOT NULL,
   portfolio_id INTEGER REFERENCES portfolios(id) ON DELETE CASCADE,
-  coin_id INTEGER REFERENCES coin(id) ON DELETE CASCADE,
+  coin_id INTEGER REFERENCES coins(id) ON DELETE CASCADE,
   holdings INTEGER NOT NULL
 );
