@@ -1,8 +1,13 @@
 import React from "react";
+import Navbar from "./Navbar";
+import "../App.css"
 
 const Login = (props) => {
   return (
-    <h1>This is the Login</h1>
+    <div>
+      <Navbar />
+      <h1 className="fixed">This is the Login</h1>
+    </div>
   );
 };
 

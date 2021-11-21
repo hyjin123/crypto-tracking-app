@@ -1,8 +1,13 @@
 import React from "react";
+import Navbar from "./Navbar";
+import "../App.css"
 
 const Portfolio = (props) => {
   return (
-    <h1>This is the Portfolio</h1>
+    <div>
+      <Navbar />
+      <h1 className="fixed">This is the Portfolio</h1>
+    </div>
   );
 };
 

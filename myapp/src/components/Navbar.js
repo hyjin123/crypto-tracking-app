@@ -13,7 +13,9 @@ const Navbar = (props) => {
     <AppBar id="appbar" position="fixed">
       <Toolbar id="navbar">
         <Typography variant="h4" id="logo" component="div">
-          Crypto
+          <Link to="/" className="linkbar">
+            Crypto
+          </Link>
         </Typography>
       </Toolbar>
       <Toolbar>
