@@ -1,0 +1,21 @@
+#appbar {
+  background-color: black;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.linkbar {
+  text-decoration: none;
+  color: white;
+  padding: 30px;
+}
+
+#logo {
+  margin-left: 100px;
+}
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

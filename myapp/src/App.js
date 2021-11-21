@@ -3,6 +3,7 @@ import axios from "axios";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Coin from "./components/Coin";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -44,15 +45,8 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/watchlist">Watchlist</Link>
-          <Link to="/portfolio">Portfolio</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-        </nav>
-      </header>
+      
+      <Navbar />
 
       <div className="coin-app">
         <div className="coin-search">
