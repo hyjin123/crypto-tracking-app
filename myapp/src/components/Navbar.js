@@ -3,7 +3,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/material/Menu";
 import { Link } from "react-router-dom";
@@ -12,8 +11,12 @@ import "./Navbar.css";
 const Navbar = (props) => {
   return (
     <AppBar id="appbar" position="fixed">
-      <Toolbar id="logo">Crypto</Toolbar>
       <Toolbar id="navbar">
+        <Typography variant="h4" id="logo" component="div">
+          Crypto
+        </Typography>
+      </Toolbar>
+      <Toolbar>
         <Typography variant="h6" color="white" component="div">
           <Link to="/" className="linkbar">
             Home

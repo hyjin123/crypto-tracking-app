@@ -5,6 +5,8 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.1.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

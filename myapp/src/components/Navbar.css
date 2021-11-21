@@ -1,7 +1,7 @@
 #appbar {
   background-color: black;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .linkbar {
@@ -10,12 +10,11 @@
   padding: 30px;
 }
 
-#logo {
-  margin-left: 100px;
+.linkbar:hover {
+  color: #d6b763;
 }
 
-#navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+#logo {
+  margin-left: 100px;
+  flex-grow: 4;
 }
