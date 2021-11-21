@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Portfolio from "./components/Portfolio";
+import Watchlist from "./components/Watchlist";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -1,76 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './App.css';
-import Coin from './Coin';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import Coin from "./components/Coin";
 
 function App() {
   const [coins, setCoins] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   // ***************testing fetching from the database
-  const [data, setData] = useState('');
+  const [data, setData] = useState("");
   useEffect(() => {
     axios
-      .get(
-        '/api/users'
-      )
-      .then(res => {
+      .get("/api/users")
+      .then((res) => {
         console.log(res.data);
         const name = res.data.users[0].first_name;
         console.log(name);
         setData(name);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }, []);
   // ***************
 
   useEffect(() => {
     axios
       .get(
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
       )
-      .then(res => {
+      .then((res) => {
         setCoins(res.data);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }, []);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
-  const filteredCoins = coins.filter(coin =>
+  const filteredCoins = coins.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className='coin-app'>
-      <div className='coin-search'>
-        <h1 className='coin-text'>Search a currency</h1>
-        <h1>{data} got this from database</h1>
-        <form>
-          <input
-            className='coin-input'
-            type='text'
-            onChange={handleChange}
-            placeholder='Search'
-          />
-        </form>
+    <div className="App">
+      <header>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/watchlist">Watchlist</Link>
+          <Link to="/portfolio">Portfolio</Link>
+          <Link to="/register">Register</Link>
+          <Link to="/login">Login</Link>
+        </nav>
+      </header>
+
+      <div className="coin-app">
+        <div className="coin-search">
+          <h1 className="coin-text">Search a currency</h1>
+          <form>
+            <input
+              className="coin-input"
+              type="text"
+              onChange={handleChange}
+              placeholder="Search"
+            />
+          </form>
+        </div>
+        {filteredCoins.map((coin) => {
+          return (
+            <Coin
+              key={coin.id}
+              name={coin.name}
+              price={coin.current_price}
+              symbol={coin.symbol}
+              marketcap={coin.total_volume}
+              volume={coin.market_cap}
+              image={coin.image}
+              priceChange={coin.price_change_percentage_24h}
+            />
+          );
+        })}
       </div>
-      {filteredCoins.map(coin => {
-        return (
-          <Coin
-            key={coin.id}
-            name={coin.name}
-            price={coin.current_price}
-            symbol={coin.symbol}
-            marketcap={coin.total_volume}
-            volume={coin.market_cap}
-            image={coin.image}
-            priceChange={coin.price_change_percentage_24h}
-          />
-        );
-      })}
+
     </div>
   );
 }
