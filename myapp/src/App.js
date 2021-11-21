@@ -7,6 +7,22 @@ function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
 
+  // ***************testing fetching from the database
+  const [data, setData] = useState('');
+  useEffect(() => {
+    axios
+      .get(
+        '/api/users'
+      )
+      .then(res => {
+        const name = res.data.users[0].first_name
+        console.log(name)
+        setData(name)
+      })
+      .catch(error => console.log(error));
+  }, []);
+  // ***************
+
   useEffect(() => {
     axios
       .get(
@@ -14,7 +30,6 @@ function App() {
       )
       .then(res => {
         setCoins(res.data);
-        console.log(res.data);
       })
       .catch(error => console.log(error));
   }, []);
@@ -31,6 +46,7 @@ function App() {
     <div className='coin-app'>
       <div className='coin-search'>
         <h1 className='coin-text'>Search a currency</h1>
+        <h1>{data} got this from database</h1>
         <form>
           <input
             className='coin-input'
