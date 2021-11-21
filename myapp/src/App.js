@@ -15,9 +15,10 @@ function App() {
         '/api/users'
       )
       .then(res => {
-        const name = res.data.users[0].first_name
-        console.log(name)
-        setData(name)
+        console.log(res.data);
+        const name = res.data.users[0].first_name;
+        console.log(name);
+        setData(name);
       })
       .catch(error => console.log(error));
   }, []);
