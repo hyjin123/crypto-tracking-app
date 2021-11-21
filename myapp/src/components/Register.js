@@ -15,14 +15,16 @@ import { Avatar,
   Container
  } from "@mui/material";
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
+const theme = createTheme();
 
 const Register = (props) => {
 
   return (
     <div>
       <Navbar />
+      <ThemeProvider theme={theme}>
       <Container className="fixed" component="main">
         <Box className="box"
           sx={{
@@ -58,6 +60,14 @@ const Register = (props) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField 
+                  required
+                  fullWidth
+                  name="email"
+                  label="Email Address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField 
                   fullWidth
                   required
                   name="password"
@@ -70,12 +80,20 @@ const Register = (props) => {
               fullWidth
               sx={{ mt: 5, mb: 3, backgroundColor:"blue"}}
             >
-              Sign Up!
+              Sign Up
             </Button>
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Link href="#">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
 
         </Box>
       </Container>
+      </ThemeProvider>
     </div>
   );
 };
