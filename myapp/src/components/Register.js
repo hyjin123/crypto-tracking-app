@@ -16,8 +16,50 @@ import { Avatar,
  } from "@mui/material";
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { withStyles } from "@mui/styles";
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#d6b763',
+    },
+    secondary: {
+      main: '#95989C',
+    },
+  },
+});
+
+// this code is used to change the textfield styles when static, focused, hover etc.
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: 'white',
+    },
+    '& label': {
+      color: 'white',
+    },
+    '& input': {
+      color: 'white',
+    },
+    '& .MuiInput': {
+      color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#d6b763',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#d6b763',
+      },
+      '&:hover fieldset': {
+        borderColor: '#d6b763',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#d6b763',
+      },
+    },
+  },
+})(TextField);
 
 const Register = (props) => {
 
@@ -31,35 +73,36 @@ const Register = (props) => {
             display:"flex",
             flexDirection:"column",
             alignItems: "center",
-            backgroundColor: "white",
+            backgroundColor: "#080809",
             width: 500,
-            height: 500
+            height: 500,
+            p: 8,
           }}
         >
           <Avatar>
             <VpnKeyIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ color: "white"}}>
             Sign Up
           </Typography>
           <Box component="form" sx={{ mt: 5}}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField 
+                <CssTextField 
                   required
                   name="firstname"
                   label="First Name"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField 
+                <CssTextField 
                   required
                   name="lastname"
                   label="Last Name"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField 
+                <CssTextField 
                   required
                   fullWidth
                   name="email"
@@ -67,7 +110,7 @@ const Register = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField 
+                <CssTextField 
                   fullWidth
                   required
                   name="password"
@@ -76,9 +119,11 @@ const Register = (props) => {
               </Grid>
             </Grid>
             <Button
+              variant="contained"
+              color="primary"
               type="submit"
               fullWidth
-              sx={{ mt: 5, mb: 3, backgroundColor:"blue"}}
+              sx={{ mt: 5, mb: 3, backgroundColor:"primary"}}
             >
               Sign Up
             </Button>
