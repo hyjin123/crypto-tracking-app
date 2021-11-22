@@ -2,3 +2,9 @@
   margin: auto;
   color: black;
 }
+
+/* This fixes the auto-fill issue, all the colors should now match */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #080809 inset;
+  -webkit-text-fill-color: white;
+}

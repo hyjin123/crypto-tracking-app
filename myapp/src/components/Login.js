@@ -38,6 +38,12 @@ const CssTextField = withStyles({
     '& label': {
       color: 'white',
     },
+    '& input': {
+      color: 'white',
+    },
+    '& .MuiInput': {
+      color: 'white',
+    },
     '& .MuiInput-underline:after': {
       borderBottomColor: '#d6b763',
     },
