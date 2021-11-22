@@ -71,7 +71,9 @@ const handleSubmit = (event) => {
       // accesstoken, store in local storage with token.
       // everytime you make request, get it from storage and attach to axios header
       console.log("successful!");
-      console.log(res.data.accessToken)
+      let token = res.data.accessToken;
+      // save the token into the local storage
+      localStorage.setItem("jwtToken", token);
       window.location = res.data.redirect
     })
     .catch((err) => {

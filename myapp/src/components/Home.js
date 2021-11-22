@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 import Coin from "./Coin";
@@ -7,6 +8,9 @@ import Navbar from "./Navbar";
 function Home() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
+
+  // retrieve the token from local storage, if empty string, you need to logged in.
+  const token = localStorage.getItem('jwtToken')
 
   // ***************testing fetching from the database
   const [data, setData] = useState("");
@@ -46,6 +50,7 @@ function Home() {
     <div className="App">
       
       <Navbar />
+      {!token && <Navigate to={{ pathname: "/login" }}></Navigate>}
 
       <div className="coin-app">
         <div className="coin-search">

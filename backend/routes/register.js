@@ -28,7 +28,7 @@ module.exports = (db) => {
           .then(data => {
             console.log("Inserted the user into the database!");
             const id = data.rows[0].id;
-            const user = { id: id};
+            const user = { id: id };
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
             res.json({ accessToken: accessToken, redirect: 'http://localhost:3000/'});
           })
