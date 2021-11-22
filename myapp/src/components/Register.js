@@ -71,6 +71,7 @@ const handleSubmit = (event) => {
   })
     .then((res) => {
       console.log("successful!");
+      window.location = res.data.redirect
     })
     .catch((err) => {
       console.log(err);
@@ -109,7 +110,6 @@ const Register = (props) => {
                   name="first_name"
                   id="first_name"
                   label="First Name"
-
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

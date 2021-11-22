@@ -3,7 +3,6 @@ var router = express.Router();
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
-/* GET users listing. */
 module.exports = (db) => {
   router.post('/', function(req, res) {
     const { first_name, last_name, email} = req.body;
@@ -13,30 +12,34 @@ module.exports = (db) => {
     db.query(
       `SELECT email FROM users;`
     )
-    .then(data => {
-      for (const user of data.rows) {
-        if (user.email === email) {
-          return res.status(400).send({ message: "This email already exists" });
-        }
-      }
-      // create the new user in the database
-      // create query params
-      const userContent = [first_name, last_name, email, password];
-      db.query(
-        `INSERT INTO users (first_name, last_name, email, password)
-        VALUES ($1, $2, $3, $4);`, userContent)
       .then(data => {
-        console.log("entered into database!");
+        for (const user of data.rows) {
+          if (user.email === email) {
+            return res.status(400).send({ message: "This email already exists" });
+          }
+        }
+        // create the new user in the database
+        // create query params
+        const userContent = [first_name, last_name, email, password];
+        console.log(userContent)
+        db.query(
+          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4);`, userContent)
+          .then(data => {
+            console.log("Inserted the user into the database!");
+            res.json({status: "Success", redirect: 'http://localhost:3000/'});
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          })
       })
       .catch(err => {
-        res.status(500);
+        res
+          .status(500)
+          .json({ error: err.message });
       })
-    })
-    .catch(err => {
-      res.status(500);
-    })
 
-  });
-
+    });
   return router;
 };

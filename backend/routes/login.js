@@ -18,17 +18,35 @@ function authenticateToken(req, res, next) {
     req.user = user
     next()
   })
-
 }
-/* GET users listing. */
+
 module.exports = (db) => {
   router.post('/', function(req, res) {
-    //authenticate the user
-
     const email = req.body.email;
-    const user = { email: email};
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-    res.json({ accessToken: accessToken })
+    const password = req.body.password;
+
+    db.query(`SELECT id, email, password FROM users WHERE email = $1`, [email])
+      .then(data => {
+        const hashedPassword = data.rows[0].password;
+        if (!email || !password) {
+          res.status(400).send({ message: "Invalid e-mail or password." });
+        } else if (bcrypt.compareSync(password, hashedPassword)) {
+          //then password matches
+          
+        } else {
+          res.status(400).send({ message: "Invalid e-mail or password." });
+        }
+      }) 
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      })
+    //authenticate the user
+    // const email = req.body.email;
+    // const user = { email: email};
+    // const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+    // res.json({ accessToken: accessToken })
   });
 
   return router;

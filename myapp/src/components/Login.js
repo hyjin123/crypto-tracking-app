@@ -1,13 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
+import axios from "axios";
 import "../App.css";
 import "./Register.css"
 import { Avatar, 
   Button, 
-  CssBaseline, 
   TextField, 
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
@@ -61,6 +59,23 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
+// when the submit button is pressed, this function is invoked
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  axios.post('/login', {
+    email: data.get('email'),
+    password: data.get('password')
+  })
+    .then((res) => {
+      console.log("successful!");
+      window.location = res.data.redirect
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+};
+
 const Login = (props) => {
 
   return (
@@ -85,13 +100,14 @@ const Login = (props) => {
           <Typography component="h1" variant="h5" sx={{color: "white"}}>
             Log In
           </Typography>
-          <Box component="form" sx={{ mt: 5}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5}}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <CssTextField 
                   required
                   fullWidth
                   name="email"
+                  id="email"
                   label="Email Address"
                 />
               </Grid>
@@ -100,6 +116,7 @@ const Login = (props) => {
                   fullWidth
                   required
                   name="password"
+                  id="password"
                   label="Password"
                 />
               </Grid>
