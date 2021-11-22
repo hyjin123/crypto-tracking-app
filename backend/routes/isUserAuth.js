@@ -5,8 +5,9 @@ const authenticateToken = require('../helpers/authentication');
 require('dotenv').config();
 
 module.exports = (db) => {
-  router.post('/', authenticateToken, function(req, res) {
-
+  router.get('/', authenticateToken, function(req, res) {
+    const user = req.user;
+    res.json({ user })
   });
 
   return router;

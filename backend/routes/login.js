@@ -10,7 +10,7 @@ module.exports = (db) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    db.query(`SELECT id, first_name, email, password FROM users WHERE email = $1`, [email])
+    db.query(`SELECT id, first_name, last_name, email, password FROM users WHERE email = $1`, [email])
       .then(data => {
         const id = data.rows[0].id;
         const first_name = data.rows[0].first_name;

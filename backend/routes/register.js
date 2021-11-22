@@ -24,13 +24,15 @@ module.exports = (db) => {
         // create query params
         const userContent = [first_name, last_name, email, password];
         db.query(
-          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id;`, userContent)
+          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name;`, userContent)
           .then(data => {
             console.log("Inserted the user into the database!");
             const id = data.rows[0].id;
-            const user = { id: id };
+            const first_name = data.rows[0].first_name;
+            const last_name = data.rows[0].last_name;
+            const user = { id: id, first_name: first_name, last_name: last_name };
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-            res.json({ accessToken: accessToken, redirect: 'http://localhost:3000/'});
+            res.json({ accessToken: accessToken, user:user, redirect: 'http://localhost:3000/'});
           })
           .catch(err => {
             res
