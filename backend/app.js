@@ -13,6 +13,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const indexRouter = require('./routes/index');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const usersRouter = require('./routes/users');
 const watchlistRouter = require('./routes/watchlist');
 const portfolioRouter = require('./routes/portfolio');
@@ -20,6 +23,9 @@ const coinsRouter = require('./routes/coins');
 
 // Back-End Routes
 app.use('/', indexRouter(db));
+app.use('/register', registerRouter(db));
+app.use('/login', loginRouter(db));
+app.use('/logout', logoutRouter(db));
 app.use('/api/users', usersRouter(db));
 app.use('/api/watchlist', watchlistRouter(db));
 app.use('/api/portfolio', portfolioRouter(db));

@@ -1,13 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
+import axios from "axios";
 import "../App.css";
 import "./Register.css"
 import { Avatar, 
   Button, 
-  CssBaseline, 
   TextField, 
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
@@ -61,6 +59,24 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
+// when the submit button is pressed, this function is invoked
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  axios.post('/register', {
+    first_name: data.get('first_name'),
+    last_name: data.get('last_name'),
+    email: data.get('email'),
+    password: data.get('password')
+  })
+    .then((res) => {
+      console.log("successful!");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+};
+
 const Register = (props) => {
 
   return (
@@ -85,19 +101,22 @@ const Register = (props) => {
           <Typography component="h1" variant="h5" sx={{ color: "white"}}>
             Sign Up
           </Typography>
-          <Box component="form" sx={{ mt: 5}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5}}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <CssTextField 
                   required
-                  name="firstname"
+                  name="first_name"
+                  id="first_name"
                   label="First Name"
+
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <CssTextField 
                   required
-                  name="lastname"
+                  name="last_name"
+                  id="last_name"
                   label="Last Name"
                 />
               </Grid>
@@ -106,6 +125,7 @@ const Register = (props) => {
                   required
                   fullWidth
                   name="email"
+                  id="email"
                   label="Email Address"
                 />
               </Grid>
@@ -114,6 +134,7 @@ const Register = (props) => {
                   fullWidth
                   required
                   name="password"
+                  id="password"
                   label="Password"
                 />
               </Grid>
