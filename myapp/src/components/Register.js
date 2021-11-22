@@ -71,6 +71,9 @@ const handleSubmit = (event) => {
   })
     .then((res) => {
       console.log("successful!");
+      let token = res.data.accessToken;
+      // save the token into the local storage
+      localStorage.setItem("jwtToken", token);
       window.location = res.data.redirect
     })
     .catch((err) => {

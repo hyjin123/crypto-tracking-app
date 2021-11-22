@@ -1,18 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = (db) => {
   router.post('/', function(req, res) {
-    db.query('SELECT * FROM users;')
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      })
+    res.cookie('jwt', '', { maxAge: 1})
+    res.redirect('/')
+
+    //invalidate token
   });
 
   return router;
