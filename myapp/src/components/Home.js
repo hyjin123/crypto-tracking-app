@@ -13,18 +13,18 @@ function Home() {
   const token = localStorage.getItem('jwtToken')
 
   // ***************testing fetching from the database
-  const [data, setData] = useState("");
-  useEffect(() => {
-    axios
-      .get("/api/users")
-      .then((res) => {
-        console.log(res.data);
-        const name = res.data.users[0].first_name;
-        console.log(name);
-        setData(name);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  // const [data, setData] = useState("");
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/users")
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       const name = res.data.users[0].first_name;
+  //       console.log(name);
+  //       setData(name);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
   // ***************
 
   useEffect(() => {

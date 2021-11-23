@@ -8,7 +8,7 @@ import TotalProfit from "./TotalProfit";
 import AddNewCoin from "./AddNewCoin";
 import CoinTable from "./CoinTable";
 
-const Portfolio = (props) => {
+const Portfolio = (props) => { 
   return (
     <div>
       <Navbar />

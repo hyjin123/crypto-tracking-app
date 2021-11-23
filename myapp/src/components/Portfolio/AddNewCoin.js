@@ -1,12 +1,18 @@
 import React from "react";
-import Navbar from "../Navbar";
-import "../../App.css"
-import "./portfolio.css"
-import { Button, Box, Typography } from "@mui/material";
+import "../../App.css";
+import "./portfolio.css";
+import { Button } from "@mui/material";
+import PopUp from "./PopUp";
+import { useState } from "react";
 
 const AddNewCoin = (props) => {
+  const [buttonPopup, setButtonPopup] = useState(false);
+
   return (
-    <Button variant="contained">Add New Coin</Button>
+    <React.Fragment>
+      <Button onClick={() => setButtonPopup(true)} variant="contained">Add New Coin</Button>
+      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} />
+    </React.Fragment>
   );
 };
 
