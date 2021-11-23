@@ -2,9 +2,14 @@ import React from 'react';
 import "./portfolio.css";
 
 const Coin = (props) => {
+  const { name, symbol, image } = props;
 
   return (
-    <h1>hello</h1>
+    <div className='coin'>
+      <img src={image} alt='crypto' />
+      <h1>{`${name} (${symbol})`}</h1>
+      <button>Add</button>
+  </div>
   );
 };
 

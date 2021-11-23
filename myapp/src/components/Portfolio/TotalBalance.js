@@ -1,7 +1,7 @@
 import React from "react";
 import "../../App.css"
 import "./portfolio.css"
-import { Button, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const TotalBalance = (props) => {
   return (

@@ -1,5 +1,5 @@
-INSERT INTO portfolios (name)
+INSERT INTO portfolios (user_id, name, total_balance)
 VALUES
-('Portfolio 1'),
-('Portfolio 2'),
-('Portfolio 3');
+(1, 'Portfolio 1', 0),
+(2, 'Portfolio 2', 0),
+(3, 'Portfolio 3', 0);

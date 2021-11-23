@@ -7,8 +7,8 @@ import Coin from "./Coin";
 
 const PopUp = (props) => {
   const [search, setSearch] = useState("");
-  const [coins, setCoins] = useState("");
-
+  const [coins, setCoins] = useState([]);
+  
   useEffect(() => {
     axios
       .get(
@@ -20,17 +20,25 @@ const PopUp = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // set search whenever there is input change in the search
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase())
+  // filter the coin based on search
+  const filteredCoins = coins.filter((eachCoin) =>
+    eachCoin.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // map all the components based on the filtered coins above
   const coinsArray = filteredCoins.map((eachCoin) => {
     return (
-      <Coin />
+      <Coin 
+        key={eachCoin.id}
+        name={eachCoin.name}
+        symbol={eachCoin.symbol}
+        image={eachCoin.image}
+      />
     )
   });
 
