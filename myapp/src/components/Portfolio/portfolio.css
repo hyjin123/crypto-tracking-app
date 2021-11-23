@@ -1,0 +1,47 @@
+.portfolio-container {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balance-container {
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 30px 0;
+}
+
+.balance-text {
+  color: white;
+}
+
+.balance-box {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  background-color: #d6b763;
+  border-radius: 18px;
+  padding: 10px 30px;
+}
+
+.balance-box:hover {
+  background-color: rgb(214, 183, 99, 0.9);
+}
+
+.change-box {
+  background-color: #13754c; 
+}
+
+.change-box:hover {
+  background-color: rgb(25, 140, 78, 0.9);
+}
+
+.profit-box {
+  background-color: #8f171b;  
+}
+
+.profit-box:hover {
+  background-color: rgb(171, 34, 41, 0.9);
+}
