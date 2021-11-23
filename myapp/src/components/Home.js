@@ -27,6 +27,7 @@ function Home() {
   // }, []);
   // ***************
 
+  // fetches coin data from the coingecko API
   useEffect(() => {
     axios
       .get(

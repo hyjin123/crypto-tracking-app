@@ -5,9 +5,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "db:reset": "node ./db/reset.js"
+    "db:reset": "node ./db/reset.js",
+    "seed": "node ./bin/coinSeeds.js"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

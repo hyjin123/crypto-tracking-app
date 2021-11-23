@@ -17,7 +17,6 @@ module.exports = (db) => {
     WHERE users.id = $1;`
     , [userId])
       .then((data) => {
-        console.log(data.rows);
         res.json({ holdings: data.rows})
       })
       .catch(err => {

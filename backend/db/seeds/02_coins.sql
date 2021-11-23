@@ -1,8 +1,8 @@
-INSERT INTO coins (api_id, name)
+INSERT INTO coins (name)
 VALUES
-(1, 'Bitcoin'),
-(2, 'Ethereum'),
-(3, 'Dogecoin'),
-(4, 'Cardano'),
-(5, 'XRP'),
-(6, 'Polkadot');
+('Bitcoin'),
+('Ethereum'),
+('Dogecoin'),
+('Cardano'),
+('XRP'),
+('Polkadot');
