@@ -25,6 +25,12 @@ const useStyles = makeStyles({
   button: {
     padding: "0",
   },
+  red: {
+    color: "#f00606"
+  },
+  green: {
+    color: "#11d811"
+  }
 });
 
 const CoinTable = (props) => {
@@ -110,9 +116,12 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
               <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
-              <TableCell className={classes.cell}>
-                {coin.price_change_percentage_24h}
-              </TableCell>
+              {coin.price_change_percentage_24h < 0 ? (
+                <TableCell className={classes.cell, classes.red}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
+              ) : (
+                <TableCell className={classes.cell, classes.green}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
+              )}
+
               <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
               <TableCell className={classes.cell}>{coin.holdings}</TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
