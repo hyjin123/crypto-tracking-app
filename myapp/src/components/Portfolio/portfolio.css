@@ -76,6 +76,18 @@
   background-color: white;
 }
 
+.watchlist-close-btn {
+  background-color: #d6b763;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  margin-left: 20px;
+}
+
+.watchlist-close-btn:hover {
+  cursor: pointer;
+}
+
 .close-btn:hover{
   cursor: pointer;
 }

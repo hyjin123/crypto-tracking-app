@@ -35,7 +35,7 @@ module.exports = (db) => {
         VALUES ($1, $2)
         `, [userId, coinId])
           .then(data => {
-            console.log("success!")
+            res.json({ data: data})
           })
           .catch(err => console.log(err))
       })
@@ -46,8 +46,24 @@ module.exports = (db) => {
   router.put('/coin', function(req,res) {
     const coinName = req.body.coinName;
     const userId = req.body.userId;
-
-
+    db.query(`
+    SELECT coins.id
+    FROM coins
+    WHERE name = $1;
+    `, [coinName])
+      .then(data => {
+        const coinId = data.rows[0].id;
+        db.query(`
+        DELETE FROM watchlist_coins
+        WHERE user_id = $1 AND coin_id = $2
+        RETURNING coin_id;
+        `, [userId, coinId])
+          .then(data => {
+            res.json({ coinId: data.rows[0].coin_id })
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
   });
 
   return router;

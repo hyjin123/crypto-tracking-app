@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { flexbox } from "@mui/system";
+import PopUp from "./PopUp";
 
 // historical data for a specific coin based on coin_id which is the coin name
 // this api is for 3 month historical data at weekly interval
@@ -36,8 +37,9 @@ const Coin = ({
   volume,
   image,
   priceChange,
+  setIsVisible
 }) => {
-
+  // this is used to pop up a component whenver someone adds a coin to a watchlist
   const classes = useStyles();
 
   // handles when user clicks Add to Watchlist
@@ -48,12 +50,16 @@ const Coin = ({
         coinName: coinName,
         userId: userId,
       })
-      .then((res) => console.log("success!"))
+      .then((res) => {
+        setIsVisible(true);
+      })
       .catch((err) => console.log(err));
   };
 
+  // console.log(isVisible)
   return (
     <div className="coin-container">
+
       <div className="coin-row">
         <div className="coin">
           <img src={image} alt="crypto" />

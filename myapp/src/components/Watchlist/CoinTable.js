@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 
 const CoinTable = (props) => {
   const [watchlistCoins, setWatchlistCoins] = useState([]);
+  const [deletedCoin, setDeletedCoin] = useState({});
 
   const { firstName, lastName, userId } = props;
   const classes = useStyles();
@@ -53,7 +54,7 @@ const CoinTable = (props) => {
       }
       setWatchlistCoins(resultsArray);
     });
-  }, [userId]);
+  }, [userId, deletedCoin]);
 
   // handles when user clicks the Delete button, it removes it from the watchlist (database)
   const handleDeleteWatchlist = (coinName, userId) => {
@@ -62,7 +63,9 @@ const CoinTable = (props) => {
           coinName: coinName,
           userId: userId
       })
-      .then((res) => console.log("success!"))
+      .then((res) => {
+        setDeletedCoin(res);
+      })  
       .catch((err) => console.log(err));
   };
 
