@@ -40,7 +40,15 @@ module.exports = (db) => {
           .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
+  });
+
+  //this deletes the coin from the watchlist
+  router.put('/coin', function(req,res) {
+    const coinName = req.body.coinName;
+    const userId = req.body.userId;
+
 
   });
+
   return router;
 };
