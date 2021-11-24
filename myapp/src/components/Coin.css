@@ -16,6 +16,7 @@
   align-items: center;
   height: 80px;
   width: 900px;
+  border-bottom: 1px solid #d7d7d7;
 }
 
 .coin {
@@ -23,7 +24,6 @@
   align-items: center;
   padding-right: 24px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #d7d7d7;
   min-width: 300px;
 }
 
@@ -47,8 +47,6 @@
   text-align: right;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #d7d7d7;
 }
 
 .coin-price {
@@ -76,17 +74,16 @@
 }
 
 .coin-button {
-  color: white;
-  background-color: black;
-  border: none;
-  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+  border-bottom: 1px solid #d7d7d7;
 }
-
 .coin-button:hover {
   cursor: pointer;
 }
 
 .coin-watchlist {
-  display: inline-block;
-  text-align: left;
+  margin: 0;
 }

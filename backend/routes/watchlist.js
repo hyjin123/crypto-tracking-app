@@ -18,10 +18,29 @@ module.exports = (db) => {
       .catch(err => console.log(err))
   });
 
-
   router.post('/coin', function(req, res) {
-    res.render('index', { title: 'Express' });
-  });
+    console.log(req.body)
+    const coinName = req.body.coinName;
+    const userId = req.body.userId;
+    // query the coin id with the coin name
+    db.query(`
+    SELECT coins.id
+    FROM coins
+    WHERE name = $1;
+    `, [coinName])
+      .then(data => {
+        const coinId = data.rows[0].id;
+        db.query(`
+        INSERT INTO watchlist_coins (user_id, coin_id)
+        VALUES ($1, $2)
+        `, [userId, coinId])
+          .then(data => {
+            console.log("success!")
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
 
+  });
   return router;
 };
