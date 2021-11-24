@@ -25,54 +25,33 @@ const useStyles = makeStyles({
 });
 
 const CoinTable = (props) => {
-  const [holdings, setHoldings] = useState([]);
-  const [addCoins, setAddCoins] = useState(0);
+  const [watchlistCoins, setWatchlistCoins] = useState([]);
 
   const { firstName, lastName, userId } = props;
   const classes = useStyles();
 
-  // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
+  // this promise makes a request to internal API to get watchlist information and third party API to get real time data for those watchlist coins
   useEffect(() => {
     Promise.all([
-      axios.get(`/api/portfolio/coin?userId=${userId}`, {}),
+      axios.get(`/api/watchlist/coin?userId=${userId}`, {}),
       axios.get(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
       ),
     ]).then((all) => {
-      const holdings = all[0].data.holdings;
-      const resultsArray = [];
-      const data = all[1].data;
-      for (let i = 0; i < holdings?.length; i++) {
-        for (let j = 0; j < data?.length; j++) {
-          if (holdings[i].name == data[j].name) {
-            const dataMatch = data[j];
-            const holdingMatch = holdings[i].holdings;
-            // add the holdings property into the coin data object
-            dataMatch.holdings = holdingMatch;
-            resultsArray.push(dataMatch);
+        const watchlist = all[0].data.watchlistCoins;
+        const resultsArray = [];
+        const data = all[1].data;
+        for (let i = 0; i < watchlist?.length; i++) {
+          for (let j = 0; j < data?.length; j++) {
+            if (watchlist[i].name == data[j].name) {
+              const dataMatch = data[j];
+              resultsArray.push(dataMatch);
+            }
           }
         }
-      }
-      setHoldings(resultsArray);
+        setWatchlistCoins(resultsArray);
     });
-  }, [userId, addCoins]);
-
-  // handles when user clicks add coin in the pop up
-  const handleAddCoin = (coinName, userId) => {
-    // add the new coin to the database by making a post request to the backend
-    axios.post('/api/portfolio/coin', {
-      coinName: coinName,
-      userId: userId
-    })
-      .then((res) => {
-        const addedCoinId = res.data.coinId;
-        setAddCoins(addedCoinId);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-  console.log(addCoins);
+  }, [userId]);
 
   return (
     <div className="table-container">
@@ -86,11 +65,10 @@ const CoinTable = (props) => {
             <TableCell className={classes.cell}>24 hr Low</TableCell>
             <TableCell className={classes.cell}>24 Hour (%)</TableCell>
             <TableCell className={classes.cell}>Market Cap</TableCell>
-            <TableCell className={classes.cell}>Holdings</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {holdings.map((coin, index) => (
+          {watchlistCoins.map((coin, index) => (
             <TableRow key={index} className="table-row">
               <TableCell className={classes.cell}>
                 <img className="table-image" src={coin.image} alt="crypto" />
@@ -105,7 +83,6 @@ const CoinTable = (props) => {
                 {coin.price_change_percentage_24h}
               </TableCell>
               <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
-              <TableCell className={classes.cell}>{coin.holdings}</TableCell>
             </TableRow>
           ))}
         </TableBody>
