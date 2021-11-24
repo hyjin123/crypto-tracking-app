@@ -62,13 +62,6 @@ const Portfolio = (props) => {
           />
         </div>
         <div>
-          <AddNewCoin
-            firstName={firstName}
-            lastName={lastName}
-            userId={userId}
-          />
-        </div>
-        <div>
           <CoinTable
             firstName={firstName}
             lastName={lastName}

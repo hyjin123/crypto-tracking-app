@@ -8,6 +8,8 @@ import Coin from "./Coin";
 const PopUp = (props) => {
   const [search, setSearch] = useState("");
   const [coins, setCoins] = useState([]);
+
+  const { handleAddCoin, userId } = props;
   
   useEffect(() => {
     axios
@@ -38,6 +40,8 @@ const PopUp = (props) => {
         name={eachCoin.name}
         symbol={eachCoin.symbol}
         image={eachCoin.image}
+        handleAddCoin={handleAddCoin}
+        userId={userId}
       />
     )
   });

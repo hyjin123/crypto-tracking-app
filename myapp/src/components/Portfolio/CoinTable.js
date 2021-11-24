@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
+import axios from "axios";
 import "../../App.css";
 import "./portfolio.css";
 import {
-  Typography,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,19 +11,26 @@ import {
   TableRow,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import axios from "axios";
+import AddIcon from "@mui/icons-material/Add";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import AddNewCoin from "./AddNewCoin";
 
 // this is a makeStyles hook (Custom css)
 const useStyles = makeStyles({
   cell: {
     color: "white",
     fontSize: 15,
-    padding: "20px 40px",
+    padding: "10px 20px",
+  },
+  button: {
+    padding: "0",
   },
 });
 
 const CoinTable = (props) => {
   const [holdings, setHoldings] = useState([]);
+  const [addCoins, setAddCoins] = useState(0);
+
   const { firstName, lastName, userId } = props;
   const classes = useStyles();
 
@@ -50,18 +58,30 @@ const CoinTable = (props) => {
       }
       setHoldings(resultsArray);
     });
-  }, [userId]);
+  }, [userId, addCoins]);
+
+  // handles when user clicks add coin in the pop up
+  const handleAddCoin = (coinName, userId) => {
+    // add the new coin to the database by making a post request to the backend
+    axios.post('/api/portfolio/coin', {
+      coinName: coinName,
+      userId: userId
+    })
+      .then((res) => {
+        const addedCoinId = res.data.coin_id;
+        console.log(addedCoinId);
+        setAddCoins(addedCoinId);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
 
   return (
-    <>
-      <Typography
-        component="h2"
-        variant="h6"
-        className="balance-text"
-        gutterBottom
-      >
-        Holdings
-      </Typography>
+    <div className="table-container">
+      <div className="table-button">
+        <AddNewCoin firstName={firstName} lastName={lastName} userId={userId} handleAddCoin={handleAddCoin} />
+      </div>
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
@@ -74,27 +94,43 @@ const CoinTable = (props) => {
             <TableCell className={classes.cell}>Market Cap</TableCell>
             <TableCell className={classes.cell}>Holdings</TableCell>
             <TableCell className={classes.cell}>PNL</TableCell>
+            <TableCell className={classes.cell}></TableCell>
+            <TableCell className={classes.cell}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {holdings.map((coin, index) => (
             <TableRow key={index} className="table-row">
               <TableCell className={classes.cell}>
-                <img className="table-image" src={coin.image} alt='crypto' />
+                <img className="table-image" src={coin.image} alt="crypto" />
               </TableCell>
               <TableCell className={classes.cell}>{coin.name}</TableCell>
-              <TableCell className={classes.cell}>{coin.current_price}</TableCell>
+              <TableCell className={classes.cell}>
+                {coin.current_price}
+              </TableCell>
               <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
               <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
-              <TableCell className={classes.cell}>{coin.price_change_percentage_24h}</TableCell>
+              <TableCell className={classes.cell}>
+                {coin.price_change_percentage_24h}
+              </TableCell>
               <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
               <TableCell className={classes.cell}>{coin.holdings}</TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
+              <TableCell className={classes.button}>
+                <Button sx={{ color: "white" }}>
+                  <AddIcon />
+                </Button>
+              </TableCell>
+              <TableCell className={classes.button}>
+                <Button sx={{ color: "white" }}>
+                  <KeyboardArrowRightIcon />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 };
 

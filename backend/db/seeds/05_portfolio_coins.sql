@@ -1,4 +1,4 @@
-INSERT INTO portfolio_coins (portfolio_id, coin_id, holdings)
+INSERT INTO portfolio_coins (user_id, coin_id, holdings)
 VALUES
 (3, 1, 100),
 (2, 2, 200),
