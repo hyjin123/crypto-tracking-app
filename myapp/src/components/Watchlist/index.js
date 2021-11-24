@@ -2,13 +2,10 @@ import { React, useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import axios from "axios";
 import "../../App.css";
-import "./portfolio.css";
-import TotalBalance from "./TotalBalance";
-import PortfolioChange from "./PortfolioChange";
-import TotalProfit from "./TotalProfit";
+import "../Portfolio/portfolio.css";
 import CoinTable from "./CoinTable";
 
-const Portfolio = (props) => {
+const Watchlist = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userId, setUserId] = useState(0);
@@ -34,42 +31,27 @@ const Portfolio = (props) => {
         console.log(err);
       });
   }, []);
-  
+
   return (
     <div>
       <Navbar />
       <div className="portfolio-container">
         <div>
-          <h1>My Portfolio</h1>
+          <h1>My Watchlist</h1>
           <h3>{`( ${firstName} ${lastName} )`}</h3>
         </div>
         <div className="balance-container">
-          <TotalBalance
-            firstName={firstName}
-            lastName={lastName}
-            userId={userId}
-          />
-          <PortfolioChange
-            firstName={firstName}
-            lastName={lastName}
-            userId={userId}
-          />
-          <TotalProfit
-            firstName={firstName}
-            lastName={lastName}
-            userId={userId}
-          />
-        </div>
-        <div>
-          <CoinTable
-            firstName={firstName}
-            lastName={lastName}
-            userId={userId}
-          />
+          <div>
+            <CoinTable
+              firstName={firstName}
+              lastName={lastName}
+              userId={userId}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Portfolio;
+export default Watchlist;

@@ -1,5 +1,10 @@
 import React from 'react';
 import './Coin.css';
+import AddIcon from "@mui/icons-material/Add";
+
+// historical data for a specific coin based on coin_id which is the coin name
+// this api is for 3 month historical data at weekly interval
+// https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=90&interval=weekly
 
 const Coin = ({
   name,
@@ -31,6 +36,10 @@ const Coin = ({
           <p className='coin-marketcap'>
             Mkt Cap: ${marketcap.toLocaleString()}
           </p>
+          <button className="coin-button">
+            <AddIcon />
+            <span className="coin-watchlist">Add to Watchlist</span>
+          </button>
         </div>
       </div>
     </div>
