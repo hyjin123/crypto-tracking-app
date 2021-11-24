@@ -68,14 +68,14 @@ const CoinTable = (props) => {
       userId: userId
     })
       .then((res) => {
-        const addedCoinId = res.data.coin_id;
-        console.log(addedCoinId);
+        const addedCoinId = res.data.coinId;
         setAddCoins(addedCoinId);
       })
       .catch((err) => {
         console.log(err);
       })
   };
+  console.log(addCoins);
 
   return (
     <div className="table-container">
