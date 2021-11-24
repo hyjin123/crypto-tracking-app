@@ -85,3 +85,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+.table-image {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}

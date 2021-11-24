@@ -23,30 +23,10 @@ const useStyles = makeStyles({
 
 const CoinTable = (props) => {
   const [holdings, setHoldings] = useState([]);
-  const [userId, setUserId] = useState(0);
-  // const { firstName, lastName, userId } = props;
+  const { firstName, lastName, userId } = props;
   const classes = useStyles();
 
-  // retrieve the token from local storage, if empty string, you need to logged in.
-  const token = localStorage.getItem("jwtToken");
-
-  // authenticates the user and gets the user's infomation and store them in state
-  useEffect(() => {
-    axios
-      .get("/isUserAuth", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        const user = res.data.user;
-        setUserId(user.id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+  // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
   useEffect(() => {
     Promise.all([
       axios.get(`/api/portfolio/coin?userId=${userId}`, {}),
@@ -60,7 +40,11 @@ const CoinTable = (props) => {
       for (let i = 0; i < holdings?.length; i++) {
         for (let j = 0; j < data?.length; j++) {
           if (holdings[i].name == data[j].name) {
-            resultsArray.push(data[j]);
+            const dataMatch = data[j];
+            const holdingMatch = holdings[i].holdings;
+            // add the holdings property into the coin data object
+            dataMatch.holdings = holdingMatch;
+            resultsArray.push(dataMatch);
           }
         }
       }
@@ -81,10 +65,12 @@ const CoinTable = (props) => {
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
+            <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}>Coin</TableCell>
             <TableCell className={classes.cell}>Price</TableCell>
-            <TableCell className={classes.cell}>Total Volume</TableCell>
-            <TableCell className={classes.cell}>24 Hour</TableCell>
+            <TableCell className={classes.cell}>24 hr High</TableCell>
+            <TableCell className={classes.cell}>24 hr Low</TableCell>
+            <TableCell className={classes.cell}>24 Hour (%)</TableCell>
             <TableCell className={classes.cell}>Market Cap</TableCell>
             <TableCell className={classes.cell}>Holdings</TableCell>
             <TableCell className={classes.cell}>PNL</TableCell>
@@ -93,11 +79,15 @@ const CoinTable = (props) => {
         <TableBody>
           {holdings.map((coin, index) => (
             <TableRow key={index} className="table-row">
+              <TableCell className={classes.cell}>
+                <img className="table-image" src={coin.image} alt='crypto' />
+              </TableCell>
               <TableCell className={classes.cell}>{coin.name}</TableCell>
-              <TableCell className={classes.cell}>{coin.price}</TableCell>
-              <TableCell className={classes.cell}>{coin.volume}</TableCell>
-              <TableCell className={classes.cell}>{coin.change}</TableCell>
-              <TableCell className={classes.cell}>{coin.market}</TableCell>
+              <TableCell className={classes.cell}>{coin.current_price}</TableCell>
+              <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
+              <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
+              <TableCell className={classes.cell}>{coin.price_change_percentage_24h}</TableCell>
+              <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
               <TableCell className={classes.cell}>{coin.holdings}</TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
             </TableRow>
