@@ -62,7 +62,7 @@ const TransactionTable = (props) => {
 
   return (
     <div className="table-container">
-      <div class="transaction-popup">
+      <div className="transaction-popup">
         <TransactionPopUp />
       </div>
       <Table size="medium">
