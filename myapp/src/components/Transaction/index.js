@@ -12,6 +12,7 @@ const Transaction = (props) => {
   const [lastName, setLastName] = useState("");
   const [userId, setUserId] = useState(0);
   const [coin, setCoin] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();

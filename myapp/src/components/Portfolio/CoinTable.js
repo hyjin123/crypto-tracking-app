@@ -106,7 +106,6 @@ const CoinTable = (props) => {
             <TableCell className={classes.cell}>Holdings Value</TableCell>
             <TableCell className={classes.cell}>PNL</TableCell>
             <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -143,11 +142,6 @@ const CoinTable = (props) => {
                 ${(coin.holdings * coin.current_price).toLocaleString()}
               </TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
-              <TableCell className={classes.button}>
-                <Button sx={{ color: "white" }}>
-                  <AddIcon />
-                </Button>
-              </TableCell>
               <TableCell className={classes.button}>
                 <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name }} sx={{ color: "white" }}>
                     <KeyboardArrowRightIcon />

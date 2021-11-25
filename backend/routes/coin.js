@@ -17,7 +17,7 @@ module.exports = (db) => {
       .then((data) => {
         const fetchedCoinId = data.rows[0].id;
         db.query(`
-        SELECT price_per_coin, quantity, total_spent, date, fee, note
+        SELECT type, price_per_coin, quantity, total_spent, date, fee, note
         FROM transactions
         JOIN portfolio_coins ON portfolio_coins_id = portfolio_coins.id
         WHERE user_id = $1 AND coin_id = $2;

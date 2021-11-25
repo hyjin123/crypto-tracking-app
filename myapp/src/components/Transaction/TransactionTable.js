@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../App.css";
+import TransactionPopUp from "./TransactionPopUp";
 import "../Portfolio/portfolio.css";
 import {
   Button,
@@ -13,6 +14,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 // this is a makeStyles hook (Custom css)
 const useStyles = makeStyles({
@@ -23,6 +25,7 @@ const useStyles = makeStyles({
   },
   button: {
     padding: "0",
+    color: "#b3272e",
   },
   red: {
     color: "#f00606",
@@ -57,26 +60,11 @@ const TransactionTable = (props) => {
     });
   }, [userId]);
 
-  // handles when user clicks add coin in the pop up
-  // const handleAddCoin = (coinName, userId) => {
-  //   // add the new coin to the database by making a post request to the backend
-  //   axios
-  //     .post("/api/portfolio/coin", {
-  //       coinName: coinName,
-  //       userId: userId,
-  //     })
-  //     .then((res) => {
-  //       const addedCoinId = res.data.coinId;
-  //       setAddCoins(addedCoinId);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-  // console.log(addCoins);
-
   return (
     <div className="table-container">
+      <div class="transaction-popup">
+        <TransactionPopUp />
+      </div>
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
@@ -89,22 +77,24 @@ const TransactionTable = (props) => {
             <TableCell className={classes.cell}>PNL</TableCell>
             <TableCell className={classes.cell}>Notes</TableCell>
             <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {transactions.map((transaction, index) => (
             <TableRow key={index} className="table-row">
-              <TableCell className={classes.cell}>Add</TableCell>
-              <TableCell className={classes.cell}>{transaction.price_per_coin}</TableCell>
+              <TableCell className={classes.cell}>{transaction.type}</TableCell>
+              <TableCell className={classes.cell}>${transaction.price_per_coin}</TableCell>
               <TableCell className={classes.cell}>{transaction.quantity}</TableCell>
               <TableCell className={classes.cell}>{transaction.date.substring(0, 10)}</TableCell>
-              <TableCell className={classes.cell}>{transaction.fee}</TableCell>
-              <TableCell className={classes.cell}>{transaction.total_spent}</TableCell>
+              <TableCell className={classes.cell}>${transaction.fee}</TableCell>
+              <TableCell className={classes.cell}>${transaction.total_spent}</TableCell>
               <TableCell className={classes.cell}>PNL</TableCell>
               <TableCell className={classes.cell}>{transaction.note}</TableCell>
-              <TableCell className={classes.cell}></TableCell>
-              <TableCell className={classes.cell}></TableCell>
+              <TableCell className={classes.cell}>
+                <Button className={classes.button}>
+                  <DeleteForeverIcon />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
