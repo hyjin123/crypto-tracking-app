@@ -34,7 +34,11 @@ const Portfolio = (props) => {
         console.log(err);
       });
   }, []);
-  
+
+  // calculate the sum here and pass down to total balance
+  // can create helper function, update the set holdings in that function (re-factoring)
+
+
   return (
     <div>
       <Navbar />
@@ -48,16 +52,19 @@ const Portfolio = (props) => {
             firstName={firstName}
             lastName={lastName}
             userId={userId}
+            holdings={props.holdings}
           />
           <PortfolioChange
             firstName={firstName}
             lastName={lastName}
             userId={userId}
+            holdings={props.holdings}
           />
           <TotalProfit
             firstName={firstName}
             lastName={lastName}
             userId={userId}
+            holdings={props.holdings}
           />
         </div>
         <div>
@@ -65,6 +72,8 @@ const Portfolio = (props) => {
             firstName={firstName}
             lastName={lastName}
             userId={userId}
+            setHoldings={props.setHoldings}
+            holdings={props.holdings}
           />
         </div>
       </div>

@@ -34,10 +34,9 @@ const useStyles = makeStyles({
 });
 
 const CoinTable = (props) => {
-  const [holdings, setHoldings] = useState([]);
-  const [addCoins, setAddCoins] = useState(0);
 
-  const { firstName, lastName, userId } = props;
+  const [addCoins, setAddCoins] = useState(0);
+  const { firstName, lastName, userId, setHoldings, holdings } = props;
   const classes = useStyles();
 
   // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
@@ -99,6 +98,7 @@ const CoinTable = (props) => {
             <TableCell className={classes.cell}>24 Hour (%)</TableCell>
             <TableCell className={classes.cell}>Market Cap</TableCell>
             <TableCell className={classes.cell}>Holdings</TableCell>
+            <TableCell className={classes.cell}>Holdings Value</TableCell>
             <TableCell className={classes.cell}>PNL</TableCell>
             <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
@@ -112,18 +112,19 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.name}</TableCell>
               <TableCell className={classes.cell}>
-                {coin.current_price}
+               ${coin.current_price.toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
-              <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
+              <TableCell className={classes.cell}>${coin.high_24h.toLocaleString()}</TableCell>
+              <TableCell className={classes.cell}>${coin.low_24h.toLocaleString()}</TableCell>
               {coin.price_change_percentage_24h < 0 ? (
                 <TableCell className={classes.cell, classes.red}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
               ) : (
                 <TableCell className={classes.cell, classes.green}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
               )}
 
-              <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
+              <TableCell className={classes.cell}>${coin.market_cap.toLocaleString()}</TableCell>
               <TableCell className={classes.cell}>{coin.holdings}</TableCell>
+              <TableCell className={classes.cell}>${(coin.holdings * coin.current_price).toLocaleString()}</TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
               <TableCell className={classes.button}>
                 <Button sx={{ color: "white" }}>

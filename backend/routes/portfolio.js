@@ -56,3 +56,22 @@ module.exports = (db) => {
 // SELECT name
 // FROM coins
 // WHERE name = $1
+
+// have /api/portfolio/coin/transactions
+// get request will get all the transactions for that coin for that user
+// post request will add 1 transaction for that coin for that user
+// put request will delete 1 transaction for that coin for that user
+
+
+// <Link to> in the button so that it redirects to the transactions page and in the transactions page, will make get request
+// to get all the info?
+
+{/* <Link to={{ 
+ pathname: "/register", 
+ state: data_you_need_to_pass 
+}}>
+ Register
+</Link> */}
+
+// how to access that state data: props.location.state. can store data such as holdings, holdings price, userId,
+
