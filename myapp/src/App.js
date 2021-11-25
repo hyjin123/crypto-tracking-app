@@ -5,9 +5,12 @@ import Portfolio from "./components/Portfolio/index";
 import Watchlist from "./components/Watchlist/index";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { useState } from "react";
+import Transaction from "./components/Transaction/index"
+import { React, useState } from "react";
 
 function App() {
+
+  // holdings available to all children
   const [holdings, setHoldings] = useState([]);
 
   return (
@@ -17,8 +20,8 @@ function App() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio setHoldings={setHoldings} holdings={holdings} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login helloWorld={"hello world"} />} />
-        <Route path="/transactions" element={<Portfolio setHoldings={setHoldings} holdings={holdings} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/transaction" element={<Transaction setHoldings={setHoldings} holdings={holdings} />} />
       </Routes>
     </BrowserRouter>
   );
