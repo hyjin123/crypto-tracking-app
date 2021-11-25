@@ -11,6 +11,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import axios from "axios";
 
 const TransactionPopUp = () => {
   const [open, setOpen] = useState(false);
@@ -52,8 +53,23 @@ const TransactionPopUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const price = data.get("price_per_coin");
-    console.log(price);
+
+    axios
+      .post("/api/coin/transaction", {
+        type: data.get('type'),
+        price_per_coin: data.get('price_per_coin'),
+        quantity: data.get('quantity'),
+        total_spent: data.get('total_spent'),
+        date: data.get('date'),
+        fee: data.get('fee'),
+        note: data.get('note')
+      })
+      .then((res) => {
+        console.log("success!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -78,6 +94,19 @@ const TransactionPopUp = () => {
               autoComplete="off"
             >
               <DialogContent>
+                <TextField
+                  required
+                  readonly="readonly"
+                  InputLabelProps={{ shrink: true }}
+                  autoFocus
+                  margin="dense"
+                  id="type"
+                  name="type"
+                  label="Transaction Type"
+                  type="text"
+                  fullWidth
+                  value="Buy"
+                />
                 <TextField
                   required
                   InputLabelProps={{ shrink: true }}
@@ -105,7 +134,7 @@ const TransactionPopUp = () => {
                 <TextField
                   required
                   InputLabelProps={{ shrink: true }}
-                  disabled
+                  readonly="readonly"
                   autoFocus
                   margin="dense"
                   id="total_spent"
@@ -166,6 +195,19 @@ const TransactionPopUp = () => {
               <DialogContent>
                 <TextField
                   required
+                  readonly="readonly"
+                  InputLabelProps={{ shrink: true }}
+                  autoFocus
+                  margin="dense"
+                  id="type"
+                  name="type"
+                  label="Transaction Type"
+                  type="text"
+                  fullWidth
+                  value="Sell"
+                />
+                <TextField
+                  required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
                   margin="dense"
@@ -191,12 +233,12 @@ const TransactionPopUp = () => {
                 <TextField
                   required
                   InputLabelProps={{ shrink: true }}
-                  disabled
+                  readonly="readonly"
                   autoFocus
                   margin="dense"
                   id="total_spent"
                   name="total_spent"
-                  label="Total received ($)"
+                  label="Total Received ($)"
                   type="number"
                   fullWidth
                   value={sellPrice * sellQuantity}
@@ -235,7 +277,9 @@ const TransactionPopUp = () => {
                 />
               </DialogContent>
               <DialogActions>
-                <Button type="submit" onClick={handleCancel}>Submit</Button>
+                <Button type="submit" onClick={handleCancel}>
+                  Submit
+                </Button>
                 <Button onClick={handleCancel}>Cancel</Button>
               </DialogActions>
             </Box>

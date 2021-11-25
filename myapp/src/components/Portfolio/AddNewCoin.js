@@ -13,7 +13,7 @@ const AddNewCoin = (props) => {
   return (
     <React.Fragment>
       <Button onClick={() => setButtonPopup(true)} variant="contained">Add New Coin</Button>
-      <PopUp userId={userId} trigger={buttonPopup} setTrigger={setButtonPopup} handleAddCoin={handleAddCoin} />
+      <PopUp holdings={props.holdings} userId={userId} trigger={buttonPopup} setTrigger={setButtonPopup} handleAddCoin={handleAddCoin} />
     </React.Fragment>
   );
 };

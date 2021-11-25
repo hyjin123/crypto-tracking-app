@@ -56,6 +56,7 @@ const TransactionTable = (props) => {
       ),
     ]).then((all) => {
       const allTransactions = all[0].data.allTransactions;
+      console.log(allTransactions)
       setTransactions(allTransactions)
     });
   }, [userId]);

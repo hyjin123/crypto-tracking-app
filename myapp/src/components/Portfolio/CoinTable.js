@@ -90,6 +90,7 @@ const CoinTable = (props) => {
           lastName={lastName}
           userId={userId}
           handleAddCoin={handleAddCoin}
+          holdings={holdings}
         />
       </div>
       <Table size="medium">

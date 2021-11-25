@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../App.css";
 import "./portfolio.css";
 import axios from "axios";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import Coin from "./Coin";
 
 const PopUp = (props) => {
@@ -10,7 +10,7 @@ const PopUp = (props) => {
   const [coins, setCoins] = useState([]);
 
   const { handleAddCoin, userId } = props;
-  
+
   useEffect(() => {
     axios
       .get(
@@ -35,19 +35,20 @@ const PopUp = (props) => {
   // map all the components based on the filtered coins above
   const coinsArray = filteredCoins.map((eachCoin) => {
     return (
-      <Coin 
+      <Coin
         key={eachCoin.id}
         name={eachCoin.name}
         symbol={eachCoin.symbol}
         image={eachCoin.image}
         handleAddCoin={handleAddCoin}
         userId={userId}
+        holdings={props.holdings}
       />
-    )
+    );
   });
 
   // show only the first 10 results on the pop up search
-  const coinsArrayFiltered = coinsArray.slice(0, 10)
+  const coinsArrayFiltered = coinsArray.slice(0, 10);
 
   return props.trigger ? (
     <div className="popup">
@@ -65,9 +66,7 @@ const PopUp = (props) => {
               placeholder="Search"
             />
           </form>
-          <div>
-            {coinsArrayFiltered}
-          </div>
+          <div>{coinsArrayFiltered}</div>
         </div>
       </div>
     </div>
