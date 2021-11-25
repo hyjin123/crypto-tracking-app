@@ -19,7 +19,7 @@ const logoutRouter = require('./routes/logout');
 const usersRouter = require('./routes/users');
 const watchlistRouter = require('./routes/watchlist');
 const portfolioRouter = require('./routes/portfolio');
-const coinsRouter = require('./routes/coins');
+const coinRouter = require('./routes/coin');
 const isUserAuthRouter = require('./routes/isUserAuth');
 
 // Back-End Routes
@@ -31,6 +31,6 @@ app.use('/isUserAuth', isUserAuthRouter(db));
 app.use('/api/users', usersRouter(db));
 app.use('/api/watchlist', watchlistRouter(db));
 app.use('/api/portfolio', portfolioRouter(db));
-app.use('/api/coins', coinsRouter(db));
+app.use('/api/coin', coinRouter(db));
 
 module.exports = app;

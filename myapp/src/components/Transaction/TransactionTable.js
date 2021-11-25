@@ -33,35 +33,29 @@ const useStyles = makeStyles({
 });
 
 const TransactionTable = (props) => {
-  const [addCoins, setAddCoins] = useState(0);
-  const { firstName, lastName, userId, setHoldings, holdings } = props;
+  const [transactions, setTransactions] = useState([]);
+  const [addTraction, setAddTransaction] = useState(0);
+  const { firstName, lastName, userId, setHoldings, holdings, coinName } = props;
   const classes = useStyles();
 
-  // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
-  // useEffect(() => {
-  //   Promise.all([
-  //     axios.get(`/api/portfolio/coin?userId=${userId}`, {}),
-  //     axios.get(
-  //       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-  //     ),
-  //   ]).then((all) => {
-  //     const holdings = all[0].data.holdings;
-  //     const resultsArray = [];
-  //     const data = all[1].data;
-  //     for (let i = 0; i < holdings?.length; i++) {
-  //       for (let j = 0; j < data?.length; j++) {
-  //         if (holdings[i].name == data[j].name) {
-  //           const dataMatch = data[j];
-  //           const holdingMatch = holdings[i].holdings;
-  //           // add the holdings property into the coin data object
-  //           dataMatch.holdings = holdingMatch;
-  //           resultsArray.push(dataMatch);
-  //         }
-  //       }
-  //     }
-  //     setHoldings(resultsArray);
-  //   });
-  // }, [userId, addCoins]);
+  // get transaction data from internal api
+  // get real time data from third party api or use the holdings data passed down as props? choose one...wisely
+  // get real time data and setHoldings!!!! to get real time data, better for users
+  // display the transaction data in the table
+  // display the balance data at the top
+
+  // this promise makes a request to internal API to get transaction information and third party API to get real time data for those transactions
+  useEffect(() => {
+    Promise.all([
+      axios.get(`/api/coin/transaction?userId=${userId}&coinName=${coinName}`, {}),
+      axios.get(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+      ),
+    ]).then((all) => {
+      const allTransactions = all[0].data.allTransactions;
+      setTransactions(allTransactions)
+    });
+  }, [userId]);
 
   // handles when user clicks add coin in the pop up
   // const handleAddCoin = (coinName, userId) => {
@@ -86,19 +80,33 @@ const TransactionTable = (props) => {
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
+            <TableCell className={classes.cell}>Type</TableCell>
+            <TableCell className={classes.cell}>Price</TableCell>
+            <TableCell className={classes.cell}>Quantity</TableCell>
+            <TableCell className={classes.cell}>Date</TableCell>
+            <TableCell className={classes.cell}>Fees</TableCell>
+            <TableCell className={classes.cell}>Cost</TableCell>
+            <TableCell className={classes.cell}>PNL</TableCell>
+            <TableCell className={classes.cell}>Notes</TableCell>
             <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}>Coin</TableCell>
+            <TableCell className={classes.cell}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {holdings.map((coin, index) => (
+          {transactions.map((transaction, index) => (
             <TableRow key={index} className="table-row">
-              <TableCell className={classes.cell}>
-                <img className="table-image" src={coin.image} alt="crypto" />
-              </TableCell>
-              <TableCell className={classes.cell}>{coin.name}</TableCell>
+              <TableCell className={classes.cell}>Add</TableCell>
+              <TableCell className={classes.cell}>{transaction.price_per_coin}</TableCell>
+              <TableCell className={classes.cell}>{transaction.quantity}</TableCell>
+              <TableCell className={classes.cell}>{transaction.date.substring(0, 10)}</TableCell>
+              <TableCell className={classes.cell}>{transaction.fee}</TableCell>
+              <TableCell className={classes.cell}>{transaction.total_spent}</TableCell>
+              <TableCell className={classes.cell}>PNL</TableCell>
+              <TableCell className={classes.cell}>{transaction.note}</TableCell>
+              <TableCell className={classes.cell}></TableCell>
+              <TableCell className={classes.cell}></TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </div>

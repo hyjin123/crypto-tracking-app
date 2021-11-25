@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
 module.exports = (db) => {
@@ -57,7 +57,7 @@ module.exports = (db) => {
 // FROM coins
 // WHERE name = $1
 
-// have /api/portfolio/coin/transactions
+// have /api/coin/transactions
 // get request will get all the transactions for that coin for that user
 // post request will add 1 transaction for that coin for that user
 // put request will delete 1 transaction for that coin for that user

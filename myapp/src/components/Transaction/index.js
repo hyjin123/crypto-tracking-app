@@ -4,11 +4,18 @@ import axios from "axios";
 import "../../App.css";
 import "../Portfolio/portfolio.css";
 import TransactionTable from "./TransactionTable";
+import { useLocation, Link } from "react-router";
 
 const Transaction = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userId, setUserId] = useState(0);
+  const location = useLocation();
+
+  const { holdings, setHoldings } = props;
+
+  // this value is passed down from portfolio Link to Router
+  const coinName = location.state.coinName;
 
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
@@ -46,6 +53,9 @@ const Transaction = (props) => {
               firstName={firstName}
               lastName={lastName}
               userId={userId}
+              holdings={holdings}
+              setHoldings={setHoldings}
+              coinName={coinName}
             />
           </div>
         </div>

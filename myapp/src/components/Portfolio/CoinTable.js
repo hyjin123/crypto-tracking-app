@@ -81,7 +81,6 @@ const CoinTable = (props) => {
         console.log(err);
       });
   };
-  console.log(addCoins);
 
   return (
     <div className="table-container">
@@ -150,7 +149,7 @@ const CoinTable = (props) => {
                 </Button>
               </TableCell>
               <TableCell className={classes.button}>
-                <Button component={Link} to="/transaction" sx={{ color: "white" }}>
+                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name }} sx={{ color: "white" }}>
                     <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>
