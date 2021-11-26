@@ -6,6 +6,20 @@ import "../Portfolio/portfolio.css";
 import TransactionTable from "./TransactionTable";
 import { useLocation, Link, useNavigate } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { makeStyles } from "@mui/styles";
+
+// this is a makeStyles hook (Custom css)
+const useStyles = makeStyles({
+  button: {
+    color: "#1976d2",
+    backgroundColor: "black",
+    border: "1px solid rgba(25, 118, 210, 0.5)",
+    '&:hover': {
+      border: "1px solid rgba(25, 118, 210, 1)",
+      backgroundColor: "black"
+   },
+  },
+});
 
 const Transaction = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -14,10 +28,11 @@ const Transaction = (props) => {
   const [coin, setCoin] = useState([]);
   const [open, setOpen] = useState(false);
 
+  const { holdings, setHoldings } = props;
+
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { holdings, setHoldings } = props;
+  // const classes = useStyles();
 
   // this value is passed down from portfolio Link to Router
   const coinName = location.state.coinName;
@@ -49,7 +64,7 @@ const Transaction = (props) => {
         console.log(err);
       });
   }, []);
-  console.log(props.portfolioCoinId)
+
    // fetches coin data from the coingecko API, can use this to use image for UI :p
    useEffect(() => {
     axios
