@@ -67,8 +67,6 @@ const CoinTable = (props) => {
     });
   }, [userId, addCoins]);
 
-  console.log(holdings);
-
   // handles when user clicks add coin in the pop up
   const handleAddCoin = (coinName, userId) => {
     // add the new coin to the database by making a post request to the backend
@@ -79,8 +77,6 @@ const CoinTable = (props) => {
       })
       .then((res) => {
         const addedCoinId = res.data.coinId;
-        const portfolioCoinId = res.data.portfolioCoinsId;
-        console.log(portfolioCoinId)
         setAddCoins(addedCoinId)
       })
       .catch((err) => {
@@ -150,7 +146,8 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
               <TableCell className={classes.button}>
-                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId }} sx={{ color: "white" }}>
+                <Button component={Link} to={{pathname: "/transaction"}} 
+                state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId, currentHoldings: coin.holdings}} sx={{ color: "white" }}>
                     <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>

@@ -6,6 +6,7 @@ import "../Portfolio/portfolio.css";
 import TransactionTable from "./TransactionTable";
 import { useLocation, Link, useNavigate } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Button } from "@mui/material";
 
 const Transaction = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -14,14 +15,16 @@ const Transaction = (props) => {
   const [coin, setCoin] = useState([]);
   const [open, setOpen] = useState(false);
 
+  const { holdings, setHoldings } = props;
+
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { holdings, setHoldings } = props;
 
   // this value is passed down from portfolio Link to Router
   const coinName = location.state.coinName;
   const portfolioCoinId = location.state.portfolioCoinId;
+  const currentHoldings = location.state.currentHoldings;
+  console.log(currentHoldings)
 
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
@@ -49,7 +52,7 @@ const Transaction = (props) => {
         console.log(err);
       });
   }, []);
-  console.log(props.portfolioCoinId)
+
    // fetches coin data from the coingecko API, can use this to use image for UI :p
    useEffect(() => {
     axios
@@ -72,14 +75,32 @@ const Transaction = (props) => {
     <div>
       <Navbar />
       <div className="portfolio-container">
-        <button className="back-button" onClick={handleBackButton}>
+        <Button onClick={handleBackButton} 
+        sx={{
+            color: "#1976d2",
+            backgroundColor: "black",
+            border: "1px solid rgba(25, 118, 210, 0.5)",
+            '&:hover': {
+              border: "1px solid rgba(25, 118, 210, 1)",
+              backgroundColor: "black"
+           }
+        }}>
           <ArrowBackIcon sx={{ fontSize: 30 }}/>
-        </button>
-        <div>
-          <h1>My Transactions for {coinName}</h1>
-          <h3>{`( ${firstName} ${lastName} )`}</h3>
+        </Button>
+        <div className="transaction-coin-info">
+          <h1 className="transaction-title">My Transactions</h1>
+          <p className="transaction-name">{`( ${firstName} ${lastName} )`}</p>
           {/* this fixes the rendering issue with the image as coin state is originally set to empty array */}
           {coin.length > 0 && <img src={coin[0].image} alt="crypto" className="coin-image"/> }
+          <p>{coinName}</p>
+        </div>
+        <div className="coin-information">
+          <div className="holdings-info">Holdings Value</div>
+          <div className="holdings-info">{currentHoldings} Holdings</div>
+          <div className="holdings-info"> Total Cost </div>
+          <div className="holdings-info"> Average Net Cost</div>
+          <div className="holdings-info"> Profit/Loss </div>
+          <div></div>
         </div>
         <div className="balance-container">
           <div>

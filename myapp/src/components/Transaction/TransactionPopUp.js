@@ -25,7 +25,6 @@ const TransactionPopUp = (props) => {
 
   // NEED this id in order to insert the transaction into the database
   let portfolio_coins_id = props.portfolioCoinId;
-  console.log(portfolio_coins_id)
 
   const handleClickOpen = () => {
     setOpen(true);

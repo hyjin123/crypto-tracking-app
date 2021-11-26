@@ -37,8 +37,8 @@ const Watchlist = (props) => {
       <Navbar />
       <div className="portfolio-container">
         <div>
-          <h1>My Watchlist</h1>
-          <h3>{`( ${firstName} ${lastName} )`}</h3>
+          <h1 className="transaction-title">My Watchlist</h1>
+          <p className="transaction-name">{`( ${firstName} ${lastName} )`}</p>
         </div>
         <div className="balance-container">
           <div>
