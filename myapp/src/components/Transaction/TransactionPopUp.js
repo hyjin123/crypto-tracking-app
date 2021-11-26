@@ -13,13 +13,21 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import axios from "axios";
 
-const TransactionPopUp = () => {
+const TransactionPopUp = (props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("1");
   const [buyPrice, setBuyPrice] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [sellPrice, setSellPrice] = useState(0);
   const [sellQuantity, setSellQuantity] = useState(0);
+  
+  const { transactions } = props;
+
+  // NEED this id in order to insert the transaction into the database
+  let portfolio_coins_id = 0;
+  if (transactions.length > 0) {
+    portfolio_coins_id = transactions[0].portfolio_coins_id;
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,6 +64,7 @@ const TransactionPopUp = () => {
 
     axios
       .post("/api/coin/transaction", {
+        portfolio_coins_id: portfolio_coins_id,
         type: data.get('type'),
         price_per_coin: data.get('price_per_coin'),
         quantity: data.get('quantity'),
@@ -96,7 +105,7 @@ const TransactionPopUp = () => {
               <DialogContent>
                 <TextField
                   required
-                  readonly="readonly"
+                  readOnly="readonly"
                   InputLabelProps={{ shrink: true }}
                   autoFocus
                   margin="dense"
@@ -134,7 +143,7 @@ const TransactionPopUp = () => {
                 <TextField
                   required
                   InputLabelProps={{ shrink: true }}
-                  readonly="readonly"
+                  readOnly="readonly"
                   autoFocus
                   margin="dense"
                   id="total_spent"
@@ -195,7 +204,7 @@ const TransactionPopUp = () => {
               <DialogContent>
                 <TextField
                   required
-                  readonly="readonly"
+                  readOnly="readonly"
                   InputLabelProps={{ shrink: true }}
                   autoFocus
                   margin="dense"
@@ -233,7 +242,7 @@ const TransactionPopUp = () => {
                 <TextField
                   required
                   InputLabelProps={{ shrink: true }}
-                  readonly="readonly"
+                  readOnly="readonly"
                   autoFocus
                   margin="dense"
                   id="total_spent"

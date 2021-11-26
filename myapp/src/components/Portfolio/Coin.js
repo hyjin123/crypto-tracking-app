@@ -8,7 +8,8 @@ const Coin = (props) => {
   for (const holding of props.holdings) {
     holdingNames.push(holding.name)
   }
-
+  
+  // if any of the holding names match the coin name, disable the add button so no duplicates
   let matched = false;
   if (holdingNames.includes(name)) {
     matched = true;

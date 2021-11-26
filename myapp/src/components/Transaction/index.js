@@ -67,8 +67,6 @@ const Transaction = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(coin);
-
   return (
     <div>
       <Navbar />

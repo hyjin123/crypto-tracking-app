@@ -33,6 +33,7 @@ module.exports = (db) => {
   // adds new transaction in for a user
   router.post('/transaction', function(req, res) {
     const {
+      portfolio_coins_id,
       type,
       price_per_coin,
       quantity,
@@ -41,8 +42,19 @@ module.exports = (db) => {
       fee,
       note
     } = req.body;
-
     console.log(req.body);
+
+    const queryParams = [portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note]
+
+    db.query(`
+    INSERT INTO transactions (portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+    `, queryParams)
+      .then(data => {
+        res.json({})
+      })
+      .catch(err => console.log(err));
+
   })
 
   return router;
