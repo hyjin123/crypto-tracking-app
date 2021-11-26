@@ -5,7 +5,22 @@ import "../../App.css";
 import "../Portfolio/portfolio.css";
 import TransactionTable from "./TransactionTable";
 import { useLocation, Link, useNavigate } from "react-router";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+// this is a makeStyles hook (Custom css)
+const useStyles = makeStyles({
+  button: {
+    color: "#1976d2",
+    backgroundColor: "black",
+    border: "1px solid rgba(25, 118, 210, 0.5)",
+    '&:hover': {
+      border: "1px solid rgba(25, 118, 210, 1)",
+      backgroundColor: "black"
+   },
+  },
+});
 
 const Transaction = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -16,10 +31,11 @@ const Transaction = (props) => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const classes = useStyles();
 
   const { holdings, setHoldings } = props;
 
-  // this value is passed down from portfolio Link to Router
+  // this value is passed down from portfolio Link to Router, info will change depending on which portfolio coin was clicked
   const coinName = location.state.coinName;
   const portfolioCoinId = location.state.portfolioCoinId;
 
@@ -28,7 +44,7 @@ const Transaction = (props) => {
 
   // handles the back button click
   const handleBackButton = () => {
-    navigate('/portfolio');
+    navigate("/portfolio");
   };
 
   // authenticates the user and gets the user's infomation and store them in state
@@ -49,9 +65,9 @@ const Transaction = (props) => {
         console.log(err);
       });
   }, []);
-  console.log(props.portfolioCoinId)
-   // fetches coin data from the coingecko API, can use this to use image for UI :p
-   useEffect(() => {
+  console.log(props.portfolioCoinId);
+  // fetches coin data from the coingecko API, can use this to use image for UI :p
+  useEffect(() => {
     axios
       .get(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -72,14 +88,16 @@ const Transaction = (props) => {
     <div>
       <Navbar />
       <div className="portfolio-container">
-        <button className="back-button" onClick={handleBackButton}>
-          <ArrowBackIcon sx={{ fontSize: 30 }}/>
-        </button>
+        <Button className={classes.button} onClick={handleBackButton}>
+          <ArrowBackIcon sx={{ fontSize: 30 }} />
+        </Button>
         <div>
           <h1>My Transactions for {coinName}</h1>
           <h3>{`( ${firstName} ${lastName} )`}</h3>
           {/* this fixes the rendering issue with the image as coin state is originally set to empty array */}
-          {coin.length > 0 && <img src={coin[0].image} alt="crypto" className="coin-image"/> }
+          {coin.length > 0 && (
+            <img src={coin[0].image} alt="crypto" className="coin-image" />
+          )}
         </div>
         <div className="balance-container">
           <div>

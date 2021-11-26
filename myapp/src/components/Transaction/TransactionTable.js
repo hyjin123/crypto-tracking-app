@@ -13,8 +13,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import AddIcon from "@mui/icons-material/Add";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DeleteAlert from "./DeleteAlert";
 
 // this is a makeStyles hook (Custom css)
 const useStyles = makeStyles({
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
   },
   green: {
     color: "#11d811",
-  },
+  }
 });
 
 const TransactionTable = (props) => {
@@ -84,17 +83,20 @@ const TransactionTable = (props) => {
         <TableBody>
           {transactions.map((transaction, index) => (
             <TableRow key={index} className="table-row">
-              <TableCell className={classes.cell}>{transaction.type}</TableCell>
-              <TableCell className={classes.cell}>${transaction.price_per_coin}</TableCell>
+              {transaction.type === "Buy" ? 
+              <TableCell className={classes.cell, classes.green}>{transaction.type}</TableCell> :
+              <TableCell className={classes.cell, classes.red}>{transaction.type}</TableCell>
+              }
+              <TableCell className={classes.cell}>${transaction.price_per_coin.toLocaleString()}</TableCell>
               <TableCell className={classes.cell}>{transaction.quantity}</TableCell>
               <TableCell className={classes.cell}>{transaction.date.substring(0, 10)}</TableCell>
               <TableCell className={classes.cell}>${transaction.fee}</TableCell>
-              <TableCell className={classes.cell}>${transaction.total_spent}</TableCell>
+              <TableCell className={classes.cell}>${transaction.total_spent.toLocaleString()}</TableCell>
               <TableCell className={classes.cell}>PNL</TableCell>
               <TableCell className={classes.cell}>{transaction.note}</TableCell>
               <TableCell className={classes.cell}>
                 <Button className={classes.button}>
-                  <DeleteForeverIcon />
+                  <DeleteAlert />
                 </Button>
               </TableCell>
             </TableRow>
