@@ -59,14 +59,41 @@ module.exports = (db) => {
     ];
 
     db.query(
-      `
+    `
     INSERT INTO transactions (portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING portfolio_coins_id, quantity, type;
     `,
-      queryParams
+    queryParams
     )
       .then((data) => {
-        res.json({ data });
+        const quantity = data.rows[0].quantity;
+        const portfolioCoinId = data.rows[0].portfolio_coins_id;
+        const type = data.rows[0].type;
+        if (type === "Buy") {
+          db.query(
+            `
+            UPDATE portfolio_coins SET holdings = holdings+$1
+            WHERE portfolio_coins.id = $2;
+            `,
+            [quantity, portfolioCoinId]
+            )
+              .then((data) => {
+                res.json({data})
+              })
+              .catch((err) => console.log(err));
+        } else {
+          db.query(
+            `
+            UPDATE portfolio_coins SET holdings = holdings-$1
+            WHERE portfolio_coins.id = $2;
+            `,
+            [quantity, portfolioCoinId]
+            )
+              .then((data) => {
+                res.json({data})
+              })
+              .catch((err) => console.log(err));
+        }
       })
       .catch((err) => console.log(err));
   });
@@ -77,12 +104,39 @@ module.exports = (db) => {
     db.query(
       `
       DELETE FROM transactions
-      WHERE transactions.id = $1;
+      WHERE transactions.id = $1 RETURNING portfolio_coins_id, quantity, type;
       `,
       [transactionId]
     )
       .then((data) => {
-        res.json({data})
+        const quantity = data.rows[0].quantity;
+        const portfolioCoinId = data.rows[0].portfolio_coins_id;
+        const type = data.rows[0].type;
+        if (type === "Buy") {
+          db.query(
+          `
+          UPDATE portfolio_coins SET holdings = holdings-$1
+          WHERE portfolio_coins.id = $2;
+          `,
+          [quantity, portfolioCoinId]
+          )
+            .then((data) => {
+              res.json({data})
+            })
+            .catch((err) => console.log(err));
+        } else {
+          db.query(
+            `
+            UPDATE portfolio_coins SET holdings = holdings+$1
+            WHERE portfolio_coins.id = $2;
+            `,
+            [quantity, portfolioCoinId]
+            )
+              .then((data) => {
+                res.json({data})
+              })
+              .catch((err) => console.log(err));
+        }
       })
       .catch((err) => console.log(err));
   });
