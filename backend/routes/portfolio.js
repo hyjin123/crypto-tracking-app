@@ -9,14 +9,14 @@ module.exports = (db) => {
     // store the user's id
     const userId = req.query['userId']
     db.query(`
-    SELECT coin_id, holdings, coins.name
+    SELECT coin_id, holdings, coins.name, portfolio_coins.id
     FROM portfolio_coins
     JOIN users ON user_id = users.id
     JOIN coins ON coin_id = coins.id
     WHERE users.id = $1;`
     , [userId])
       .then((data) => {
-        res.json({ holdings: data.rows})
+        res.json({ holdings: data.rows })
       })
       .catch(err => {
         res
@@ -40,10 +40,11 @@ module.exports = (db) => {
         //query to insert into the portfolio coins
         db.query(`
         INSERT INTO portfolio_coins (user_id, coin_id, holdings)
-        VALUES ($1, $2, 0) RETURNING coin_id;
+        VALUES ($1, $2, 0) RETURNING coin_id, portfolio_coins.id;
         `, [userId, fetchedCoinId])
           .then((data) => {
-            res.json({ coinId: data.rows[0].coin_id })
+            console.log(data);
+            res.json({ coinId: data.rows[0].coin_id, portfolioCoinsId: data.rows[0].id })
           })
           .catch(err => console.log(err))
       })

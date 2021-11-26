@@ -15,7 +15,6 @@ const Coin = (props) => {
     matched = true;
   }
 
-  console.log(matched)
   return (
     <div className='coin'>
       <img src={image} alt='crypto' />

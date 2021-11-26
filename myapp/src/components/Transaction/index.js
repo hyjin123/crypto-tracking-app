@@ -21,6 +21,7 @@ const Transaction = (props) => {
 
   // this value is passed down from portfolio Link to Router
   const coinName = location.state.coinName;
+  const portfolioCoinId = location.state.portfolioCoinId;
 
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
@@ -48,7 +49,7 @@ const Transaction = (props) => {
         console.log(err);
       });
   }, []);
-
+  console.log(props.portfolioCoinId)
    // fetches coin data from the coingecko API, can use this to use image for UI :p
    useEffect(() => {
     axios
@@ -89,6 +90,7 @@ const Transaction = (props) => {
               holdings={holdings}
               setHoldings={setHoldings}
               coinName={coinName}
+              portfolioCoinId={portfolioCoinId}
             />
           </div>
         </div>

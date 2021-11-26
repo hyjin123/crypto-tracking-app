@@ -37,7 +37,8 @@ const useStyles = makeStyles({
 
 const TransactionTable = (props) => {
   const [transactions, setTransactions] = useState([]);
-  const [addTraction, setAddTransaction] = useState(0);
+  const [addedTransaction, setAddedTransaction] = useState({});
+
   const { firstName, lastName, userId, setHoldings, holdings, coinName } = props;
   const classes = useStyles();
 
@@ -59,12 +60,12 @@ const TransactionTable = (props) => {
       console.log(allTransactions)
       setTransactions(allTransactions)
     });
-  }, [userId]);
+  }, [userId, addedTransaction]);
 
   return (
     <div className="table-container">
       <div className="transaction-popup">
-        <TransactionPopUp transactions={transactions} />
+        <TransactionPopUp transactions={transactions} setAddedTransaction={setAddedTransaction} portfolioCoinId={props.portfolioCoinId} />
       </div>
       <Table size="medium">
         <TableHead>

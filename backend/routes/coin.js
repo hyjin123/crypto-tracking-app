@@ -17,9 +17,9 @@ module.exports = (db) => {
       .then((data) => {
         const fetchedCoinId = data.rows[0].id;
         db.query(`
-        SELECT portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note
-        FROM transactions
-        JOIN portfolio_coins ON portfolio_coins_id = portfolio_coins.id
+        SELECT portfolio_coins.id , type, price_per_coin, quantity, total_spent, date, fee, note
+        FROM portfolio_coins
+        JOIN transactions ON portfolio_coins_id = portfolio_coins.id
         WHERE user_id = $1 AND coin_id = $2;
         `, [userId, fetchedCoinId])
           .then(data => {
@@ -42,7 +42,6 @@ module.exports = (db) => {
       fee,
       note
     } = req.body;
-    console.log(req.body);
 
     const queryParams = [portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note]
 
@@ -51,12 +50,11 @@ module.exports = (db) => {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
     `, queryParams)
       .then(data => {
-        res.json({})
+        res.json({data})
       })
       .catch(err => console.log(err));
 
   })
 
   return router;
-
 };

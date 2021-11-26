@@ -55,8 +55,10 @@ const CoinTable = (props) => {
           if (holdings[i].name == data[j].name) {
             const dataMatch = data[j];
             const holdingMatch = holdings[i].holdings;
+            const portfolioIdMatch = holdings[i].id;
             // add the holdings property into the coin data object
             dataMatch.holdings = holdingMatch;
+            dataMatch.portfolioCoinId = portfolioIdMatch;
             resultsArray.push(dataMatch);
           }
         }
@@ -64,6 +66,8 @@ const CoinTable = (props) => {
       setHoldings(resultsArray);
     });
   }, [userId, addCoins]);
+
+  console.log(holdings);
 
   // handles when user clicks add coin in the pop up
   const handleAddCoin = (coinName, userId) => {
@@ -75,7 +79,9 @@ const CoinTable = (props) => {
       })
       .then((res) => {
         const addedCoinId = res.data.coinId;
-        setAddCoins(addedCoinId);
+        const portfolioCoinId = res.data.portfolioCoinsId;
+        console.log(portfolioCoinId)
+        setAddCoins(addedCoinId)
       })
       .catch((err) => {
         console.log(err);
@@ -144,7 +150,7 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
               <TableCell className={classes.button}>
-                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name }} sx={{ color: "white" }}>
+                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId }} sx={{ color: "white" }}>
                     <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>
