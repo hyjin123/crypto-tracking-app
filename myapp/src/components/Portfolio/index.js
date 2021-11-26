@@ -44,8 +44,8 @@ const Portfolio = (props) => {
       <Navbar />
       <div className="portfolio-container">
         <div>
-          <h1>My Portfolio</h1>
-          <h3>{`( ${firstName} ${lastName} )`}</h3>
+          <h1 className="transaction-title">My Portfolio</h1>
+          <p className="transaction-name">{`( ${firstName} ${lastName} )`}</p>
         </div>
         <div className="balance-container">
           <TotalBalance

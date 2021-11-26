@@ -7,7 +7,7 @@ const TotalProfit = (props) => {
   return (
     <Box component="div" className="balance-box profit-box">
       <Typography component="h2" variant="h6" className="balance-text" gutterBottom>
-        Total Profit Loss (-)
+        Total Profit Loss
       </Typography>
       <Typography className="balance-text">
         $0.00

@@ -146,7 +146,8 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
               <TableCell className={classes.button}>
-                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId }} sx={{ color: "white" }}>
+                <Button component={Link} to={{pathname: "/transaction"}} 
+                state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId, currentHoldings: coin.holdings}} sx={{ color: "white" }}>
                     <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>

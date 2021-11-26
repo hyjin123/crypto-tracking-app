@@ -101,7 +101,10 @@ const TransactionTable = (props) => {
               <TableCell className={classes.cell, classes.red}>{transaction.type}</TableCell>
               }
               <TableCell className={classes.cell}>${transaction.price_per_coin.toLocaleString()}</TableCell>
-              <TableCell className={classes.cell}>{transaction.quantity}</TableCell>
+              {transaction.type === "Buy" ? 
+              <TableCell className={classes.cell, classes.green}>+{transaction.quantity}</TableCell> :
+              <TableCell className={classes.cell, classes.red}>-{transaction.quantity}</TableCell>
+              }
               <TableCell className={classes.cell}>{transaction.date.substring(0, 10)}</TableCell>
               <TableCell className={classes.cell}>${transaction.fee}</TableCell>
               <TableCell className={classes.cell}>${transaction.total_spent.toLocaleString()}</TableCell>

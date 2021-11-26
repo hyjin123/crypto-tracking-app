@@ -127,3 +127,30 @@ back-button:hover {
   margin-top: 10px;
   margin-bottom: 25px;
 }
+
+.transaction-coin-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.transaction-title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.transaction-name {
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.coin-information {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.holdings-info {
+  margin: 20px 40px;
+}
