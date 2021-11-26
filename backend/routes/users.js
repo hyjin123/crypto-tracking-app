@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET users listing. */
 module.exports = (db) => {
@@ -13,7 +13,7 @@ module.exports = (db) => {
         res
           .status(500)
           .json({ error: err.message });
-      })
+      });
   });
 
   return router;

@@ -5,6 +5,37 @@ import "../App.css";
 import Coin from "./Coin";
 import Navbar from "./Navbar";
 import PopUp from "./PopUp";
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography sx={{ color: 'white' }} >{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
 
 function Home() {
   const [coins, setCoins] = useState([]);
@@ -14,9 +45,8 @@ function Home() {
   // this manages the popup that shows when user clicks on the add to watchlist button
   const [isVisible, setIsVisible] = useState(false);
   // sets state for page numbers
-  // const [pageNumber, setPageNumber] = useState();
-  const {page} = useParams();
-  console.log("hello", page);
+  const [tabNumber, setTabNumber] = useState(0);
+  const { page } = useParams();
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
 
@@ -51,6 +81,10 @@ function Home() {
     setSearch(e.target.value);
   };
 
+  const handleTabChange = (e, value) => {
+    setTabNumber(value);
+  };
+
   // this sets the timeout on the popup when add to watchlist button is clicked, stretch feature
   // const popUpTimeOut = () => {
   // };
@@ -63,71 +97,97 @@ function Home() {
     <div className="App">
       <Navbar />
       {!token && <Navigate to={{ pathname: "/login" }}></Navigate>}
+      <div>
+        <PopUp trigger={isVisible} setTrigger={setIsVisible} />
+        <div className="coin-app" style={{ marginTop: '3em' }}>
+          <div className="coin-search">
+            <h1 className="coin-text">Search a currency</h1>
+            <form>
+              <input
+                className="coin-input"
+                type="text"
+                onChange={handleChange}
+                placeholder="Search"
+              />
+            </form>
+          </div>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', margin: '2em 13em'}}>
+            <Tabs value={tabNumber} onChange={handleTabChange} aria-label="basic tabs example" sx={{ display: 'flex', justifyContent: 'center'}}>
+              <Tab label="Cryptocurrencies" sx={{ color: "white" }}/>
+              <Tab label="Exchanges" sx={{ color: "white" }} />
+            </Tabs>
+          </Box>
+          <TabPanel value={tabNumber} index={0}>
 
-      <PopUp trigger={isVisible} setTrigger={setIsVisible} />
-      <div className="coin-app">
-        <div className="coin-search">
-          <h1 className="coin-text">Search a currency</h1>
-          <form>
-            <input
-              className="coin-input"
-              type="text"
-              onChange={handleChange}
-              placeholder="Search"
-            />
-          </form>
+
+            {filteredCoins.map((coin) => {
+              return (
+                <Coin
+                  key={coin.id}
+                  userId={userId}
+                  name={coin.name}
+                  price={coin.current_price}
+                  symbol={coin.symbol}
+                  marketcap={coin.total_volume}
+                  volume={coin.market_cap}
+                  image={coin.image}
+                  priceChange={coin.price_change_percentage_24h}
+                  setIsVisible={setIsVisible}
+                />
+              );
+            })}
+            <div className="coin-pagination">
+              <ul>
+                <li>
+                  <Link to="/" className="coin-page-link">1 </Link>
+                </li>
+                <li>
+                  <Link to="/2" className="coin-page-link">2 </Link>
+                </li>
+                <li>
+                  <Link to="/3" className="coin-page-link">3 </Link>
+                </li>
+                <li>
+                  <Link to="/4" className="coin-page-link">4 </Link>
+                </li>
+                <li>
+                  <Link to="/5" className="coin-page-link">5 </Link>
+                </li>
+                <li>
+                  <Link to="/6" className="coin-page-link">6 </Link>
+                </li>
+                <li>
+                  <Link to="/7" className="coin-page-link">7 </Link>
+                </li>
+                <li>
+                  <Link to="/8" className="coin-page-link">8 </Link>
+                </li>
+                <li>
+                  <Link to="/9" className="coin-page-link">9 </Link>
+                </li>
+                <li>
+                  <Link to="/10" className="coin-page-link">10 </Link>
+                </li>
+              </ul>
+            </div>
+          </TabPanel>
+          <TabPanel value={tabNumber} index={1}>
+            Item Two
+          </TabPanel>
         </div>
-        {filteredCoins.map((coin) => {
-          return (
-            <Coin
-              key={coin.id}
-              userId={userId}
-              name={coin.name}
-              price={coin.current_price}
-              symbol={coin.symbol}
-              marketcap={coin.total_volume}
-              volume={coin.market_cap}
-              image={coin.image}
-              priceChange={coin.price_change_percentage_24h}
-              setIsVisible={setIsVisible}
-            />
-          );
-        })}
-        <div className="coin-pagination">
-          <ul>
-          <li>
-              <Link to="/" className="coin-page-link">1 </Link>
-            </li>
-            <li>
-              <Link to="/2" className="coin-page-link">2 </Link>
-            </li>
-            <li>
-              <Link to="/3" className="coin-page-link">3 </Link>
-            </li>
-            <li>
-              <Link to="/4" className="coin-page-link">4 </Link>
-            </li>
-            <li>
-              <Link to="/5" className="coin-page-link">5 </Link>
-            </li>
-            <li>
-              <Link to="/6" className="coin-page-link">6 </Link>
-            </li>
-            <li>
-              <Link to="/7" className="coin-page-link">7 </Link>
-            </li>
-            <li>
-              <Link to="/8" className="coin-page-link">8 </Link>
-            </li>
-            <li>
-              <Link to="/9" className="coin-page-link">9 </Link>
-            </li>
-            <li>
-              <Link to="/10" className="coin-page-link">10 </Link>
-            </li>
-          </ul>
-        </div>
+
+
+
+
       </div>
+
+
+
+
+
+
+
+
     </div>
   );
 }
