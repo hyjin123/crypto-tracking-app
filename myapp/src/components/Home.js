@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 import Coin from "./Coin";
@@ -13,7 +13,10 @@ function Home() {
   const [userId, setUserId] = useState(0);
   // this manages the popup that shows when user clicks on the add to watchlist button
   const [isVisible, setIsVisible] = useState(false);
-
+  // sets state for page numbers
+  // const [pageNumber, setPageNumber] = useState();
+  const {page} = useParams();
+  console.log("hello", page);
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
 
@@ -36,13 +39,13 @@ function Home() {
   useEffect(() => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${!page ? 1 : page}&sparkline=false`
       )
       .then((res) => {
         setCoins(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [page]);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -90,6 +93,40 @@ function Home() {
             />
           );
         })}
+        <div className="coin-pagination">
+          <ul>
+          <li>
+              <Link to="/" className="coin-page-link">1 </Link>
+            </li>
+            <li>
+              <Link to="/2" className="coin-page-link">2 </Link>
+            </li>
+            <li>
+              <Link to="/3" className="coin-page-link">3 </Link>
+            </li>
+            <li>
+              <Link to="/4" className="coin-page-link">4 </Link>
+            </li>
+            <li>
+              <Link to="/5" className="coin-page-link">5 </Link>
+            </li>
+            <li>
+              <Link to="/6" className="coin-page-link">6 </Link>
+            </li>
+            <li>
+              <Link to="/7" className="coin-page-link">7 </Link>
+            </li>
+            <li>
+              <Link to="/8" className="coin-page-link">8 </Link>
+            </li>
+            <li>
+              <Link to="/9" className="coin-page-link">9 </Link>
+            </li>
+            <li>
+              <Link to="/10" className="coin-page-link">10 </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

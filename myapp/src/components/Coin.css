@@ -87,3 +87,22 @@
 .coin-watchlist {
   margin: 0;
 }
+
+.coin-pagination ul {
+  width: 70%;
+  margin: 1em auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.coin-pagination ul li {
+  margin: 1em 0;
+  list-style-type: none;
+}
+
+.coin-page-link {
+  color: #d7d7d7;
+  padding: 1em;
+  border: 1px solid #d7d7d7;
+}
