@@ -114,3 +114,16 @@
   margin-bottom: 30px;
   margin-top: 10px;
 }
+
+.coin-image {
+  width: 20%;
+}
+
+back-button:hover {
+  cursor: pointer;
+}
+
+.transaction-popup {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}

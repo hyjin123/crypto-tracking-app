@@ -82,7 +82,6 @@ const handleSubmit = (event) => {
 };
 
 const Login = (props) => {
-
   return (
     <div>
       <Navbar />

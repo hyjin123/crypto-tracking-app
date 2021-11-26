@@ -25,6 +25,12 @@ const useStyles = makeStyles({
     padding: "0",
     color: "#b3272e",
   },
+  red: {
+    color: "#f00606"
+  },
+  green: {
+    color: "#11d811"
+  }
 });
 
 const CoinTable = (props) => {
@@ -93,14 +99,16 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.name}</TableCell>
               <TableCell className={classes.cell}>
-                {coin.current_price}
+                ${coin.current_price.toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
-              <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
-              <TableCell className={classes.cell}>
-                {coin.price_change_percentage_24h}
-              </TableCell>
-              <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
+              <TableCell className={classes.cell}>${coin.high_24h.toLocaleString()}</TableCell>
+              <TableCell className={classes.cell}>${coin.low_24h.toLocaleString()}</TableCell>
+              {coin.price_change_percentage_24h < 0 ? (
+                <TableCell className={classes.cell, classes.red}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
+              ) : (
+                <TableCell className={classes.cell, classes.green}>{coin.price_change_percentage_24h.toFixed(2)}%</TableCell>
+              )}
+              <TableCell className={classes.cell}>${coin.market_cap.toLocaleString()}</TableCell>
               <TableCell className={classes.cell}>
                 <Button className={classes.button} onClick={() => handleDeleteWatchlist(coin.name, userId)}>
                   <DeleteForeverIcon />

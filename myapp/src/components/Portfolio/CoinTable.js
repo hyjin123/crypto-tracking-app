@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../App.css";
 import "./portfolio.css";
@@ -25,13 +26,17 @@ const useStyles = makeStyles({
   button: {
     padding: "0",
   },
+  red: {
+    color: "#f00606",
+  },
+  green: {
+    color: "#11d811",
+  },
 });
 
 const CoinTable = (props) => {
-  const [holdings, setHoldings] = useState([]);
   const [addCoins, setAddCoins] = useState(0);
-
-  const { firstName, lastName, userId } = props;
+  const { firstName, lastName, userId, setHoldings, holdings } = props;
   const classes = useStyles();
 
   // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
@@ -50,8 +55,10 @@ const CoinTable = (props) => {
           if (holdings[i].name == data[j].name) {
             const dataMatch = data[j];
             const holdingMatch = holdings[i].holdings;
+            const portfolioIdMatch = holdings[i].id;
             // add the holdings property into the coin data object
             dataMatch.holdings = holdingMatch;
+            dataMatch.portfolioCoinId = portfolioIdMatch;
             resultsArray.push(dataMatch);
           }
         }
@@ -60,27 +67,37 @@ const CoinTable = (props) => {
     });
   }, [userId, addCoins]);
 
+  console.log(holdings);
+
   // handles when user clicks add coin in the pop up
   const handleAddCoin = (coinName, userId) => {
     // add the new coin to the database by making a post request to the backend
-    axios.post('/api/portfolio/coin', {
-      coinName: coinName,
-      userId: userId
-    })
+    axios
+      .post("/api/portfolio/coin", {
+        coinName: coinName,
+        userId: userId,
+      })
       .then((res) => {
         const addedCoinId = res.data.coinId;
-        setAddCoins(addedCoinId);
+        const portfolioCoinId = res.data.portfolioCoinsId;
+        console.log(portfolioCoinId)
+        setAddCoins(addedCoinId)
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
-  console.log(addCoins);
 
   return (
     <div className="table-container">
       <div className="table-button">
-        <AddNewCoin firstName={firstName} lastName={lastName} userId={userId} handleAddCoin={handleAddCoin} />
+        <AddNewCoin
+          firstName={firstName}
+          lastName={lastName}
+          userId={userId}
+          handleAddCoin={handleAddCoin}
+          holdings={holdings}
+        />
       </div>
       <Table size="medium">
         <TableHead>
@@ -93,8 +110,8 @@ const CoinTable = (props) => {
             <TableCell className={classes.cell}>24 Hour (%)</TableCell>
             <TableCell className={classes.cell}>Market Cap</TableCell>
             <TableCell className={classes.cell}>Holdings</TableCell>
+            <TableCell className={classes.cell}>Holdings Value</TableCell>
             <TableCell className={classes.cell}>PNL</TableCell>
-            <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
           </TableRow>
         </TableHead>
@@ -106,24 +123,35 @@ const CoinTable = (props) => {
               </TableCell>
               <TableCell className={classes.cell}>{coin.name}</TableCell>
               <TableCell className={classes.cell}>
-                {coin.current_price}
+                ${coin.current_price.toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.high_24h}</TableCell>
-              <TableCell className={classes.cell}>{coin.low_24h}</TableCell>
               <TableCell className={classes.cell}>
-                {coin.price_change_percentage_24h}
+                ${coin.high_24h.toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.market_cap}</TableCell>
+              <TableCell className={classes.cell}>
+                ${coin.low_24h.toLocaleString()}
+              </TableCell>
+              {coin.price_change_percentage_24h < 0 ? (
+                <TableCell className={(classes.cell, classes.red)}>
+                  {coin.price_change_percentage_24h.toFixed(2)}%
+                </TableCell>
+              ) : (
+                <TableCell className={(classes.cell, classes.green)}>
+                  {coin.price_change_percentage_24h.toFixed(2)}%
+                </TableCell>
+              )}
+
+              <TableCell className={classes.cell}>
+                ${coin.market_cap.toLocaleString()}
+              </TableCell>
               <TableCell className={classes.cell}>{coin.holdings}</TableCell>
+              <TableCell className={classes.cell}>
+                ${(coin.holdings * coin.current_price).toLocaleString()}
+              </TableCell>
               <TableCell className={classes.cell}>{coin.pnl}</TableCell>
               <TableCell className={classes.button}>
-                <Button sx={{ color: "white" }}>
-                  <AddIcon />
-                </Button>
-              </TableCell>
-              <TableCell className={classes.button}>
-                <Button sx={{ color: "white" }}>
-                  <KeyboardArrowRightIcon />
+                <Button component={Link} to={{pathname: "/transaction"}} state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId }} sx={{ color: "white" }}>
+                    <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>
             </TableRow>
