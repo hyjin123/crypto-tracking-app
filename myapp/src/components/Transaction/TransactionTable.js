@@ -34,10 +34,10 @@ const useStyles = makeStyles({
 });
 
 const TransactionTable = (props) => {
-  const [addedTransaction, setAddedTransaction] = useState({});
+
   const [deletedTransaction, setDeletedTransaction] = useState({});
 
-  const { userId, coinName, transactions, setTransactions, currentCoinPrice } = props;
+  const { userId, coinName, transactions, setTransactions, currentCoinPrice, addedTransaction, setAddedTransaction } = props;
   const classes = useStyles();
 
   // get transaction data from internal api
@@ -107,10 +107,18 @@ const TransactionTable = (props) => {
               <TableCell className={classes.cell}>${transaction.fee}</TableCell>
               <TableCell className={classes.cell}>${transaction.total_spent.toLocaleString()}</TableCell>
               {transaction.type === "Buy" ?
-                <TableCell className={classes.cell}>${(currentCoinPrice * transaction.quantity) - transaction.total_spent}
-                </TableCell> : 
-                <TableCell className={classes.cell}>${(currentCoinPrice * (transaction.quantity *-1)) - transaction.total_spent}
-                </TableCell>
+                (currentCoinPrice * transaction.quantity - transaction.total_spent >= 0 ? (
+                  <TableCell className={classes.cell, classes.green}>${((currentCoinPrice * transaction.quantity) - transaction.total_spent).toLocaleString()}
+                  </TableCell>) : (
+                  <TableCell className={classes.cell, classes.red}>-${(-1*((currentCoinPrice * transaction.quantity) - transaction.total_spent)).toLocaleString()}
+                  </TableCell>)
+                ) :
+                (currentCoinPrice * (transaction.quantity *-1) - transaction.total_spent >= 0 ? (
+                  <TableCell className={classes.cell, classes.green}>${((currentCoinPrice * (transaction.quantity *-1)) - transaction.total_spent).toLocaleString()}
+                  </TableCell>) : (
+                  <TableCell className={classes.cell, classes.red}>-${(-1*((currentCoinPrice * (transaction.quantity *-1)) - transaction.total_spent)).toLocaleString()}
+                  </TableCell>)
+                )
               }
               <TableCell className={classes.cell}>{transaction.note}</TableCell>
               <TableCell className={classes.cell}>

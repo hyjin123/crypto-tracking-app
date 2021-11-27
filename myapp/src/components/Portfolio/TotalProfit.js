@@ -35,7 +35,7 @@ const TotalProfit = (props) => {
   console.log(allTransactionsSum)
 
   // calculate total profit
-  const totalProfit = (totalBalance - allTransactionsSum).toFixed(2);
+  const totalProfit = (totalBalance - allTransactionsSum);
 
   return (
     (totalProfit >=0 ?

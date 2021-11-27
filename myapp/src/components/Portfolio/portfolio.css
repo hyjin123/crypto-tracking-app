@@ -174,3 +174,11 @@ back-button:hover {
 .bright {
   font-size: 30px
 }
+
+.red {
+  color: "#f00606"
+};
+
+.green {
+  color: "#11d811"
+};

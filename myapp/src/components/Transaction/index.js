@@ -14,6 +14,7 @@ const Transaction = (props) => {
   const [userId, setUserId] = useState(0);
   const [coin, setCoin] = useState([]);
   const [open, setOpen] = useState(false);
+  const [addedTransaction, setAddedTransaction] = useState({});
 
   const { holdings, setHoldings, transactions } = props;
 
@@ -24,7 +25,17 @@ const Transaction = (props) => {
   const coinName = location.state.coinName;
   const portfolioCoinId = location.state.portfolioCoinId;
   const currentHoldings = location.state.currentHoldings;
-  console.log(currentHoldings)
+
+  // get the updated value of total holdings
+  let totalHoldingsArray = [];
+  for (const transaction of transactions) {
+    if(transaction.type === "Buy") {
+      totalHoldingsArray.push(transaction.quantity)
+    } else {
+      totalHoldingsArray.push(-(transaction.quantity))
+    }
+  }
+  const totalHoldings = totalHoldingsArray.reduce((pv, cv) => pv + cv, 0);
 
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
@@ -72,12 +83,10 @@ const Transaction = (props) => {
   }, []);
 
   // fetch current coin price from the coin state (fetched from coingecko api)
-  let currentCoinPrice;
+  let currentCoinPrice = 0;
   if(coin.length > 0) {
     currentCoinPrice = coin[0].current_price;
   }
-
-  console.log(transactions);
 
   // fetch the total cost of all transactions and subtract current price * quantity to get profit/loss
   let totalQuantityArrayBuy = [];
@@ -103,17 +112,10 @@ const Transaction = (props) => {
   const totalSpentBuy = totalSpentArrayBuy.reduce((pv, cv) => pv + cv, 0);
   const totalSpentSell = totalSpentArraySell.reduce((pv, cv) => pv + cv, 0);
 
-  console.log(totalQuantityBuy)
-  console.log(totalSpentBuy)
-  console.log(totalQuantitySell)
-  console.log(totalSpentSell)
-
   const profitLoss = (currentCoinPrice * totalQuantityBuy) - totalSpentBuy; // this is correct
   const profitLoss2 = totalSpentSell - (currentCoinPrice * totalQuantitySell); //fix this
   const totalProfit = profitLoss + profitLoss2
-  console.log(profitLoss)
-  console.log(profitLoss2)
-  console.log(totalProfit)
+
   return (
     <div>
       <Navbar />
@@ -140,17 +142,29 @@ const Transaction = (props) => {
         <div className="coin-information">
           <div className="holdings-info">Current Price: 
             <div className="bright">
-              ${currentCoinPrice}
+              ${currentCoinPrice.toLocaleString()}
             </div>
           </div>
-          <div className="holdings-info">Holdings Value</div>
-          <div className="holdings-info">{currentHoldings} Holdings</div>
-          <div className="holdings-info"> Total Cost </div>
-          <div className="holdings-info"> Average Net Cost</div>
-          <div className="holdings-info"> Profit/Loss:
+          <div className="holdings-info">Holdings Value:
             <div className="bright">
-              {totalProfit} 
+              ${(currentCoinPrice * totalHoldings).toLocaleString()}
             </div>
+          </div>
+          <div className="holdings-info">Holdings:
+            <div className="bright">
+              {totalHoldings} 
+            </div>
+            </div>
+          <div className="holdings-info"> Average Net Cost:</div>
+          <div className="holdings-info"> Total Profit/Loss:
+          {totalProfit >= 0 ? 
+            <div className="bright green">
+              ${totalProfit.toLocaleString()} 
+            </div> :
+            <div className="bright red">
+              -${(-1 * totalProfit).toLocaleString()} 
+            </div>
+          }
           </div>
           <div></div>
         </div>
@@ -167,6 +181,8 @@ const Transaction = (props) => {
               transactions={props.transactions}
               setTransactions={props.setTransactions}
               currentCoinPrice={currentCoinPrice}
+              addedTransaction={addedTransaction}
+              setAddedTransaction={setAddedTransaction}
             />
           </div>
         </div>
