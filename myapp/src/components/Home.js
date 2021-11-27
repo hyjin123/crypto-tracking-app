@@ -112,9 +112,9 @@ function Home() {
             </form>
           </div>
           <Box sx={{ borderBottom: 1, borderColor: 'divider', margin: '2em 13em'}}>
-            <Tabs value={tabNumber} onChange={handleTabChange} aria-label="basic tabs example" sx={{ display: 'flex', justifyContent: 'center'}}>
-              <Tab label="Cryptocurrencies" sx={{ color: "white" }}/>
-              <Tab label="Exchanges" sx={{ color: "white" }} />
+            <Tabs centered value={tabNumber} onChange={handleTabChange} aria-label="basic tabs example" sx={{ display: 'flex', justifyContent: 'center'}}>
+              <Tab label="Cryptocurrencies" sx={{ color: "#5d6870" }}/>
+              <Tab label="Exchanges" sx={{ color: "#5d6870" }} />
             </Tabs>
           </Box>
           <TabPanel value={tabNumber} index={0}>

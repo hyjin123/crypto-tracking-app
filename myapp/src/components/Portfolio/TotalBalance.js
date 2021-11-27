@@ -11,7 +11,7 @@ const TotalBalance = (props) => {
       <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center", }}>
         Total Balance
       </Typography>
-      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000}}>
+      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
         ${totalBalance.toLocaleString()}
       </Typography>
     </Box>
