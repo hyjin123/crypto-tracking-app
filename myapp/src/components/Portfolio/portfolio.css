@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.portfolio-header-container {
+  position: relative;
+}
+
+
 .balance-container {
   width: 60%;
   display: flex;
@@ -21,13 +26,13 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  background-color: #d6b763;
+  background-color: #1976d2;
   border-radius: 18px;
   padding: 10px 30px;
 }
 
 .balance-box:hover {
-  background-color: rgb(214, 183, 99, 0.9);
+  background-color: rgb(25, 118, 210, 0.9);
 }
 
 .change-box {
@@ -156,19 +161,19 @@ back-button:hover {
 }
 
 .red-box {
-  background-color: #8f171b;
+  background-color: #c41b1b;
 }
 
 .red-box:hover {
-  background-color: rgb(171, 34, 41, 0.9);
+  background-color: rgb(196, 27, 27, 0.9);
 }
 
 .green-box {
-  background-color: #13754c; 
+  background-color: #20ab20;
 }
 
 .green-box:hover {
-  background-color: rgb(25, 140, 78, 0.9);
+  background-color: rgb(37, 171, 32, 0.9);
 }
 
 .bright {

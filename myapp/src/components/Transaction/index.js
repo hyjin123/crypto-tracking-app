@@ -120,18 +120,23 @@ const Transaction = (props) => {
     <div>
       <Navbar />
       <div className="portfolio-container">
-        <Button onClick={handleBackButton} 
-        sx={{
+        <div className="portfolio-header-container">
+          <Button onClick={handleBackButton} 
+          sx={{
             color: "#1976d2",
             backgroundColor: "black",
             border: "1px solid rgba(25, 118, 210, 0.5)",
-            '&:hover': {
+              '&:hover': {
               border: "1px solid rgba(25, 118, 210, 1)",
               backgroundColor: "black"
-           }
-        }}>
-          <ArrowBackIcon sx={{ fontSize: 30 }}/>
-        </Button>
+            },
+            position: "absolute",
+            right: 370,
+            top: 10
+          }}>
+            <ArrowBackIcon sx={{ fontSize: 30 }}/>
+          </Button>
+        </div>
         <div className="transaction-coin-info">
           <h1 className="transaction-title">My Transactions</h1>
           <p className="transaction-name">{`( ${firstName} ${lastName} )`}</p>
