@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../App.css";
 import TransactionPopUp from "./TransactionPopUp";
@@ -35,11 +34,10 @@ const useStyles = makeStyles({
 });
 
 const TransactionTable = (props) => {
-  const [transactions, setTransactions] = useState([]);
   const [addedTransaction, setAddedTransaction] = useState({});
   const [deletedTransaction, setDeletedTransaction] = useState({});
 
-  const { firstName, lastName, userId, setHoldings, holdings, coinName } = props;
+  const { userId, coinName, transactions, setTransactions } = props;
   const classes = useStyles();
 
   // get transaction data from internal api

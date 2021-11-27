@@ -1,11 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import "./Coin.css";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { flexbox } from "@mui/system";
-import PopUp from "./PopUp";
 
 // historical data for a specific coin based on coin_id which is the coin name
 // this api is for 3 month historical data at weekly interval

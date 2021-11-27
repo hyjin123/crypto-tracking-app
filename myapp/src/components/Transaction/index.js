@@ -112,6 +112,8 @@ const Transaction = (props) => {
               setHoldings={setHoldings}
               coinName={coinName}
               portfolioCoinId={portfolioCoinId}
+              transactions={props.transactions}
+              setTransactions={props.setTransactions}
             />
           </div>
         </div>

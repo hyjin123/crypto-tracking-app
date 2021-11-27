@@ -34,9 +34,28 @@ module.exports = (db) => {
       .catch((err) => console.log(err));
   });
 
+  // get all the transactions for a user
+  router.get("/all-transactions", function (req, res) {
+    const userId = req.query["userId"];
+
+    // transactions has portfolio_coin_id to match with user_id and coin_id
+    db.query(
+      `
+        SELECT total_spent
+        FROM portfolio_coins
+        JOIN transactions ON portfolio_coins_id = portfolio_coins.id
+        WHERE user_id = $1;
+        `,
+      [userId]
+    )
+      .then((data) => {
+        res.json({ allTransactions: data.rows });
+      })
+      .catch((err) => console.log(err));
+  });
   // adds new transaction in for a user
   router.post("/transaction", function (req, res) {
-    const {
+    let {
       portfolio_coins_id,
       type,
       price_per_coin,
@@ -46,6 +65,11 @@ module.exports = (db) => {
       fee,
       note,
     } = req.body;
+
+    // if selling transaction, total_spent is converted to negative number
+    if (type === "Sell") {
+      total_spent = total_spent * -1;
+    }
 
     const queryParams = [
       portfolio_coins_id,
@@ -59,11 +83,11 @@ module.exports = (db) => {
     ];
 
     db.query(
-    `
+      `
     INSERT INTO transactions (portfolio_coins_id, type, price_per_coin, quantity, total_spent, date, fee, note)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING portfolio_coins_id, quantity, type;
     `,
-    queryParams
+      queryParams
     )
       .then((data) => {
         const quantity = data.rows[0].quantity;
@@ -76,11 +100,11 @@ module.exports = (db) => {
             WHERE portfolio_coins.id = $2;
             `,
             [quantity, portfolioCoinId]
-            )
-              .then((data) => {
-                res.json({data})
-              })
-              .catch((err) => console.log(err));
+          )
+            .then((data) => {
+              res.json({ data });
+            })
+            .catch((err) => console.log(err));
         } else {
           db.query(
             `
@@ -88,11 +112,11 @@ module.exports = (db) => {
             WHERE portfolio_coins.id = $2;
             `,
             [quantity, portfolioCoinId]
-            )
-              .then((data) => {
-                res.json({data})
-              })
-              .catch((err) => console.log(err));
+          )
+            .then((data) => {
+              res.json({ data });
+            })
+            .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
@@ -114,14 +138,14 @@ module.exports = (db) => {
         const type = data.rows[0].type;
         if (type === "Buy") {
           db.query(
-          `
+            `
           UPDATE portfolio_coins SET holdings = holdings-$1
           WHERE portfolio_coins.id = $2;
           `,
-          [quantity, portfolioCoinId]
+            [quantity, portfolioCoinId]
           )
             .then((data) => {
-              res.json({data})
+              res.json({ data });
             })
             .catch((err) => console.log(err));
         } else {
@@ -131,11 +155,11 @@ module.exports = (db) => {
             WHERE portfolio_coins.id = $2;
             `,
             [quantity, portfolioCoinId]
-            )
-              .then((data) => {
-                res.json({data})
-              })
-              .catch((err) => console.log(err));
+          )
+            .then((data) => {
+              res.json({ data });
+            })
+            .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));

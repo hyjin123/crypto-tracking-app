@@ -13,6 +13,8 @@ const Portfolio = (props) => {
   const [lastName, setLastName] = useState("");
   const [userId, setUserId] = useState(0);
 
+  const { holdings } = props;
+
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
 
@@ -37,7 +39,14 @@ const Portfolio = (props) => {
 
   // calculate the sum here and pass down to total balance
   // can create helper function, update the set holdings in that function (re-factoring)
+  const totalBalanceArray = [];
 
+  //pushes all holdings value for each coin to an array
+  for (const holding of holdings) {
+    totalBalanceArray.push(holding.holdings * holding.current_price);
+  }
+  // calculates the total balance by adding up all the holdings value in an array
+  const totalBalance = totalBalanceArray.reduce((pv, cv) => pv + cv, 0);
 
   return (
     <div>
@@ -53,6 +62,7 @@ const Portfolio = (props) => {
             lastName={lastName}
             userId={userId}
             holdings={props.holdings}
+            totalBalance={totalBalance}
           />
           <PortfolioChange
             firstName={firstName}
@@ -65,6 +75,7 @@ const Portfolio = (props) => {
             lastName={lastName}
             userId={userId}
             holdings={props.holdings}
+            totalBalance={totalBalance}
           />
         </div>
         <div>

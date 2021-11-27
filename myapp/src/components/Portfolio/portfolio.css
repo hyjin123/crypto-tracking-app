@@ -154,3 +154,19 @@ back-button:hover {
 .holdings-info {
   margin: 20px 40px;
 }
+
+.red-box {
+  background-color: #8f171b;
+}
+
+.red-box:hover {
+  background-color: rgb(171, 34, 41, 0.9);
+}
+
+.green-box {
+  background-color: #13754c; 
+}
+
+.green-box:hover {
+  background-color: rgb(25, 140, 78, 0.9);
+}
