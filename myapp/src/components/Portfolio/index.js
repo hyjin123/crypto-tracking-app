@@ -48,6 +48,16 @@ const Portfolio = (props) => {
   // calculates the total balance by adding up all the holdings value in an array
   const totalBalance = totalBalanceArray.reduce((pv, cv) => pv + cv, 0);
 
+  const total24HoursAgoBalanceArray = [];
+
+  //pushes all holdings value (24 hr ago) for each coin to an array
+  for (const holding of holdings) {
+    total24HoursAgoBalanceArray.push(holding.holdings * (holding.current_price - holding.price_change_24h));
+  }
+
+  // calculates the total balance by adding up all the holdings value (24 hr) in an array
+  const total24HoursAgoBalance = total24HoursAgoBalanceArray.reduce((pv, cv) => pv + cv, 0);
+
   return (
     <div>
       <Navbar />
@@ -63,12 +73,15 @@ const Portfolio = (props) => {
             userId={userId}
             holdings={props.holdings}
             totalBalance={totalBalance}
+            total24HoursAgoBalance={total24HoursAgoBalance}
           />
           <PortfolioChange
             firstName={firstName}
             lastName={lastName}
             userId={userId}
             holdings={props.holdings}
+            totalBalance={totalBalance}
+            total24HoursAgoBalance={total24HoursAgoBalance}
           />
           <TotalProfit
             firstName={firstName}
@@ -76,6 +89,7 @@ const Portfolio = (props) => {
             userId={userId}
             holdings={props.holdings}
             totalBalance={totalBalance}
+            total24HoursAgoBalance={total24HoursAgoBalance}
           />
         </div>
         <div>

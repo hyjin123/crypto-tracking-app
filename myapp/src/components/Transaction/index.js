@@ -15,7 +15,7 @@ const Transaction = (props) => {
   const [coin, setCoin] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const { holdings, setHoldings } = props;
+  const { holdings, setHoldings, transactions } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -71,6 +71,49 @@ const Transaction = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // fetch current coin price from the coin state (fetched from coingecko api)
+  let currentCoinPrice;
+  if(coin.length > 0) {
+    currentCoinPrice = coin[0].current_price;
+  }
+
+  console.log(transactions);
+
+  // fetch the total cost of all transactions and subtract current price * quantity to get profit/loss
+  let totalQuantityArrayBuy = [];
+  let totalSpentArrayBuy = [];
+  let totalQuantityArraySell = [];
+  let totalSpentArraySell = [];
+
+  for (const transaction of transactions) {
+    if (transaction.type === "Buy") {
+      totalQuantityArrayBuy.push(transaction.quantity);
+      totalSpentArrayBuy.push(transaction.total_spent)
+    } else {
+      totalQuantityArraySell.push(transaction.quantity);
+      totalSpentArraySell.push(-1 * (transaction.total_spent))
+    }
+  }
+
+  // calculates the total quantity
+  const totalQuantityBuy = totalQuantityArrayBuy.reduce((pv, cv) => pv + cv, 0);
+  const totalQuantitySell = totalQuantityArraySell.reduce((pv, cv) => pv + cv, 0);
+
+  // calculates the total amount
+  const totalSpentBuy = totalSpentArrayBuy.reduce((pv, cv) => pv + cv, 0);
+  const totalSpentSell = totalSpentArraySell.reduce((pv, cv) => pv + cv, 0);
+
+  console.log(totalQuantityBuy)
+  console.log(totalSpentBuy)
+  console.log(totalQuantitySell)
+  console.log(totalSpentSell)
+
+  const profitLoss = (currentCoinPrice * totalQuantityBuy) - totalSpentBuy; // this is correct
+  const profitLoss2 = totalSpentSell - (currentCoinPrice * totalQuantitySell); //fix this
+  const totalProfit = profitLoss + profitLoss2
+  console.log(profitLoss)
+  console.log(profitLoss2)
+  console.log(totalProfit)
   return (
     <div>
       <Navbar />
@@ -95,11 +138,20 @@ const Transaction = (props) => {
           <p>{coinName}</p>
         </div>
         <div className="coin-information">
+          <div className="holdings-info">Current Price: 
+            <div className="bright">
+              ${currentCoinPrice}
+            </div>
+          </div>
           <div className="holdings-info">Holdings Value</div>
           <div className="holdings-info">{currentHoldings} Holdings</div>
           <div className="holdings-info"> Total Cost </div>
           <div className="holdings-info"> Average Net Cost</div>
-          <div className="holdings-info"> Profit/Loss </div>
+          <div className="holdings-info"> Profit/Loss:
+            <div className="bright">
+              {totalProfit} 
+            </div>
+          </div>
           <div></div>
         </div>
         <div className="balance-container">
@@ -114,6 +166,7 @@ const Transaction = (props) => {
               portfolioCoinId={portfolioCoinId}
               transactions={props.transactions}
               setTransactions={props.setTransactions}
+              currentCoinPrice={currentCoinPrice}
             />
           </div>
         </div>

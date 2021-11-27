@@ -41,7 +41,7 @@ module.exports = (db) => {
     // transactions has portfolio_coin_id to match with user_id and coin_id
     db.query(
       `
-        SELECT total_spent
+        SELECT total_spent, type
         FROM portfolio_coins
         JOIN transactions ON portfolio_coins_id = portfolio_coins.id
         WHERE user_id = $1;

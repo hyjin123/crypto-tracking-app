@@ -170,3 +170,7 @@ back-button:hover {
 .green-box:hover {
   background-color: rgb(25, 140, 78, 0.9);
 }
+
+.bright {
+  font-size: 30px
+}

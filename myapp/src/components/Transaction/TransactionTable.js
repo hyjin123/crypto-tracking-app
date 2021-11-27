@@ -37,7 +37,7 @@ const TransactionTable = (props) => {
   const [addedTransaction, setAddedTransaction] = useState({});
   const [deletedTransaction, setDeletedTransaction] = useState({});
 
-  const { userId, coinName, transactions, setTransactions } = props;
+  const { userId, coinName, transactions, setTransactions, currentCoinPrice } = props;
   const classes = useStyles();
 
   // get transaction data from internal api
@@ -106,7 +106,12 @@ const TransactionTable = (props) => {
               <TableCell className={classes.cell}>{transaction.date.substring(0, 10)}</TableCell>
               <TableCell className={classes.cell}>${transaction.fee}</TableCell>
               <TableCell className={classes.cell}>${transaction.total_spent.toLocaleString()}</TableCell>
-              <TableCell className={classes.cell}>PNL</TableCell>
+              {transaction.type === "Buy" ?
+                <TableCell className={classes.cell}>${(currentCoinPrice * transaction.quantity) - transaction.total_spent}
+                </TableCell> : 
+                <TableCell className={classes.cell}>${(currentCoinPrice * (transaction.quantity *-1)) - transaction.total_spent}
+                </TableCell>
+              }
               <TableCell className={classes.cell}>{transaction.note}</TableCell>
               <TableCell className={classes.cell}>
                   <DeleteAlert transactionId={transaction.transaction_id} handleDeleteTransaction={handleDeleteTransaction} />

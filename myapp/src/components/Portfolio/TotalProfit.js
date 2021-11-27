@@ -22,28 +22,40 @@ const TotalProfit = (props) => {
   }, [userId]);
 
   const allTransactionsArray = [];
-  //pushes all holdings value (24 hr ago) for each coin to an array
+  //pushes all BUY transaction values to an array
   for (const transaction of allTransactions) {
-    allTransactionsArray.push(transaction.total_spent);
+    // if (transaction.type === "Buy") {
+      allTransactionsArray.push(transaction.total_spent);
+    // }
   }
 
-    // calculates the total transaction by adding up all the transactions in an array
+  // calculates the total transaction by adding up all the transactions in an array
   const allTransactionsSum = allTransactionsArray.reduce((pv, cv) => pv + cv, 0);
 
   console.log(allTransactionsSum)
 
   // calculate total profit
-  const totalProfit = totalBalance - allTransactionsSum;
+  const totalProfit = (totalBalance - allTransactionsSum).toFixed(2);
 
   return (
-    <Box component="div" className="balance-box profit-box" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+    (totalProfit >=0 ?
+    <Box component="div" className="balance-box profit-box green-box" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
       <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center" }}>
-        Total Profit Loss
+        Total Profit/Loss
       </Typography>
       <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000}}>
         ${totalProfit.toLocaleString()}
       </Typography>
+    </Box> : 
+    <Box component="div" className="balance-box profit-box red-box" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+      <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center" }}>
+        Total Profit/Loss
+      </Typography>
+      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000}}>
+        -${(totalProfit * -1).toLocaleString()}
+      </Typography>
     </Box>
+    )
   );
 };
 
