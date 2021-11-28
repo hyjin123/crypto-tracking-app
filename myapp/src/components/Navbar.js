@@ -95,7 +95,10 @@ const Navbar = (props) => {
         }
         {token &&
         <Typography variant="h6" color="white" component="div">
-          <Button onClick={handleClick} className="linkbar">
+          <Button variant="outlined" color="error" onClick={handleClick}
+          sx={{
+
+          }}>
             Logout
           </Button>
         </Typography>

@@ -60,7 +60,7 @@ const PopUp = (props) => {
           <h2>Search your coin</h2>
           <form>
             <input
-              className="coin-input"
+              className="coin-input add-coin"
               type="text"
               onChange={handleChange}
               placeholder="Search"

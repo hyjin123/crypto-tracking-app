@@ -32,7 +32,7 @@
 }
 
 .balance-box:hover {
-  background-color: rgb(25, 118, 210, 0.9);
+  background-color: rgba(25, 118, 210, 0.9);
 }
 
 .change-box {
@@ -69,16 +69,17 @@
   width: 100%;
   max-width: 640px;
   height: 60vh;
-  background-color: #FFFFFF;
+  background-color: rgba(0,0,0,0.8);
   color: black;
 }
 
 .popup-inner .close-btn {
+  color: white;
   position: absolute;
   top: 16px;
   right: 16px;
   border: none;
-  background-color: white;
+  background-color: rgba(0,0,0,0.8);
 }
 
 .watchlist-close-btn {
@@ -98,6 +99,7 @@
 }
 
 .coin-search {
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,4 +202,26 @@ back-button:hover {
 .line-chart {
   margin: 50px 20px;
   height: 500px;
+}
+
+.add-coin {
+  margin-bottom: 25px;
+}
+
+.add-coin-btn {
+  color: #1976d2;
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  background-color: black;
+}
+
+.add-coin-btn:hover {
+  border: 1px solid rgba(25, 118, 210, 1);
+  background-color: black;
+  cursor: pointer;
+}
+
+.coin-btn-disabled {
+  color: #282829;
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  background-color: black;
 }
