@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import "./portfolio.css";
 
@@ -7,42 +7,75 @@ import axios from "axios";
 Chart.register(...registerables);
 
 const LineChart = (props) => {
+  const [transactionInfo, setTransactionInfo] = useState({});
+  const [coinPriceHistory, setCoinPriceHistory] = useState({});
+
   const { holdings, userId } = props;
 
-  const coinName = [];
-  const holdingsAmount = [];
-  // calculate the total holdings for each coin for chart data
-  for (const holding of holdings) {
-    coinName.push(holding.name);
-    holdingsAmount.push(holding.current_price * holding.holdings);
-  }
+  console.log(holdings);
 
   // get the last 7 days in an array
   const dates = [...Array(7)].map((_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    return d;
+    return d.toISOString();
   });
-  console.log(dates);
 
   // for each of the 7 days (array), send an ajax request to the back end
   // this request will be to the backend to get holdings information (coin and quantity) for each day
   // get ALL transactions for that user before that DATE
-
   useEffect(() => {
-    axios.get(`/api/coin/seven-day-transactions?userId=${userId}&dates=${dates}`)
+    // for each day of the 7 days, make a separate axios request to the backend to get all the transactions before that day
+    for (const day of dates) {
+      axios.get(`/api/coin/seven-day-transactions?userId=${userId}&day=${day}`)
       .then((res) => {
-        console.log(res.data)
-
+        setTransactionInfo((prev) => ({...prev, [day]: res.data.allTransactions}))
       })
       .catch(err => console.log(err))
+    }
   }, [])
 
-  // second request will be to Coingeko API getting the historical price data for the last 30 days, for every other day
-  // put this in an array (15 items)
+  console.log(transactionInfo);
 
+  // go through the holdings and get the id of the coins in that holdings that have more than 1 quantity
+  const existingCoins = [];
+  for (const holding of holdings) {
+    if(holding.holdings > 0) {
+      existingCoins.push(holding.id)
+    }
+  }
+
+  console.log(existingCoins)
+
+  // second request will be to Coingeko API getting the historical price data for the last 7 days
+  // put this in an array (15 items)
+  // https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=1
+  useEffect(() => {
+    for (const coin of existingCoins) {
+      axios.get(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=6&interval=daily`)
+      .then((res) => {
+        setCoinPriceHistory((prev) => ({ ...prev, [coin]: res.data.prices}))
+      })
+      .catch(err => console.log(err))
+    }
+    }
+  , [])
+  
+  console.log(coinPriceHistory);
+
+  // set the label first with all the dates (7 days), in reverse order, so reversed the x-axis
+  const reverseLabel = [];
+  for (const info in transactionInfo) {
+    reverseLabel.push(info.slice(0, 10))
+  }
+  // reverse the label to start the day from 7 days ago
+  const label = reverseLabel.reverse();
+
+  // now you have all the history transactions for each day and the price history for each coin for each day
+
+  
   const state = {
-    labels: ["January", "February", "March", "April", "May"],
+    labels: label,
     datasets: [
       {
         label: "Total Balance",

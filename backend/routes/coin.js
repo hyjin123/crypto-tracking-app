@@ -57,16 +57,21 @@ module.exports = (db) => {
   // get all transactions for a user for the last 7 days
   router.get("/seven-day-transactions", function (req, res) {
     const userId = req.query["userId"];
+    const day = req.query["day"];
+    console.log(day)
 
-    // transactions has portfolio_coin_id to match with user_id and coin_id
+    // query all transaction details for a specific user before the specified day
     db.query(
       `
-        SELECT total_spent, type
+        SELECT coins.name, type, quantity, date
         FROM portfolio_coins
         JOIN transactions ON portfolio_coins_id = portfolio_coins.id
-        WHERE user_id = $1;
+        JOIN coins ON coins.id = coin_id
+        JOIN users ON users.id = user_id
+        WHERE user_id = $1
+        AND date < $2;
         `,
-      [userId]
+      [userId, day]
     )
       .then((data) => {
         res.json({ allTransactions: data.rows });
