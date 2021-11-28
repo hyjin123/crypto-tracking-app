@@ -15,7 +15,6 @@ const TotalProfit = (props) => {
     .get(`/api/coin/all-transactions?userId=${userId}`)
       .then(res => {
         const allTransaction = res.data.allTransactions;
-        console.log(res.data.allTransactions)
         setAllTransactions(allTransaction)
       })
       .catch(err => console.log(err))  
@@ -32,8 +31,6 @@ const TotalProfit = (props) => {
   // calculates the total transaction by adding up all the transactions in an array
   const allTransactionsSum = allTransactionsArray.reduce((pv, cv) => pv + cv, 0);
 
-  console.log(allTransactionsSum)
-
   // calculate total profit
   const totalProfit = (totalBalance - allTransactionsSum);
 
@@ -43,7 +40,7 @@ const TotalProfit = (props) => {
       <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center" }}>
         Total Profit/Loss
       </Typography>
-      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000}}>
+      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
         ${totalProfit.toLocaleString()}
       </Typography>
     </Box> : 

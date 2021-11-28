@@ -53,6 +53,27 @@ module.exports = (db) => {
       })
       .catch((err) => console.log(err));
   });
+
+  // get all transactions for a user for the last 7 days
+  router.get("/seven-day-transactions", function (req, res) {
+    const userId = req.query["userId"];
+
+    // transactions has portfolio_coin_id to match with user_id and coin_id
+    db.query(
+      `
+        SELECT total_spent, type
+        FROM portfolio_coins
+        JOIN transactions ON portfolio_coins_id = portfolio_coins.id
+        WHERE user_id = $1;
+        `,
+      [userId]
+    )
+      .then((data) => {
+        res.json({ allTransactions: data.rows });
+      })
+      .catch((err) => console.log(err));
+  });
+
   // adds new transaction in for a user
   router.post("/transaction", function (req, res) {
     let {

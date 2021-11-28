@@ -5,7 +5,7 @@ import "./portfolio.css";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
-const BarChart = (props) => {
+const DoughnutChart = (props) => {
 
   const { holdings } = props;
 
@@ -63,4 +63,4 @@ const BarChart = (props) => {
   );
 };
 
-export default BarChart;
+export default DoughnutChart;
