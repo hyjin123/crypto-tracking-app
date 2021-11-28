@@ -1,12 +1,11 @@
 import React from "react";
-import { Pie, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 import "./portfolio.css";
 
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 const DoughnutChart = (props) => {
-
   const { holdings } = props;
 
   const coinName = [];
@@ -14,15 +13,24 @@ const DoughnutChart = (props) => {
   // calculate the total holdings for each coin for chart data
   for (const holding of holdings) {
     coinName.push(holding.name);
-    holdingsAmount.push((holding.current_price * holding.holdings));
+    holdingsAmount.push(holding.current_price * holding.holdings);
   }
 
-  const state = {
+  const state1 = {
     labels: coinName,
     datasets: [
       {
-        label: "Rainfall",
-        backgroundColor: ["#B21F00", "#C9DE00", "#2FDE00", "#00A6B4", "#6800B4", "#0d4091", "#078747", "#7f8783"],
+        label: "Coins",
+        backgroundColor: [
+          "#B21F00",
+          "#C9DE00",
+          "#2FDE00",
+          "#00A6B4",
+          "#6800B4",
+          "#0d4091",
+          "#078747",
+          "#7f8783",
+        ],
         hoverBackgroundColor: [
           "rgba(178, 30, 0, 0.5)",
           "rgba(201, 222, 0, 0.5)",
@@ -31,7 +39,7 @@ const DoughnutChart = (props) => {
           "rgba(104, 0, 180, 0.5)",
           "rgba(13, 64, 145, 0.5)",
           "rgba(7, 135, 71, 0.5)",
-          "rgba(127, 135, 131, 0.5)"
+          "rgba(127, 135, 131, 0.5)",
         ],
         data: holdingsAmount,
       },
@@ -39,27 +47,45 @@ const DoughnutChart = (props) => {
   };
 
   return (
-    <Doughnut
-      data={state}
-      width={800}
-      height={400}
-      options={{
-        plugins: {
-          legend: {
-            display: true,
-            position: "right",
-            align: "center",
-            labels: {
-              font: {
-                size: 20
+    <div>
+      <div>
+      <Doughnut
+        data={state1}
+        width={800}
+        height={400}
+        options={{
+          plugins: {
+            legend: {
+              display: true,
+              position: "right",
+              align: "center",
+              labels: {
+                font: {
+                  size: 20,
+                },
+                padding: 20,
               },
-              padding: 20
+            },
+          },
+          maintainAspectRatio: false,
+        }}
+      />
+      </div>
+      <div className="bar-chart">
+      <Bar
+        data={state1}
+        options={{
+          plugins: {
+            legend: {
+              display: false
             }
           },
-        },
-        maintainAspectRatio: false,
-      }}
-    />
+          maintainAspectRatio: false,
+        }}
+      />
+      </div>
+
+    </div>
   );
 };
 

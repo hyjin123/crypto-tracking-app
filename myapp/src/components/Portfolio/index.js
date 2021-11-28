@@ -14,6 +14,7 @@ import { Tabs } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import DoughnutChart from "./DoughnutChart";
 import LineChart from "./LineChart";
+import LineChart1 from "./LineChart1";
 
 const Portfolio = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -136,12 +137,19 @@ const Portfolio = (props) => {
                   }}
                 />
                 <Tab
-                  label="Balance History"
+                  label="Total Balance Worth"
                   value="3"
                   sx={{
                     color: "#5d6870",
                   }}
                 />
+                {/* <Tab
+                  label="Balance History"
+                  value="4"
+                  sx={{
+                    color: "#5d6870",
+                  }}
+                /> */}
               </Tabs>
             </Box>
             <TabPanel value="1">
@@ -157,8 +165,11 @@ const Portfolio = (props) => {
               <DoughnutChart holdings={holdings} />
             </TabPanel>
             <TabPanel value="3">
-              <LineChart holdings={holdings} userId={userId} />
+              <LineChart1 holdings={holdings} userId={userId} />
             </TabPanel>
+            {/* <TabPanel value="4">
+              <LineChart holdings={holdings} userId={userId} />
+            </TabPanel> */}
           </TabContext>
         </Box>
       </div>

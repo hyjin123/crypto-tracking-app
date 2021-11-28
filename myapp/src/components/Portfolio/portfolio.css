@@ -191,3 +191,8 @@ back-button:hover {
 .pie-chart {
   margin-top: 500px;
 }
+
+.bar-chart {
+  margin: 50px 20px;
+  height: 500px;
+}

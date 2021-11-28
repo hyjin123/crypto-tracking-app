@@ -12,8 +12,6 @@ const LineChart = (props) => {
 
   const { holdings, userId } = props;
 
-  console.log(holdings);
-
   // get the last 7 days in an array
   const dates = [...Array(7)].map((_, i) => {
     const d = new Date();
@@ -72,8 +70,149 @@ const LineChart = (props) => {
   const label = reverseLabel.reverse();
 
   // now you have all the history transactions for each day and the price history for each coin for each day
+  // day total balance = for each coin; holdings * day price
+  // do this day by day for NOW
 
-  
+  useEffect(() => {
+    const day7 = Object.keys(transactionInfo)[0];
+    const day6 = Object.keys(transactionInfo)[1];
+    const day5 = Object.keys(transactionInfo)[2];
+    const day4 = Object.keys(transactionInfo)[3];
+    const day3 = Object.keys(transactionInfo)[4];
+    const day2 = Object.keys(transactionInfo)[5];
+    const day1 = Object.keys(transactionInfo)[6];
+    
+    let day1Holdings = {};
+    let day2Holdings = {};
+    let day3Holdings = {};
+    let day4Holdings = {};
+    let day5Holdings = {};
+    let day6Holdings = {};
+    let day7Holdings = {};
+
+    if (transactionInfo[day1]) {
+      for (const transaction of transactionInfo[day1]) {
+        if (transaction.type === "Buy") {
+          if (day1Holdings[transaction.name])
+          day1Holdings[transaction.name] += 1;
+        } else {
+          day1Holdings[transaction.name] = 1;
+        }
+        if (transaction.type === "Sell") {
+          if (day1Holdings[transaction.name]) {
+            day1Holdings[transaction.name] -= 1;
+          }
+        }
+      }
+    }
+
+    // if (transactionInfo[day2]) {
+    //   for (const transaction of transactionInfo[day1]) {
+    //     if (transaction.type === "Buy") {
+    //       if (day1Holdings[transaction.name])
+    //       day1Holdings[transaction.name] += 1;
+    //     } else {
+    //       day1Holdings[transaction.name] = 1;
+    //     }
+    //     if (transaction.type === "Sell") {
+    //       if (day1Holdings[transaction.name]) {
+    //         day1Holdings[transaction.name] -= 1;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // if (transactionInfo[day3]) {
+    //   for (const transaction of transactionInfo[day1]) {
+    //     if (transaction.type === "Buy") {
+    //       if (day1Holdings[transaction.name])
+    //       day1Holdings[transaction.name] += 1;
+    //     } else {
+    //       day1Holdings[transaction.name] = 1;
+    //     }
+    //     if (transaction.type === "Sell") {
+    //       if (day1Holdings[transaction.name]) {
+    //         day1Holdings[transaction.name] -= 1;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // if (transactionInfo[day4]) {
+    //   for (const transaction of transactionInfo[day1]) {
+    //     if (transaction.type === "Buy") {
+    //       if (day1Holdings[transaction.name])
+    //       day1Holdings[transaction.name] += 1;
+    //     } else {
+    //       day1Holdings[transaction.name] = 1;
+    //     }
+    //     if (transaction.type === "Sell") {
+    //       if (day1Holdings[transaction.name]) {
+    //         day1Holdings[transaction.name] -= 1;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // if (transactionInfo[day5]) {
+    //   for (const transaction of transactionInfo[day1]) {
+    //     if (transaction.type === "Buy") {
+    //       if (day1Holdings[transaction.name])
+    //       day1Holdings[transaction.name] += 1;
+    //     } else {
+    //       day1Holdings[transaction.name] = 1;
+    //     }
+    //     if (transaction.type === "Sell") {
+    //       if (day1Holdings[transaction.name]) {
+    //         day1Holdings[transaction.name] -= 1;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // if (transactionInfo[day1]) {
+    //   for (const transaction of transactionInfo[day1]) {
+    //     if (transaction.type === "Buy") {
+    //       if (day1Holdings[transaction.name])
+    //       day1Holdings[transaction.name] += 1;
+    //     } else {
+    //       day1Holdings[transaction.name] = 1;
+    //     }
+    //     if (transaction.type === "Sell") {
+    //       if (day1Holdings[transaction.name]) {
+    //         day1Holdings[transaction.name] -= 1;
+    //       }
+    //     }
+    //   }
+    // }
+
+    if (transactionInfo[day7]) {
+      for (const transaction of transactionInfo[day7]) {
+        if (transaction.type === "Buy") {
+          if (day7Holdings[transaction.name.toLowerCase()]) {
+            day7Holdings[transaction.name.toLowerCase()] += transaction.quantity;
+          } else {
+          day7Holdings[transaction.name.toLowerCase()] = transaction.quantity;
+          }
+        }
+        if (transaction.type === "Sell") {
+          if (day7Holdings[transaction.name.toLowerCase()]) {
+            day7Holdings[transaction.name.toLowerCase()] -= transaction.quantity;
+          } else {
+            day7Holdings[transaction.name.toLowerCase()] = -(transaction.quantity);
+          }
+        }
+    }
+  }
+    console.log(day7Holdings)
+
+  // now you have ALL the holdings for that day!!
+  // you also have historical price for all the holdings, somehow combine them
+
+
+  }, [transactionInfo, coinPriceHistory])
+
+
   const state = {
     labels: label,
     datasets: [
@@ -89,14 +228,7 @@ const LineChart = (props) => {
         data: [65, 59, 80, 81, 56],
       },
     ],
-  };
-
-  // id = bitcoin
-  // currency = usd
-  // days = 30
-  // interval daily
-  // prices is all we really need here
-  //https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
+  }
 
   return (
     <Line
