@@ -67,6 +67,7 @@ const Coin = ({
             state={{
             coinName: name,
             coinId: coinId,
+            price: price,
             marketCap: marketcap,
             volume: volume,
             image: image,

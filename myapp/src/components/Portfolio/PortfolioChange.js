@@ -6,7 +6,7 @@ import { Box, Typography } from "@mui/material";
 const PortfolioChange = (props) => {
   const { holdings, totalBalance, total24HoursAgoBalance } = props;
 
-  const change = (totalBalance - total24HoursAgoBalance).toFixed(2);
+  const change = (totalBalance - total24HoursAgoBalance);
 
   return (
     (change >= 0 ? 
@@ -15,7 +15,7 @@ const PortfolioChange = (props) => {
         24h Change
       </Typography>
           <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
-            ${change.toLocaleString()}
+            ${change.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
           </Typography>
     </Box>
      : 
@@ -24,7 +24,7 @@ const PortfolioChange = (props) => {
         24h Change
       </Typography>
       <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
-        -${(change * -1).toLocaleString()}
+        -${(change * -1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
       </Typography>
     </Box>
     )

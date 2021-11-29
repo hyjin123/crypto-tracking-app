@@ -41,7 +41,7 @@ const TotalProfit = (props) => {
         Total Profit/Loss
       </Typography>
       <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
-        ${totalProfit.toLocaleString()}
+        ${totalProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
       </Typography>
     </Box> : 
     <Box component="div" className="balance-box profit-box red-box" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
@@ -49,7 +49,7 @@ const TotalProfit = (props) => {
         Total Profit/Loss
       </Typography>
       <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
-        -${(totalProfit * -1).toLocaleString()}
+        -${(totalProfit * -1).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
       </Typography>
     </Box>
     )

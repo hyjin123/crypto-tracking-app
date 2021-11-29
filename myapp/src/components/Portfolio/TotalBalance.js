@@ -12,7 +12,7 @@ const TotalBalance = (props) => {
         Total Balance
       </Typography>
       <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
-        ${totalBalance.toLocaleString()}
+        ${totalBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
       </Typography>
     </Box>
   );

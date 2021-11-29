@@ -200,12 +200,12 @@ back-button:hover {
 }
 
 .line-chart {
-  margin: 50px 20px;
+  margin: 10px 20px;
   height: 500px;
 }
 
 .line-history-chart {
-  margin: 50px 17%;
+  margin: 10px 17%;
   height: 500px;
 }
 

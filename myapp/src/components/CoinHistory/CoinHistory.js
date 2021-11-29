@@ -4,11 +4,10 @@ import axios from "axios";
 import "../../App.css";
 import "../Portfolio/portfolio.css";
 import { useLocation, useNavigate } from "react-router";
-import { Button } from "@mui/material";
+import { Button, Typography, Tabs, Tab } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box } from "@mui/system";
 import TabContext from "@mui/lab/TabContext";
-import { Tabs, Tab } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
@@ -32,6 +31,7 @@ const CoinHistory = (props) => {
   // this value is passed down from portfolio Link to Router
   const coinName = location.state.coinName;
   const coinId = location.state.coinId;
+  const price = location.state.price;
   const marketCap = location.state.marketCap;
   const volume = location.state.volume;
   const image = location.state.image;
@@ -211,6 +211,83 @@ const CoinHistory = (props) => {
           <img src={image} alt="crypto" className="coin-image" />
         </div>
       </div>
+      <div className="coin-container">
+        <Box
+          component="div"
+          className="balance-box"
+          sx={{
+            width: "10%",
+            margin: "2%",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h6"
+            className="balance-text"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            Current Price
+          </Typography>
+          <Typography
+            className="balance-text"
+            sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
+          >
+            ${price.toLocaleString()}
+          </Typography>
+        </Box>
+        {priceChange > 0 ?
+        <Box
+          component="div"
+          className="balance-box change-box green-box"
+          sx={{
+            width: "10%",
+            margin: "2%",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h6"
+            className="balance-text"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            24h Change
+          </Typography>
+          <Typography
+            className="balance-text"
+            sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
+          >
+            ${priceChange.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+          </Typography>
+        </Box>
+        :
+        <Box
+          component="div"
+          className="balance-box change-box red-box"
+          sx={{
+            width: "10%",
+            margin: "2%",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h6"
+            className="balance-text"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            24h Change
+          </Typography>
+          <Typography
+            className="balance-text"
+            sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
+          >
+            -${-(priceChange).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+          </Typography>
+        </Box>
+        }
+      </div>
 
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
@@ -264,6 +341,10 @@ const CoinHistory = (props) => {
                         color: "white",
                       },
                     },
+                    tooltip: {
+                      mode: 'nearest',
+                      intersect: false
+                  }
                   },
                   scales: {
                     x: {
@@ -319,6 +400,10 @@ const CoinHistory = (props) => {
                         color: "white",
                       },
                     },
+                    tooltip: {
+                      mode: 'nearest',
+                      intersect: false
+                  }
                   },
                   scales: {
                     x: {
@@ -374,6 +459,10 @@ const CoinHistory = (props) => {
                         color: "white",
                       },
                     },
+                    tooltip: {
+                      mode: 'nearest',
+                      intersect: false
+                  }
                   },
                   scales: {
                     x: {
