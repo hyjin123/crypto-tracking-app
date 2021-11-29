@@ -204,6 +204,11 @@ back-button:hover {
   height: 500px;
 }
 
+.line-history-chart {
+  margin: 50px 17%;
+  height: 500px;
+}
+
 .add-coin {
   margin-bottom: 25px;
 }

@@ -28,7 +28,7 @@ const LineChart1 = (props) => {
       existingCoins.push(holding.id);
     }
   }
-
+ 
   const existingCoinHoldings = [];
   for (const holding of holdings) {
     if (holding.holdings > 0) {

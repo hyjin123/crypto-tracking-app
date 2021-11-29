@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { flexbox } from "@mui/system";
+import { Link } from "react-router-dom";
 
 // historical data for a specific coin based on coin_id which is the coin name
 // this api is for 3 month historical data at weekly interval
@@ -61,7 +62,17 @@ const Coin = ({
 
       <div className="coin-row">
         <div className="coin">
-          <img src={image} alt="crypto" />
+          <Button component={Link} to={{ pathname: "/coin-history"}}
+            state={{
+            coinName: name,
+            marketCap: marketcap,
+            volume: volume,
+            image: image,
+            priceChange: priceChange
+          }}
+          >
+            <img src={image} alt="crypto" />
+          </Button>
           <h1>{name}</h1>
           <p className="coin-symbol">{symbol}</p>
         </div>
@@ -88,7 +99,7 @@ const Coin = ({
             <AddIcon />
             <p className="coin-watchlist">Add to Watchlist</p>
           </Button>
-        </div>
+      </div>
     </div>
   );
 };

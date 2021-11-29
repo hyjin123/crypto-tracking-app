@@ -1,12 +1,13 @@
 import "./App.css";
 import Home from "./components/Home";
+import { React, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Portfolio from "./components/Portfolio/index";
 import Watchlist from "./components/Watchlist/index";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Transaction from "./components/Transaction/index"
-import { React, useState } from "react";
+import CoinHistory from "./components/CoinHistory/CoinHistory";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:page" element={<Home />} />
+        <Route path="/coin-history" element={<CoinHistory />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio setHoldings={setHoldings} holdings={holdings} setTransactions={setTransactions} transactions={transactions} profit={profit} setProfit={setProfit} />} />
         <Route path="/register" element={<Register />} />
