@@ -43,7 +43,7 @@ const LineChart1 = (props) => {
     for (const coin of existingCoins) {
       axios
         .get(
-          `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=6&interval=daily`
+          `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=7&interval=daily`
         )
         .then((res) => {
           setCoinPriceHistory((prev) => ({ ...prev, [coin]: res.data.prices }));
@@ -99,6 +99,8 @@ const LineChart1 = (props) => {
       daysBalance[5] +=
         existingCoinHoldings[i] * coinPriceHistory[existingCoins[i]][5][1];
     }
+    
+    console.log(coinPriceHistory)
 
     // day 7
     for (let i = 0; i < existingCoins.length; i++) {
@@ -151,13 +153,16 @@ const LineChart1 = (props) => {
         options={{
           plugins: {
             title: {
-              display: true,
-              text: "Total Balance (7 days)",
+              display: false,
+              text: "Total Balance (7 day period)",
               fontSize: 20,
             },
             legend: {
               display: true,
               position: "right",
+              labels: {
+                color: "white"
+              }
             },
           },
           scales: {
@@ -167,6 +172,9 @@ const LineChart1 = (props) => {
                 display: true,
                 text: "Day",
               },
+              ticks: {
+                color: "white"
+              }
             },
             y: {
               display: true,
@@ -174,6 +182,9 @@ const LineChart1 = (props) => {
                 display: true,
                 text: "Total Balance ($)",
               },
+              ticks: {
+                color: "white"
+              }
             },
           },
           maintainAspectRatio: false,

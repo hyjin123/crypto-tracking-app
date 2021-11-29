@@ -60,6 +60,7 @@ const DoughnutChart = (props) => {
               position: "right",
               align: "center",
               labels: {
+                color: "white",
                 font: {
                   size: 20,
                 },
@@ -79,6 +80,28 @@ const DoughnutChart = (props) => {
             legend: {
               display: false
             }
+          },
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: "Coins",
+              },
+              ticks: {
+                color: "white"
+              }
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: "Total Balance ($)",
+              },
+              ticks: {
+                color: "white"
+              }
+            },
           },
           maintainAspectRatio: false,
         }}

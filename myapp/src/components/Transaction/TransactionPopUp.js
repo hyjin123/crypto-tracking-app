@@ -12,6 +12,40 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import axios from "axios";
+import "../Portfolio/portfolio.css";
+import { withStyles } from "@mui/styles";
+
+// this code is used to change the textfield styles when static, focused, hover etc.
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "white",
+    },
+    "& label": {
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& .MuiInput": {
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "rgba(25, 118, 210, 1)",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "rgba(25, 118, 210, 0.5)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(25, 118, 210, 1)",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "rgba(25, 118, 210, 1)",
+      },
+    },
+  },
+})(TextField);
 
 const TransactionPopUp = (props) => {
   const [open, setOpen] = useState(false);
@@ -20,7 +54,7 @@ const TransactionPopUp = (props) => {
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [sellPrice, setSellPrice] = useState(0);
   const [sellQuantity, setSellQuantity] = useState(0);
-  
+
   const { transactions } = props;
 
   // NEED this id in order to insert the transaction into the database
@@ -62,13 +96,13 @@ const TransactionPopUp = (props) => {
     axios
       .post("/api/coin/transaction", {
         portfolio_coins_id: portfolio_coins_id,
-        type: data.get('type'),
-        price_per_coin: data.get('price_per_coin'),
-        quantity: data.get('quantity'),
-        total_spent: data.get('total_spent'),
-        date: data.get('date'),
-        fee: data.get('fee'),
-        note: data.get('note')
+        type: data.get("type"),
+        price_per_coin: data.get("price_per_coin"),
+        quantity: data.get("quantity"),
+        total_spent: data.get("total_spent"),
+        date: data.get("date"),
+        fee: data.get("fee"),
+        note: data.get("note"),
       })
       .then((res) => {
         console.log(res);
@@ -84,13 +118,27 @@ const TransactionPopUp = (props) => {
       <Button variant="outlined" onClick={handleClickOpen}>
         Add New Transaction
       </Button>
-      <Dialog open={open} onClose={handleCancel}>
-        <DialogTitle>Add Transaction</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleCancel}
+        BackdropProps={{ style: { backgroundColor: "rgba(0, 0, 0, 0.8)" } }}
+        PaperProps={{
+          style: {
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            boxShadow: "none"
+          },
+        }}
+      >
+        <DialogTitle sx={{ textAlign: "center", color: "white" }}>Add Transaction</DialogTitle>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="BUY" value="1" />
-              <Tab label="SELL" value="2" />
+            <TabList
+              centered
+              onChange={handleChange}
+              aria-label="lab API tabs example"
+            >
+              <Tab label="BUY" value="1" sx={{ color: "#a9b2b8" }}/>
+              <Tab label="SELL" value="2" sx={{ color: "#a9b2b8" }}/>
             </TabList>
           </Box>
           <TabPanel value="1">
@@ -101,7 +149,7 @@ const TransactionPopUp = (props) => {
               autoComplete="off"
             >
               <DialogContent>
-                <TextField
+                <CssTextField
                   required
                   readOnly="readonly"
                   InputLabelProps={{ shrink: true }}
@@ -114,7 +162,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   value="Buy"
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -126,7 +174,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   onChange={handleBuyPriceChange}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -138,7 +186,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   onChange={handleBuyQuantityChange}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   readOnly="readonly"
@@ -151,7 +199,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   value={buyPrice * buyQuantity}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -162,7 +210,7 @@ const TransactionPopUp = (props) => {
                   type="datetime-local"
                   fullWidth
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -173,7 +221,7 @@ const TransactionPopUp = (props) => {
                   type="number"
                   fullWidth
                 />
-                <TextField
+                <CssTextField
                   InputLabelProps={{ shrink: true }}
                   autoFocus
                   margin="dense"
@@ -200,7 +248,7 @@ const TransactionPopUp = (props) => {
               autoComplete="off"
             >
               <DialogContent>
-                <TextField
+                <CssTextField
                   required
                   readOnly="readonly"
                   InputLabelProps={{ shrink: true }}
@@ -213,7 +261,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   value="Sell"
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -225,7 +273,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   onChange={handleSellPriceChange}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -237,7 +285,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   onChange={handleSellQuantityChange}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   readOnly="readonly"
@@ -250,7 +298,7 @@ const TransactionPopUp = (props) => {
                   fullWidth
                   value={sellPrice * sellQuantity}
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -261,7 +309,7 @@ const TransactionPopUp = (props) => {
                   type="datetime-local"
                   fullWidth
                 />
-                <TextField
+                <CssTextField
                   required
                   InputLabelProps={{ shrink: true }}
                   autoFocus
@@ -272,7 +320,7 @@ const TransactionPopUp = (props) => {
                   type="number"
                   fullWidth
                 />
-                <TextField
+                <CssTextField
                   InputLabelProps={{ shrink: true }}
                   autoFocus
                   margin="dense"
