@@ -116,6 +116,8 @@ const Transaction = (props) => {
   const profitLoss2 = totalSpentSell - (currentCoinPrice * totalQuantitySell); 
   const totalProfit = profitLoss + profitLoss2
 
+  const averageCost = totalSpentBuy / totalQuantityBuy;
+
   return (
     <div>
       <Navbar />
@@ -160,7 +162,17 @@ const Transaction = (props) => {
               {totalHoldings} 
             </div>
             </div>
-          <div className="holdings-info"> Average Net Cost:</div>
+          <div className="holdings-info"> Average Net Cost:
+          {!averageCost &&        
+            <div className="bright">
+              $0
+            </div>}
+          {averageCost > 0 && 
+            <div className="bright">
+              ${averageCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            </div> 
+          }
+          </div>
           <div className="holdings-info"> Total Profit/Loss:
           {totalProfit >= 0 ? 
             <div className="bright green">

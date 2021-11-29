@@ -204,7 +204,7 @@ const CoinTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(copyHoldingsState && holdings.length > 0) && copyHoldingsState.map((coin, index) => (
+          {(Object.keys(copyHoldingsState).length > 0 && holdings.length > 0) && copyHoldingsState.map((coin, index) => (
             <TableRow key={index} className="table-row">
               <TableCell className={classes.cell}>
                 <img className="table-image" src={coin.image} alt="crypto" />
@@ -236,7 +236,9 @@ const CoinTable = (props) => {
               <TableCell className={classes.cell}>
                 ${(coin.holdings * coin.current_price).toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.profits}</TableCell>
+              {coin.profits === 0 && <TableCell className={classes.cell}>${coin.profits}</TableCell>}
+              {coin.profits > 0 && <TableCell className={classes.cell, classes.green}>${coin.profits.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>}
+              {coin.profits < 0 && <TableCell className={classes.cell, classes.red}>-${-(coin.profits).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>}
               <TableCell className={classes.button}>
                 <Button
                   component={Link}
