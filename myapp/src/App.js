@@ -13,6 +13,7 @@ function App() {
   // holdings available to all children
   const [holdings, setHoldings] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [profit, setProfit] = useState(0);
 
   console.log(transactions);
   
@@ -22,10 +23,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/:page" element={<Home />} />
         <Route path="/watchlist" element={<Watchlist />} />
-        <Route path="/portfolio" element={<Portfolio setHoldings={setHoldings} holdings={holdings} setTransactions={setTransactions} transactions={transactions}/>} />
+        <Route path="/portfolio" element={<Portfolio setHoldings={setHoldings} holdings={holdings} setTransactions={setTransactions} transactions={transactions} profit={profit} setProfit={setProfit} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/transaction" element={<Transaction setHoldings={setHoldings} holdings={holdings} setTransactions={setTransactions} transactions={transactions} />} />
+        <Route path="/transaction" element={<Transaction setHoldings={setHoldings} holdings={holdings} setTransactions={setTransactions} transactions={transactions} profit={profit} setProfit={setProfit} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -16,7 +16,7 @@ const Transaction = (props) => {
   const [open, setOpen] = useState(false);
   const [addedTransaction, setAddedTransaction] = useState({});
 
-  const { holdings, setHoldings, transactions } = props;
+  const { holdings, setHoldings, transactions, profit, setProfit } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -112,8 +112,8 @@ const Transaction = (props) => {
   const totalSpentBuy = totalSpentArrayBuy.reduce((pv, cv) => pv + cv, 0);
   const totalSpentSell = totalSpentArraySell.reduce((pv, cv) => pv + cv, 0);
 
-  const profitLoss = (currentCoinPrice * totalQuantityBuy) - totalSpentBuy; // this is correct
-  const profitLoss2 = totalSpentSell - (currentCoinPrice * totalQuantitySell); //fix this
+  const profitLoss = (currentCoinPrice * totalQuantityBuy) - totalSpentBuy;
+  const profitLoss2 = totalSpentSell - (currentCoinPrice * totalQuantitySell); 
   const totalProfit = profitLoss + profitLoss2
 
   return (

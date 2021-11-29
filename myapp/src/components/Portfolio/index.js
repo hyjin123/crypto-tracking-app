@@ -22,8 +22,8 @@ const Portfolio = (props) => {
   const [userId, setUserId] = useState(0);
   const [value, setValue] = useState("1");
 
-  const { holdings } = props;
-
+  const { holdings, profit, setProfit } = props;
+  console.log(props.transactions)
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
 
@@ -159,6 +159,8 @@ const Portfolio = (props) => {
                 userId={userId}
                 setHoldings={props.setHoldings}
                 holdings={props.holdings}
+                profit={profit}
+                setProfit={setProfit}
               />
             </TabPanel>
             <TabPanel value="2">

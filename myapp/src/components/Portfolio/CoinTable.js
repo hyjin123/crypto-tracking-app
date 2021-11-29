@@ -12,7 +12,6 @@ import {
   TableRow,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import AddIcon from "@mui/icons-material/Add";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AddNewCoin from "./AddNewCoin";
 
@@ -36,7 +35,17 @@ const useStyles = makeStyles({
 
 const CoinTable = (props) => {
   const [addCoins, setAddCoins] = useState(0);
-  const { firstName, lastName, userId, setHoldings, holdings } = props;
+  const [profits, setProfits] = useState({});
+
+  const {
+    firstName,
+    lastName,
+    userId,
+    setHoldings,
+    holdings,
+    profit,
+    setProfit,
+  } = props;
   const classes = useStyles();
 
   // this promise makes a request to internal API to get holdings information and third party API to get real time data for those holdings
@@ -77,12 +86,95 @@ const CoinTable = (props) => {
       })
       .then((res) => {
         const addedCoinId = res.data.coinId;
-        setAddCoins(addedCoinId)
+        setAddCoins(addedCoinId);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const callBack = (coinName, coinCurrentPrice) => {
+    return axios
+      .get(`/api/coin/transaction?userId=${userId}&coinName=${coinName}`)
+      .then((res) => {
+        // do the profit loss calculation with the transactions for each coin
+        const allTransactions = res.data.allTransactions;
+        let totalQuantityArrayBuy = [];
+        let totalSpentArrayBuy = [];
+        let totalQuantityArraySell = [];
+        let totalSpentArraySell = [];
+        if (allTransactions) {
+          for (const transaction of allTransactions) {
+            if (transaction.type === "Buy") {
+              totalQuantityArrayBuy.push(transaction.quantity);
+              totalSpentArrayBuy.push(transaction.total_spent);
+            } else {
+              totalQuantityArraySell.push(transaction.quantity);
+              totalSpentArraySell.push(-1 * transaction.total_spent);
+            }
+          }
+        }
+        // calculates the total quantity
+        const totalQuantityBuy = totalQuantityArrayBuy.reduce(
+          (pv, cv) => pv + cv,
+          0
+        );
+        const totalQuantitySell = totalQuantityArraySell.reduce(
+          (pv, cv) => pv + cv,
+          0
+        );
+
+        // calculates the total amount
+        const totalSpentBuy = totalSpentArrayBuy.reduce((pv, cv) => pv + cv, 0);
+        const totalSpentSell = totalSpentArraySell.reduce(
+          (pv, cv) => pv + cv,
+          0
+        );
+
+        const profitLoss = coinCurrentPrice * totalQuantityBuy - totalSpentBuy;
+        const profitLoss2 =
+          totalSpentSell - coinCurrentPrice * totalQuantitySell;
+        const totalProfit = profitLoss + profitLoss2;
+        // insert all the profits into an object
+        setProfits((prev) => ({
+          ...prev,
+          [coinName]: totalProfit,
+        }));
+      });
+  };
+
+  const profitLossCalculation = () => {
+    // back a backend request to get ALL transactions for each of the holding coins (loop) (all of it, even 0 holdings because there still could be profit/loss
+    let profitArray = [];
+    if (holdings.length > 0) {
+      for (const holding of holdings) {
+        const coinName = holding.name;
+        const coinCurrentPrice = holding.current_price;
+        callBack(coinName, coinCurrentPrice)
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+      }
+    }
+  };
+
+  //run this function just once.
+  useEffect(() => {
+    profitLossCalculation();
+  }, [holdings]);
+
+  const copyHoldingsState = [...holdings];
+  console.log(copyHoldingsState);
+  console.log(profits);
+
+  const copyProfitsState = {...profits};
+
+  for (let i = 0; i < copyHoldingsState.length; i++) {
+    for (const profit in copyProfitsState) {
+      if (copyHoldingsState[i].name === profit) {
+        copyHoldingsState[i].profits = copyProfitsState[profit];
+      }
+    }
+  }
 
   return (
     <div className="table-container">
@@ -112,7 +204,7 @@ const CoinTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {holdings.map((coin, index) => (
+          {(copyHoldingsState && holdings.length > 0) && copyHoldingsState.map((coin, index) => (
             <TableRow key={index} className="table-row">
               <TableCell className={classes.cell}>
                 <img className="table-image" src={coin.image} alt="crypto" />
@@ -144,11 +236,19 @@ const CoinTable = (props) => {
               <TableCell className={classes.cell}>
                 ${(coin.holdings * coin.current_price).toLocaleString()}
               </TableCell>
-              <TableCell className={classes.cell}>{coin.pnl}</TableCell>
+              <TableCell className={classes.cell}>{coin.profits}</TableCell>
               <TableCell className={classes.button}>
-                <Button component={Link} to={{pathname: "/transaction"}} 
-                state={{ coinName: coin.name, portfolioCoinId: coin.portfolioCoinId, currentHoldings: coin.holdings}} sx={{ color: "white" }}>
-                    <KeyboardArrowRightIcon />
+                <Button
+                  component={Link}
+                  to={{ pathname: "/transaction" }}
+                  state={{
+                    coinName: coin.name,
+                    portfolioCoinId: coin.portfolioCoinId,
+                    currentHoldings: coin.holdings,
+                  }}
+                  sx={{ color: "white" }}
+                >
+                  <KeyboardArrowRightIcon />
                 </Button>
               </TableCell>
             </TableRow>
@@ -160,3 +260,51 @@ const CoinTable = (props) => {
 };
 
 export default CoinTable;
+
+// const profitLossCalculation = () => {
+//   // back a backend request to get ALL transactions for each of the holding coins (loop) (all of it, even 0 holdings because there still could be profit/loss
+//   let profitArray = [];
+//   if(holdings.length > 0) {
+//     for (const holding of holdings) {
+//       const coinName = holding.name;
+//       const coinCurrentPrice = holding.current_price;
+//       axios.get(`/api/coin/transaction?userId=${userId}&coinName=${coinName}`)
+//         .then(res => {
+//           // do the profit loss calculation with the transactions for each coin
+//           const allTransactions = res.data.allTransactions;
+//           let totalQuantityArrayBuy = [];
+//           let totalSpentArrayBuy = [];
+//           let totalQuantityArraySell = [];
+//           let totalSpentArraySell = [];
+//           if (allTransactions) {
+//             for (const transaction of allTransactions) {
+//               if (transaction.type === "Buy") {
+//                 totalQuantityArrayBuy.push(transaction.quantity);
+//                 totalSpentArrayBuy.push(transaction.total_spent)
+//               } else {
+//                 totalQuantityArraySell.push(transaction.quantity);
+//                 totalSpentArraySell.push(-1 * (transaction.total_spent))
+//               }
+//             }
+//           }
+//           // calculates the total quantity
+//           const totalQuantityBuy = totalQuantityArrayBuy.reduce((pv, cv) => pv + cv, 0);
+//           const totalQuantitySell = totalQuantityArraySell.reduce((pv, cv) => pv + cv, 0);
+
+//           // calculates the total amount
+//           const totalSpentBuy = totalSpentArrayBuy.reduce((pv, cv) => pv + cv, 0);
+//           const totalSpentSell = totalSpentArraySell.reduce((pv, cv) => pv + cv, 0);
+
+//           const profitLoss = (coinCurrentPrice * totalQuantityBuy) - totalSpentBuy;
+//           const profitLoss2 = totalSpentSell - (coinCurrentPrice * totalQuantitySell);
+//           const totalProfit = profitLoss + profitLoss2
+
+//           // insert all the profits into an object
+//           profitArray.push({ [coinName]: totalProfit })
+//         })
+//         .catch(err => console.log(err))
+//     }
+//     console.log(profitArray)
+//     return profitArray;
+//   }
+// };
