@@ -72,6 +72,7 @@ function Home() {
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${!page ? 1 : page}&sparkline=false`
       )
       .then((res) => {
+        console.log(res.data)
         setCoins(res.data);
       })
       .catch((error) => console.log(error));
@@ -124,6 +125,7 @@ function Home() {
               return (
                 <Coin
                   key={coin.id}
+                  coinId={coin.id}
                   userId={userId}
                   name={coin.name}
                   price={coin.current_price}

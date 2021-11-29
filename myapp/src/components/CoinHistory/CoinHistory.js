@@ -23,7 +23,7 @@ const CoinHistory = (props) => {
 
   // this value is passed down from portfolio Link to Router
   const coinName = location.state.coinName;
-  const lowerCoinName = coinName.toLowerCase();
+  const coinId = location.state.coinId;
   const marketCap = location.state.marketCap;
   const volume = location.state.volume;
   const image = location.state.image;
@@ -56,22 +56,30 @@ const CoinHistory = (props) => {
     navigate('/');
   };
 
+
   useEffect(() => {
-    axios.get(`https://api.coingecko.com/api/v3/coins/${lowerCoinName}/market_chart?vs_currency=usd&days=30&interval=daily`)
+    axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=30&interval=daily`)
       .then(res => {
-        console.log(res.data.prices);
         const prices = res.data.prices;
         const pricePerDayArray = [];
         const daysArray = [];
         for (const price of prices) {
-          
+          const dayFormat = new Date(price[0]).toISOString();
+          const formattedDate = dayFormat.slice(0, 10);
+          daysArray.push(formattedDate);
+          pricePerDayArray.push(price[1]);
         }
+        setDays(daysArray)
+        setPricePerDay(pricePerDayArray)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [userId])
+
+  console.log(days)
+  console.log(pricePerDay)
 
   const state = {
-    labels: [1, 2, 3],
+    labels: days,
     datasets: [
       {
         label: "Daily Price",
@@ -79,10 +87,10 @@ const CoinHistory = (props) => {
         lineTension: 0.5,
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "#1976d2",
-        borderWidth: 2,
+        borderWidth: 1,
         backgroundColor: "#1976d2",
         borderColor: "white",
-        data: [1, 2, 3],
+        data: pricePerDay,
       },
     ],
   };
@@ -126,7 +134,7 @@ const CoinHistory = (props) => {
                 fontSize: 20,
               },
               legend: {
-                display: true,
+                display: false,
                 position: "right",
                 labels: {
                   color: "white",

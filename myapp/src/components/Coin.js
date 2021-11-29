@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 const Coin = ({
+  coinId,
   name,
   userId,
   price,
@@ -65,6 +66,7 @@ const Coin = ({
           <Button component={Link} to={{ pathname: "/coin-history"}}
             state={{
             coinName: name,
+            coinId: coinId,
             marketCap: marketcap,
             volume: volume,
             image: image,
