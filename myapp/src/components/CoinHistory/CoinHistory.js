@@ -258,7 +258,7 @@ const CoinHistory = (props) => {
             className="balance-text"
             sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
           >
-            ${priceChange.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            {priceChange.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
           </Typography>
         </Box>
         :
@@ -283,7 +283,7 @@ const CoinHistory = (props) => {
             className="balance-text"
             sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
           >
-            -${-(priceChange).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            -{priceChange.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
           </Typography>
         </Box>
         }
