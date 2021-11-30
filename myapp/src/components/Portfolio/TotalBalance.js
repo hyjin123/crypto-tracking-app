@@ -8,10 +8,10 @@ const TotalBalance = (props) => {
 
   return (
     <Box component="div" className="balance-box" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-      <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center", }}>
+      <Typography component="h2" variant="h6" className="balance-text" gutterBottom sx={{ textAlign: "center" }}>
         Total Balance
       </Typography>
-      <Typography className="balance-text" sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
+      <Typography className="balance-text"  sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20}}>
         ${totalBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
       </Typography>
     </Box>

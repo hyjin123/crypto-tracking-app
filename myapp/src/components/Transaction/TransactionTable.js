@@ -18,8 +18,13 @@ import DeleteAlert from "./DeleteAlert";
 const useStyles = makeStyles({
   cell: {
     color: "white",
-    fontSize: 15,
+    fontSize: 16,
     padding: "10px 20px",
+  },
+  header: {
+    color: "white",
+    fontSize: "18px",
+    fontWeight: "bold"
   },
   button: {
     padding: "0",
@@ -80,15 +85,15 @@ const TransactionTable = (props) => {
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
-            <TableCell className={classes.cell}>Type</TableCell>
-            <TableCell className={classes.cell}>Price</TableCell>
-            <TableCell className={classes.cell}>Quantity</TableCell>
-            <TableCell className={classes.cell}>Date</TableCell>
-            <TableCell className={classes.cell}>Fees</TableCell>
-            <TableCell className={classes.cell}>Cost</TableCell>
-            <TableCell className={classes.cell}>PNL</TableCell>
-            <TableCell className={classes.cell}>Notes</TableCell>
-            <TableCell className={classes.cell}></TableCell>
+            <TableCell className={classes.header}>Type</TableCell>
+            <TableCell className={classes.header}>Price</TableCell>
+            <TableCell className={classes.header}>Quantity</TableCell>
+            <TableCell className={classes.header}>Date</TableCell>
+            <TableCell className={classes.header}>Fees</TableCell>
+            <TableCell className={classes.header}>Cost</TableCell>
+            <TableCell className={classes.header}>PNL</TableCell>
+            <TableCell className={classes.header}>Notes</TableCell>
+            <TableCell className={classes.header}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

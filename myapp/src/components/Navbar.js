@@ -59,7 +59,7 @@ const Navbar = (props) => {
       </Toolbar>
       <Toolbar>
         {token &&
-          <Typography>
+          <Typography sx={{ fontFamily: 'Lora' }}>
             Welcome {userName} !
           </Typography>
         }

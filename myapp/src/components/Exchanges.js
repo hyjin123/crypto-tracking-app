@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   cell: {
     color: "white",
     fontSize: 16,
-    padding: "20px 20px",
+    padding: "10px 20px",
   },
   header: {
     color: "white",

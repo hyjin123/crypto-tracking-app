@@ -19,8 +19,13 @@ import AddNewCoin from "./AddNewCoin";
 const useStyles = makeStyles({
   cell: {
     color: "white",
-    fontSize: 15,
+    fontSize: 16,
     padding: "10px 20px",
+  },
+  header: {
+    color: "white",
+    fontSize: "18px",
+    fontWeight: "bold"
   },
   button: {
     padding: "0",
@@ -190,17 +195,17 @@ const CoinTable = (props) => {
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}>Coin</TableCell>
-            <TableCell className={classes.cell}>Price</TableCell>
-            <TableCell className={classes.cell}>24 hr High</TableCell>
-            <TableCell className={classes.cell}>24 hr Low</TableCell>
-            <TableCell className={classes.cell}>24 Hour (%)</TableCell>
-            <TableCell className={classes.cell}>Market Cap</TableCell>
-            <TableCell className={classes.cell}>Holdings</TableCell>
-            <TableCell className={classes.cell}>Holdings Value</TableCell>
-            <TableCell className={classes.cell}>PNL</TableCell>
-            <TableCell className={classes.cell}></TableCell>
+            <TableCell className={classes.header}></TableCell>
+            <TableCell className={classes.header}>Coin</TableCell>
+            <TableCell className={classes.header}>Price</TableCell>
+            <TableCell className={classes.header}>24 hr High</TableCell>
+            <TableCell className={classes.header}>24 hr Low</TableCell>
+            <TableCell className={classes.header}>24 Hour (%)</TableCell>
+            <TableCell className={classes.header}>Market Cap</TableCell>
+            <TableCell className={classes.header}>Holdings</TableCell>
+            <TableCell className={classes.header}>Holdings Value</TableCell>
+            <TableCell className={classes.header}>PNL</TableCell>
+            <TableCell className={classes.header}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
