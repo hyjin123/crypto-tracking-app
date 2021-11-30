@@ -124,10 +124,10 @@ const Exchanges = () => {
               {exchange.trust_score}
               </TableCell>
               <TableCell className={classes.cell}>
-              {exchange.trade_volume_24h_btc_normalized}
+              ${exchange.trade_volume_24h_btc_normalized.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
               </TableCell>
               <TableCell className={classes.cell}>
-              {exchange.trade_volume_24h_btc}
+              ${exchange.trade_volume_24h_btc.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
               </TableCell>
               <TableCell className={classes.cell}>
                 {exchange.trust_score_rank}

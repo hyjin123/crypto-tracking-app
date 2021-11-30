@@ -230,3 +230,7 @@ back-button:hover {
   border: 1px solid rgba(25, 118, 210, 0.5);
   background-color: black;
 }
+
+.white {
+  color: white;
+}

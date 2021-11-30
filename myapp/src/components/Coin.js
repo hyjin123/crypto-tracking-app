@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { flexbox } from "@mui/system";
 import { Link } from "react-router-dom";
+import "./Portfolio/portfolio.css"
 
 // historical data for a specific coin based on coin_id which is the coin name
 // this api is for 3 month historical data at weekly interval

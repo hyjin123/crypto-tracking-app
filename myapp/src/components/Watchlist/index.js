@@ -55,3 +55,4 @@ const Watchlist = (props) => {
 };
 
 export default Watchlist;
+

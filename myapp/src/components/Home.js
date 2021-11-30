@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
-import Coin from "./Coin";
+import "./Portfolio/portfolio.css"
 import Navbar from "./Navbar";
 import PopUp from "./PopUp";
 import Box from "@mui/material/Box";
@@ -10,12 +10,21 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import AddIcon from "@mui/icons-material/Add";
 import Exchanges from "./Exchanges";
-import TabContext from "@mui/lab/TabContext";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -81,6 +90,20 @@ function Home() {
       .catch((error) => console.log(error));
   }, [page]);
 
+  // handles when user clicks Add to Watchlist
+  const handleAddToWatchlist = (coinName, userId) => {
+    // add the new coin to the database by making a post request to the backend
+    axios
+      .post("/api/watchlist/coin", {
+        coinName: coinName,
+        userId: userId,
+      })
+      .then((res) => {
+        setIsVisible(true);
+      })
+      .catch((err) => console.log(err));
+  };
+  
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -89,13 +112,11 @@ function Home() {
     setTabNumber(value);
   };
 
-  // this sets the timeout on the popup when add to watchlist button is clicked, stretch feature
-  // const popUpTimeOut = () => {
-  // };
-
   const filteredCoins = coins.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  console.log(filteredCoins);
 
   return (
     <div className="App">
@@ -121,64 +142,120 @@ function Home() {
               <Tab label="Exchanges" sx={{ color: "#5d6870" }} />
             </Tabs>
           </Box>
+
+
+          <Box sx={{ width: "65%", margin: "auto"}}>
           <TabPanel value={tabNumber} index={0}>
-
-
-            {filteredCoins.map((coin) => {
-              return (
-                <Coin
-                  key={coin.id}
-                  coinId={coin.id}
-                  userId={userId}
-                  name={coin.name}
-                  price={coin.current_price}
-                  symbol={coin.symbol}
-                  marketcap={coin.market_cap}
-                  volume={coin.total_volume}
-                  image={coin.image}
-                  priceChange={coin.price_change_percentage_24h}
-                  setIsVisible={setIsVisible}
-                />
-              );
-            })}
-            <div className="coin-pagination">
-              <ul>
-                <li>
-                  <Link to="/" className="coin-page-link">1 </Link>
-                </li>
-                <li>
-                  <Link to="/2" className="coin-page-link">2 </Link>
-                </li>
-                <li>
-                  <Link to="/3" className="coin-page-link">3 </Link>
-                </li>
-                <li>
-                  <Link to="/4" className="coin-page-link">4 </Link>
-                </li>
-                <li>
-                  <Link to="/5" className="coin-page-link">5 </Link>
-                </li>
-                <li>
-                  <Link to="/6" className="coin-page-link">6 </Link>
-                </li>
-                <li>
-                  <Link to="/7" className="coin-page-link">7 </Link>
-                </li>
-                <li>
-                  <Link to="/8" className="coin-page-link">8 </Link>
-                </li>
-                <li>
-                  <Link to="/9" className="coin-page-link">9 </Link>
-                </li>
-                <li>
-                  <Link to="/10" className="coin-page-link">10 </Link>
-                </li>
-              </ul>
+          <div className="table-container">
+          <Table size="medium">
+            <TableHead sx={{ color: "white"}}>
+              <TableRow className="table-row" sx={{ color: "white"}}>
+                <TableCell>
+                </TableCell>
+                <TableCell sx={{ color: "white"}}>Name</TableCell>
+                <TableCell sx={{ color: "white"}}>Price</TableCell>
+                <TableCell sx={{ color: "white"}}>24 hr High</TableCell>
+                <TableCell sx={{ color: "white"}}>24 hr Low</TableCell>
+                <TableCell sx={{ color: "white"}}>24 Hour (%)</TableCell>
+                <TableCell sx={{ color: "white"}}>Market Cap</TableCell>
+                <TableCell sx={{ color: "white"}}></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredCoins.map((coin, index) => (
+                <TableRow key={index} className="table-row">
+                  <TableCell >
+                    <Button component={Link} to={{ pathname: "/coin-history"}}
+                      state={{
+                      coinName: coin.name,
+                      coinId: coin.id,
+                      price: coin.current_price,
+                      marketCap: coin.market_cap,
+                      volume: coin.total_value,
+                      image: coin.image,
+                      priceChange: coin.price_change_percentage_24h
+                    }}
+                    >
+                    <img className="table-image" src={coin.image} alt="coin" />
+                    </Button>
+                  </TableCell>
+                  <TableCell sx={{ color: "white"}}>
+                    {coin.name}
+                  </TableCell>
+                  <TableCell sx={{ color: "white"}}>
+                    ${coin.current_price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </TableCell>
+                  <TableCell sx={{ color: "white"}}>
+                    ${coin.high_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </TableCell>
+                  <TableCell sx={{ color: "white"}}>
+                    ${coin.low_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </TableCell>
+                  {coin.price_change_percentage_24h > 0 ?
+                  <TableCell sx={{ color: "#11d811"}}>
+                    {coin.price_change_percentage_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
+                  </TableCell> :
+                  <TableCell sx={{ color: "#f00606"}}>
+                    {coin.price_change_percentage_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
+                  </TableCell>
+                  }
+                  <TableCell sx={{ color: "white"}}>
+                    ${coin.market_cap.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </TableCell>
+                  <TableCell sx={{ color: "white"}}>
+                    <div className="coin-button">
+                      <Button
+                        onClick={() => handleAddToWatchlist(coin.name, userId)}
+                        sx={{ color: "white"}}>
+                        <AddIcon />
+                        <p className="coin-watchlist">Add to Watchlist</p>
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className="coin-pagination">
+            <ul>
+              <li>
+                <Link to="/" className="coin-page-link">1 </Link>
+              </li>
+              <li>
+                <Link to="/2" className="coin-page-link">2 </Link>
+              </li>
+              <li>
+                <Link to="/3" className="coin-page-link">3 </Link>
+              </li>
+              <li>
+                <Link to="/4" className="coin-page-link">4 </Link>
+              </li>
+              <li>
+                <Link to="/5" className="coin-page-link">5 </Link>
+              </li>
+              <li>
+                <Link to="/6" className="coin-page-link">6 </Link>
+              </li>
+              <li>
+                <Link to="/7" className="coin-page-link">7 </Link>
+              </li>
+              <li>
+                <Link to="/8" className="coin-page-link">8 </Link>
+              </li>
+              <li>
+                <Link to="/9" className="coin-page-link">9 </Link>
+              </li>
+              <li>
+                <Link to="/10" className="coin-page-link">10 </Link>
+              </li>
+            </ul>
             </div>
+          </div>
           </TabPanel>
           <TabPanel value={tabNumber} index={1}>
             <Exchanges />
           </TabPanel>
+          </Box>
         </div>
 
 
@@ -190,3 +267,54 @@ function Home() {
 }
 
 export default Home;
+
+{/* <div className="coin-container">
+
+<div className="coin-row">
+  <div className="coin">
+    <Button component={Link} to={{ pathname: "/coin-history"}}
+      state={{
+      coinName: name,
+      coinId: coinId,
+      price: price,
+      marketCap: marketcap,
+      volume: volume,
+      image: image,
+      priceChange: priceChange
+    }}
+    >
+      <img src={image} alt="crypto" />
+    </Button>
+    <h1>{name}</h1>
+    <p className="coin-symbol">{symbol}</p>
+  </div>
+  <div className="coin-data">
+    <p className="coin-price">${price}</p>
+    <p className="coin-volume">{volume.toLocaleString()}</p>
+
+    {priceChange < 0 ? (
+      <p className="coin-percent red">{priceChange.toFixed(2)}%</p>
+    ) : (
+      <p className="coin-percent green">{priceChange.toFixed(2)}%</p>
+    )}
+
+    <p className="coin-marketcap">
+      ${marketcap.toLocaleString()}
+    </p>
+  </div>
+</div>
+<div className="coin-button">
+    <Button
+      className={classes.button}
+      onClick={() => handleAddToWatchlist(name, userId)}
+    >
+      <AddIcon />
+      <p className="coin-watchlist">Add to Watchlist</p>
+    </Button>
+</div>
+</div> */}
+
+
+
+
+
