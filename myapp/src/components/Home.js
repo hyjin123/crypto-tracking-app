@@ -47,6 +47,7 @@ function Home() {
   // sets state for page numbers
   const [tabNumber, setTabNumber] = useState(0);
   const { page } = useParams();
+  
   // retrieve the token from local storage, if empty string, you need to logged in.
   const token = localStorage.getItem("jwtToken");
 
