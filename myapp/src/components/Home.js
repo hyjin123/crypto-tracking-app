@@ -10,6 +10,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import Exchanges from "./Exchanges";
+import TabContext from "@mui/lab/TabContext";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -174,20 +176,12 @@ function Home() {
             </div>
           </TabPanel>
           <TabPanel value={tabNumber} index={1}>
-            Item Two
+            <Exchanges />
           </TabPanel>
         </div>
 
 
-
-
       </div>
-
-
-
-
-
-
 
 
     </div>
