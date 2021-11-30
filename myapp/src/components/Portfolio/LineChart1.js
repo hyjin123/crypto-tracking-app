@@ -164,6 +164,10 @@ const LineChart1 = (props) => {
                 color: "white"
               }
             },
+            tooltip: {
+              mode: 'nearest',
+              intersect: false
+          }
           },
           scales: {
             x: {

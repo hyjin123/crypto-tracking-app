@@ -152,13 +152,13 @@ function Home() {
               <TableRow className="table-row" sx={{ color: "white"}}>
                 <TableCell>
                 </TableCell>
-                <TableCell sx={{ color: "white"}}>Name</TableCell>
-                <TableCell sx={{ color: "white"}}>Price</TableCell>
-                <TableCell sx={{ color: "white"}}>24 hr High</TableCell>
-                <TableCell sx={{ color: "white"}}>24 hr Low</TableCell>
-                <TableCell sx={{ color: "white"}}>24 Hour (%)</TableCell>
-                <TableCell sx={{ color: "white"}}>Market Cap</TableCell>
-                <TableCell sx={{ color: "white"}}></TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>Name</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>Price</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>24 hr High</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>24 hr Low</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>24 Hour (%)</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}>Market Cap</TableCell>
+                <TableCell sx={{ color: "white", fontSize: "18px", fontWeight: "bold"}}></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -179,34 +179,34 @@ function Home() {
                     <img className="table-image" src={coin.image} alt="coin" />
                     </Button>
                   </TableCell>
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     {coin.name}
                   </TableCell>
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     ${coin.current_price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </TableCell>
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     ${coin.high_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </TableCell>
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     ${coin.low_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </TableCell>
                   {coin.price_change_percentage_24h > 0 ?
-                  <TableCell sx={{ color: "#11d811"}}>
+                  <TableCell sx={{ color: "#11d811", fontSize: "16px", padding: "0px 20px"}}>
                     {coin.price_change_percentage_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
                   </TableCell> :
-                  <TableCell sx={{ color: "#f00606"}}>
+                  <TableCell sx={{ color: "#f00606", fontSize: "16px", padding: "0px 20px"}}>
                     {coin.price_change_percentage_24h.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%
                   </TableCell>
                   }
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     ${coin.market_cap.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </TableCell>
-                  <TableCell sx={{ color: "white"}}>
+                  <TableCell sx={{ color: "white", fontSize: "16px", padding: "0px 20px"}}>
                     <div className="coin-button">
                       <Button
                         onClick={() => handleAddToWatchlist(coin.name, userId)}
-                        sx={{ color: "white"}}>
+                        sx={{ color: "white" }}>
                         <AddIcon />
                         <p className="coin-watchlist">Add to Watchlist</p>
                       </Button>

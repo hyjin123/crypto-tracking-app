@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaw } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = (props) => {
   const [userName, setUserName] = useState("");
@@ -48,9 +50,10 @@ const Navbar = (props) => {
   return (
     <AppBar id="appbar" position="fixed">
       <Toolbar id="navbar">
-        <Typography variant="h4" id="logo" component="div">
-          <Link to="/" className="linkbar">
-            Crypto
+        <Typography variant="h4" id="logo" component="div" sx={{ fontFamily: 'Lora' }} >
+        <Link to="/" className="linkbar">
+        <FontAwesomeIcon icon={faPaw} transform="shrink-1 left-4"/>    
+            CryptoHound
           </Link>
         </Typography>
       </Toolbar>
@@ -60,41 +63,41 @@ const Navbar = (props) => {
             Welcome {userName} !
           </Typography>
         }
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Link to="/" className="linkbar">
             Home
           </Link>
         </Typography>
         {token && 
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Link to="/watchlist" className="linkbar">
             Watchlist
           </Link>
         </Typography>
         }
         {token &&
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Link to="/portfolio" className="linkbar">
             Portfolio
           </Link>
         </Typography>
         }
         {!token &&
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Link to="/register" className="linkbar">
             Register
           </Link>
         </Typography>
         }
         {!token &&
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Link to="/login" className="linkbar">
             Login
           </Link>
         </Typography>
         }
         {token &&
-        <Typography variant="h6" color="white" component="div">
+        <Typography variant="h6" color="white" component="div" sx={{ fontFamily: 'Lora' }} >
           <Button variant="outlined" color="error" onClick={handleClick}
           sx={{
 

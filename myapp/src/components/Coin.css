@@ -122,3 +122,7 @@
   border: 5px solid #0057ad;
   border-radius: 20px;
 }
+
+.coin-text {
+  font-family: "Roboto";
+}

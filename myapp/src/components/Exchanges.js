@@ -26,8 +26,13 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 const useStyles = makeStyles({
   cell: {
     color: "white",
-    fontSize: 15,
-    padding: "10px 20px",
+    fontSize: 16,
+    padding: "20px 20px",
+  },
+  header: {
+    color: "white",
+    fontSize: "18px",
+    fontWeight: "bold"
   },
   button: {
     padding: "0",
@@ -101,14 +106,13 @@ const Exchanges = () => {
       <Table size="medium">
         <TableHead>
           <TableRow className="table-row">
-            <TableCell className={classes.cell}></TableCell>
-            
-            <TableCell className={classes.cell}>Exchange</TableCell>
-            <TableCell className={classes.cell}>Trust Score</TableCell>
-            <TableCell className={classes.cell}>24 hr Volume (Normalized)</TableCell>
-            <TableCell className={classes.cell}>24 hr Volume</TableCell>
-            <TableCell className={classes.cell}>Trust Score Rank</TableCell>
-            <TableCell className={classes.cell}>Year Established</TableCell>
+            <TableCell className={classes.header}></TableCell>
+            <TableCell className={classes.header}>Exchange</TableCell>
+            <TableCell className={classes.header}>Trust Score</TableCell>
+            <TableCell className={classes.header}>24 hr Volume (Normalized)</TableCell>
+            <TableCell className={classes.header}>24 hr Volume</TableCell>
+            <TableCell className={classes.header}>Trust Score Rank</TableCell>
+            <TableCell className={classes.header }>Year Established</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

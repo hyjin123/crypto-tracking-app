@@ -119,6 +119,7 @@ const Login = (props) => {
                 <CssTextField 
                   fullWidth
                   required
+                  type="password"
                   name="password"
                   id="password"
                   label="Password"
