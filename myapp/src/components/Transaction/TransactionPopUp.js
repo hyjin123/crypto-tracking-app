@@ -54,6 +54,7 @@ const TransactionPopUp = (props) => {
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [sellPrice, setSellPrice] = useState(0);
   const [sellQuantity, setSellQuantity] = useState(0);
+  const [fee, setFee] = useState(0);
 
   const { transactions } = props;
 
@@ -87,6 +88,10 @@ const TransactionPopUp = (props) => {
 
   const handleSellQuantityChange = (event) => {
     setSellQuantity(event.target.value);
+  };
+
+  const handleFeeChange = (event) => {
+    setFee(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -197,7 +202,7 @@ const TransactionPopUp = (props) => {
                   label="Total Spent ($)"
                   type="number"
                   fullWidth
-                  value={buyPrice * buyQuantity}
+                  value={(buyPrice * buyQuantity) + +fee }
                 />
                 <CssTextField
                   required
@@ -220,6 +225,7 @@ const TransactionPopUp = (props) => {
                   label="Fee"
                   type="number"
                   fullWidth
+                  onChange={handleFeeChange}
                 />
                 <CssTextField
                   InputLabelProps={{ shrink: true }}

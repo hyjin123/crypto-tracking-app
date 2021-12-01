@@ -52,18 +52,19 @@ const DeleteAlert = (props) => {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          BackdropProps={{ style: { backgroundColor: "rgba(0, 0, 0, 0.95)" } }}
+          BackdropProps={{ style: { backgroundColor: "rgba(0, 0, 0, 0.8)" } }}
           PaperProps={{
             style: {
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
+              backgroundColor: "rgba(255, 255, 255, 1)",
               boxShadow: "none",
               borderWidth: "1px",
-              borderColor: "#c91818",
-              borderStyle: "solid"
+              borderColor: "#444444",
+              borderStyle: "solid",
+              borderRadius: "10px"
             },
           }}
         >
-          <DialogTitle id="alert-dialog-title" sx={{ color: "#c91818" }}>
+          <DialogTitle id="alert-dialog-title" sx={{ color: "#444444" }}>
             <WarningAmberIcon sx={{ marginRight: "10px" }}/>
             Are you sure you want to delete this transaction?
 
@@ -78,7 +79,7 @@ const DeleteAlert = (props) => {
             >
               Confirm
             </Button>
-            <Button onClick={handleClose} autoFocus sx={{ color: "#c91818" }}>
+            <Button onClick={handleClose} autoFocus sx={{ color: "#444444" }}>
               Cancel
             </Button>
           </DialogActions>

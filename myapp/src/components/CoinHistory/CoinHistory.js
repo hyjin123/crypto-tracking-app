@@ -214,11 +214,7 @@ const CoinHistory = (props) => {
       <div className="coin-container">
         <Box
           component="div"
-          className="balance-box"
-          sx={{
-            width: "10%",
-            margin: "2%",
-          }}
+          className="balance-box1"
         >
           <Typography
             component="h2"
@@ -238,11 +234,7 @@ const CoinHistory = (props) => {
         </Box>
         <Box
           component="div"
-          className="balance-box"
-          sx={{
-            width: "15%",
-            margin: "2%",
-          }}
+          className="balance-box2"
         >
           <Typography
             component="h2"
@@ -262,11 +254,7 @@ const CoinHistory = (props) => {
         </Box>
         <Box
           component="div"
-          className="balance-box"
-          sx={{
-            width: "15%",
-            margin: "2%",
-          }}
+          className="balance-box3"
         >
           <Typography
             component="h2"
@@ -287,11 +275,7 @@ const CoinHistory = (props) => {
         {priceChange > 0 ?
         <Box
           component="div"
-          className="balance-box change-box green-box"
-          sx={{
-            width: "10%",
-            margin: "2%",
-          }}
+          className="balance-box1 change-box green-box"
         >
           <Typography
             component="h2"
@@ -312,11 +296,7 @@ const CoinHistory = (props) => {
         :
         <Box
           component="div"
-          className="balance-box change-box red-box"
-          sx={{
-            width: "10%",
-            margin: "2%",
-          }}
+          className="balance-box1 change-box red-box"
         >
           <Typography
             component="h2"

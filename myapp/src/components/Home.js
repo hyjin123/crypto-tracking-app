@@ -175,6 +175,7 @@ function Home() {
                       image: coin.image,
                       priceChange: coin.price_change_percentage_24h
                     }}
+                    sx={{"&:hover": { backgroundColor: "black", transform: "scale(1.5, 1.5)", transition: "all 0.7s" }}}
                     >
                     <img className="table-image" src={coin.image} alt="coin" />
                     </Button>
@@ -206,7 +207,7 @@ function Home() {
                     <div className="coin-button">
                       <Button
                         onClick={() => handleAddToWatchlist(coin.name, userId)}
-                        sx={{ color: "white" }}>
+                        sx={{ color: "white", "&:hover": {color: "#1976d2", backgroundColor: "black"} }}>
                         <AddIcon />
                         <p className="coin-watchlist">Add to Watchlist</p>
                       </Button>
