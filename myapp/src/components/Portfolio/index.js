@@ -63,7 +63,7 @@ const Portfolio = (props) => {
   const totalBalance = totalBalanceArray.reduce((pv, cv) => pv + cv, 0);
 
   const total24HoursAgoBalanceArray = [];
-
+  console.log(holdings)
   //pushes all holdings value (24 hr ago) for each coin to an array
   for (const holding of holdings) {
     total24HoursAgoBalanceArray.push(
@@ -71,11 +71,15 @@ const Portfolio = (props) => {
     );
   }
 
+  console.log(total24HoursAgoBalanceArray)
   // calculates the total balance by adding up all the holdings value (24 hr) in an array
   const total24HoursAgoBalance = total24HoursAgoBalanceArray.reduce(
     (pv, cv) => pv + cv,
     0
   );
+
+  console.log(totalBalance);
+  console.log(total24HoursAgoBalance)
 
   return (
     <div>

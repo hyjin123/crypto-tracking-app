@@ -171,7 +171,7 @@ function Home() {
                       coinId: coin.id,
                       price: coin.current_price,
                       marketCap: coin.market_cap,
-                      volume: coin.total_value,
+                      volume: coin.total_volume,
                       image: coin.image,
                       priceChange: coin.price_change_percentage_24h
                     }}

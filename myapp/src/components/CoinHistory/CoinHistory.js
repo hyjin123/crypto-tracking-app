@@ -236,6 +236,54 @@ const CoinHistory = (props) => {
             ${price.toLocaleString()}
           </Typography>
         </Box>
+        <Box
+          component="div"
+          className="balance-box"
+          sx={{
+            width: "15%",
+            margin: "2%",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h6"
+            className="balance-text"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            24h Volume
+          </Typography>
+          <Typography
+            className="balance-text"
+            sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
+          >
+            ${volume.toLocaleString()}
+          </Typography>
+        </Box>
+        <Box
+          component="div"
+          className="balance-box"
+          sx={{
+            width: "15%",
+            margin: "2%",
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h6"
+            className="balance-text"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            Market Cap
+          </Typography>
+          <Typography
+            className="balance-text"
+            sx={{ textAlign: "center", fontWeight: 1000, fontSize: 20 }}
+          >
+            ${marketCap.toLocaleString()}
+          </Typography>
+        </Box>
         {priceChange > 0 ?
         <Box
           component="div"
