@@ -372,7 +372,7 @@ const CoinHistory = (props) => {
                     tooltip: {
                       mode: 'nearest',
                       intersect: false
-                  }
+                    },
                   },
                   scales: {
                     x: {

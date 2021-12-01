@@ -243,7 +243,7 @@ const CoinTable = (props) => {
               </TableCell>
               {coin.profits === 0 && <TableCell className={classes.cell}>${coin.profits}</TableCell>}
               {coin.profits > 0 && <TableCell className={classes.cell, classes.green}>${coin.profits.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>}
-              {coin.profits < 0 && <TableCell className={classes.cell, classes.red}>-${-(coin.profits).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>}
+              {coin.profits < 0 && <TableCell className={classes.cell, classes.red}>-${parseFloat(-coin.profits.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</TableCell>}
               <TableCell className={classes.button}>
                 <Button
                   component={Link}

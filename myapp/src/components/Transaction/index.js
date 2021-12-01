@@ -149,12 +149,12 @@ const Transaction = (props) => {
         <div className="coin-information">
           <div className="holdings-info">Current Price: 
             <div className="bright">
-              ${currentCoinPrice.toLocaleString()}
+              ${currentCoinPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </div>
           </div>
           <div className="holdings-info">Holdings Value:
             <div className="bright">
-              ${(currentCoinPrice * totalHoldings).toLocaleString()}
+              ${(currentCoinPrice * totalHoldings).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </div>
           </div>
           <div className="holdings-info">Holdings:
@@ -176,10 +176,10 @@ const Transaction = (props) => {
           <div className="holdings-info"> Total Profit/Loss:
           {totalProfit >= 0 ? 
             <div className="bright green">
-              ${totalProfit.toLocaleString()} 
+              ${totalProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} 
             </div> :
             <div className="bright red">
-              -${(-1 * totalProfit).toLocaleString()} 
+              -${parseFloat(-totalProfit.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} 
             </div>
           }
           </div>
