@@ -1,12 +1,14 @@
-import { React, useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import { React, useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { makeStyles } from "@mui/styles";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import WarningIcon from '@mui/icons-material/Warning';
 
 // this is a makeStyles hook (Custom css)
 const useStyles = makeStyles({
@@ -43,29 +45,46 @@ const DeleteAlert = (props) => {
   return (
     <div>
       <Button className={classes.button} onClick={handleClickOpen}>
-        <DeleteForeverIcon fontSize="medium"/>
+        <DeleteForeverIcon fontSize="medium" />
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Are you sure you want to delete this transaction?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => {
-            handleClose();
-            handleDeleteTransaction(props.transactionId);
-          }}>Confirm</Button>
-          <Button onClick={handleClose} autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          BackdropProps={{ style: { backgroundColor: "rgba(0, 0, 0, 0.95)" } }}
+          PaperProps={{
+            style: {
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
+              boxShadow: "none",
+              borderWidth: "1px",
+              borderColor: "#c91818",
+              borderStyle: "solid"
+            },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title" sx={{ color: "#c91818" }}>
+            <WarningAmberIcon sx={{ marginRight: "10px" }}/>
+            Are you sure you want to delete this transaction?
+
+          </DialogTitle>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                handleClose();
+                handleDeleteTransaction(props.transactionId);
+              }}
+              sx={{ color: "#c91818" }}
+            >
+              Confirm
+            </Button>
+            <Button onClick={handleClose} autoFocus sx={{ color: "#c91818" }}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
     </div>
   );
-}
+};
 
 export default DeleteAlert;

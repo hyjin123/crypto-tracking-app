@@ -125,7 +125,7 @@ const TransactionPopUp = (props) => {
         PaperProps={{
           style: {
             backgroundColor: "rgba(0, 0, 0, 0.9)",
-            boxShadow: "none"
+            boxShadow: "none",
           },
         }}
       >

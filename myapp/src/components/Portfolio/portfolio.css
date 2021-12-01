@@ -236,3 +236,7 @@ back-button:hover {
 .white {
   color: white;
 }
+
+.delete-button {
+  border: 1px solid white;
+}
