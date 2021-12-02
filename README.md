@@ -15,19 +15,19 @@ Cryptohound is a web application that lets you track coin performances (current 
 
 - This is individual coin page
 
-!["Screenshot of the Extra info when you click on the icon"]()
+!["Screenshot of the Extra info when you click on the icon"](https://github.com/hyjin123/crypto-tracking-app/blob/master/myapp/docs/coin_page.png?raw=true)
 
 - This is the main portfolio page
 
-!["Screenshot of the main portfolio"]()
+!["Screenshot of the main portfolio"](https://github.com/hyjin123/crypto-tracking-app/blob/master/myapp/docs/portfolio_page.png?raw=true)
 
 - This is the main page of CryptoHound
 
-!["Screenshot of the coin allocation"]()
+!["Screenshot of the coin allocation"](https://github.com/hyjin123/crypto-tracking-app/blob/master/myapp/docs/chart_page.png?raw=true)
 
 - This is the main page for transactions
 
-!["Screenshot of the transaction page"]()
+!["Screenshot of the transaction page"](https://github.com/hyjin123/crypto-tracking-app/blob/master/myapp/docs/transaction_page.png?raw=true)
 
 ## Features
 
