@@ -11,7 +11,7 @@ Cryptohound is a web application that lets you track coin performances (current 
 
 - This is the main page of CryptoHound
 
-!["Screenshot of the Home Page"]()
+!["Screenshot of the Home Page"](https://raw.githubusercontent.com/hyjin123/crypto-tracking-app/master/myapp/docs/main_page.png)
 
 - This is individual coin page
 
