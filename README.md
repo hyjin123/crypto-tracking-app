@@ -1,107 +1,83 @@
-## Project Description
-
-**Project Title**
-
-Cryptocurrency Tracker
-
-**Project Description**
-
-Cryptocurrency app that lets you track coin performances (current, historic), create watchlists, manage and visualize your own portfolio.
-
-**Target Audience**
-
-Crypto enthusiasts and traders.
-
-**Team Members**
-
-Joseph Shin, Sanjay Swamy, Sean Jin
+## CryptoHound
 
 
-## User Stories
 
-- As a user, I want to be able to register with my name, email, and password because I want to add coins to my watchlist and track my portfolio
-- As a user, I want to be able to login with my email and password
-- As a user, I want to be able to see the top 100 coins and its performances on the front page because I want to see what coins are the most popular
-- As a user, I want to be able to click on a coin and see the price and the price chart of that coin because I want to see the price history of that coin
-- As a user, I want to be able to add certain coins to my watch list because I want a place where I can store and easily access these coins
-- As a user, I want to be able to manually enter all my holdings from different exchanges and see data related to my holdings such as balance, profit, and loss because it is hard to keep track of my assets in different exchanges all at once
+**DESCRIPTION**
 
+Cryptohound is a web application that lets you track coin performances (current and historic), create watchlists, manage and visualize your own portfolio. The app was designed for crypto enthusiasts and traders.
+
+
+## FINAL PRODUCT
+
+- This is the main page of CryptoHound
+
+!["Screenshot of the Home Page"]()
+
+- This is individual coin page
+
+!["Screenshot of the Extra info when you click on the icon"]()
+
+- This is the main portfolio page
+
+!["Screenshot of the main portfolio"]()
+
+- This is the main page of CryptoHound
+
+!["Screenshot of the coin allocation"]()
+
+- This is the main page for transactions
+
+!["Screenshot of the transaction page"]()
 
 ## Features
 
-
-## Wireframes
-
-Wireframes are a visual representation of the skeletal structure of your app. It should lay out the structure hierarchy and relationships between the different element of your app. Ideally, you should use a simple design software to get your wireframes done (draw.io, balsamiq, etc).
-Deliverable: Wireframe designs
-
-
-## Entity Relationship Diagram
-
-You need to design the database ERD and define what are the tables and their relationships. You should use a design software (draw.io or any other) to draft the ERD.
-Deliverable: ERD design
-
-
-## API Routes
-
-
-## Front-End Routes (views/components)
-
+- Users can register and log in using their information
+- Users can view detailed information about top 100 cryptocurrency coins and exchanges
+- Users can see historical price chart for top 100 coins
+- Users can add and monitor particular coins in the watchlist
+- Users can manage, view and visualize their portfolio by adding coins and transactions
 
 ## Stack Choices
 
 **Front-End**
 
-HTML
-CSS
-ReactJS
-d3.js or chart.js (data visualization)
-Material UI (React CSS library). Possibly Chakra UI (React CSS library)
+- HTML
+- CSS
+- ReactJS
+- ChartJS (Data Visualization)
+- Material UI (React Library)
 
 **Back-End**
-NodeJS
-Express
-Database
-PostgresSQL
+- NodeJS
+- Express
+- PostgresSQL
+- JWT (Json Web Token)
+
+## Getting Started
+
+- Fork this repository, then clone your fork of this repository
+- Install dependencies using the npm install in the myapp directory and backend directory
+- Create a database in your host machine called "crypto_tracking_app" with user "labber" and password "labber" on port 5432
+- Seed the database in the backend directory with npm run db:reset and npm run seed
+- Start the web server using the npm start command in the myapp directory. The app will be served at http://localhost:3000/
+- Start the backend server using the npm run dev command in the backend directory. The app will be served at http://localhost:3001/
 
 
-## Project Set-Up
+## Dependencies
 
-**Front End**
+- Axios
+- Bcrypt
+- Cookie-Parser
+- Chart.js
+- Express
+- JSON Web Token
+- Material-UI
+- Nodemon
+- React-Router-DOM
+- @testing-library/react-hooks
+- React-test-renderer
+- Dotenv
 
-npx create-react-app myapp
+## Team Members
 
-**Backend**
-
-Npx express-generator --no-view --git backend
-
-**Front end Router**
-
-Npm install react-router-dom
-
-
-## Git Workflow
-
-**Possible flow (Check with mentor)**
-
-Working on your own feature branch 
-- create new branch --> git checkout -b <name_of_branch>
-- adding new files/changes to the branch --> git add .
-- commit new files/changes to the branch --> git commit -m "message"
-- push the branch changes to Github --> git push origin <name_of_branch> 
-
-Merging your branch to the Master branch 
-- checkout master branch --> git checkout master
-- pull any changes --> git pull
-- merge your branch --> git merge <name_of_branch>
-- push the merge --> git push 
-
-Tell everyone you have merged and pushed your branch 
-- for everyone else, pull the change --> git pull
-
-
-## Questions for Mentor
-
-- Using third party API (coingecko api), do we store the info that we fetch into the database? Or do we periodically fetch the data in our back-end? What is recommended and what is faster
-
-- What exactly is an API backend route, is it just used to serve requests coming from the front end and pass down response?
+Joseph Shin, Sanjay Swamy, Sean Jin
