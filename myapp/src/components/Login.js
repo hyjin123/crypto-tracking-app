@@ -137,7 +137,7 @@ const Login = (props) => {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#">
+                <Link href="/register">
                   Don't have an account? Register
                 </Link>
               </Grid>

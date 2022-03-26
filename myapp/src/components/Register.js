@@ -154,7 +154,7 @@ const Register = (props) => {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#">
+                <Link href="/login">
                   Already have an account? Sign in
                 </Link>
               </Grid>

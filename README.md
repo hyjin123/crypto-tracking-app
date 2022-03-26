@@ -57,6 +57,7 @@ Cryptohound is a web application that lets you track coin performances (current 
 
 - Fork this repository, then clone your fork of this repository
 - Install dependencies using the npm install in the myapp directory and backend directory
+- Start postgresql using psql
 - Create a database in your host machine called "crypto_tracking_app" with user "labber" and password "labber" on port 5432
 - Seed the database in the backend directory with npm run db:reset and npm run seed
 - Start the web server using the npm start command in the myapp directory. The app will be served at http://localhost:3000/
